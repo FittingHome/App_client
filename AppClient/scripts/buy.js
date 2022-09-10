@@ -1,11 +1,6 @@
 
-
-function checkFormEntry ()
-{     
+function checkFormEntry (){     
  window.location.href="buythanks.html";
-	
-		
-	
 	return false;
 }
 
