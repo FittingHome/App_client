@@ -1,0 +1,130 @@
+# MTL Exporter v1.0 by Seungwoo Oh at CLO - Virtual Fashion Inc.
+newmtl face
+Ka 0.257132 0.257132 0.257132
+Kd 1.000000 1.000000 1.000000
+Ks 0.125000 0.125000 0.125000
+Ns 28.763239
+illum 2
+d 1.000000
+map_Ka /Users/Kerlan/Library/Application Support/CLO/Marvelous Designer Personal/77443/1059/face.jpg
+map_Kd /Users/Kerlan/Library/Application Support/CLO/Marvelous Designer Personal/77443/1059/face.jpg
+newmtl arm
+Ka 0.257132 0.257132 0.257132
+Kd 1.000000 1.000000 1.000000
+Ks 0.125000 0.125000 0.125000
+Ns 28.763239
+illum 2
+d 1.000000
+map_Ka /Users/Kerlan/Library/Application Support/CLO/Marvelous Designer Personal/77443/1059/arm.jpg
+map_Kd /Users/Kerlan/Library/Application Support/CLO/Marvelous Designer Personal/77443/1059/arm.jpg
+newmtl eye
+Ka 0.257132 0.257132 0.257132
+Kd 1.000000 1.000000 1.000000
+Ks 0.560000 0.560000 0.560000
+Ns 128.000000
+illum 2
+d 1.000000
+map_Ka /Users/Kerlan/Library/Application Support/CLO/Marvelous Designer Personal/77443/1059/eye.jpg
+map_Kd /Users/Kerlan/Library/Application Support/CLO/Marvelous Designer Personal/77443/1059/eye.jpg
+newmtl eye
+Ka 0.257132 0.257132 0.257132
+Kd 1.000000 1.000000 1.000000
+Ks 0.560000 0.560000 0.560000
+Ns 128.000000
+illum 2
+d 1.000000
+map_Ka /Users/Kerlan/Library/Application Support/CLO/Marvelous Designer Personal/77443/1059/eye.jpg
+map_Kd /Users/Kerlan/Library/Application Support/CLO/Marvelous Designer Personal/77443/1059/eye.jpg
+newmtl eyelash
+Ka 0.257132 0.257132 0.257132
+Kd 1.000000 1.000000 1.000000
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+d 1.000000
+map_Ka /Users/Kerlan/Library/Application Support/CLO/Marvelous Designer Personal/77443/1059/eyelash.jpg
+map_Kd /Users/Kerlan/Library/Application Support/CLO/Marvelous Designer Personal/77443/1059/eyelash.jpg
+newmtl eyelash
+Ka 0.257132 0.257132 0.257132
+Kd 1.000000 1.000000 1.000000
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+d 1.000000
+map_Ka /Users/Kerlan/Library/Application Support/CLO/Marvelous Designer Personal/77443/1059/eyelash.jpg
+map_Kd /Users/Kerlan/Library/Application Support/CLO/Marvelous Designer Personal/77443/1059/eyelash.jpg
+newmtl body2
+Ka 0.257132 0.257132 0.257132
+Kd 1.000000 1.000000 1.000000
+Ks 0.125000 0.125000 0.125000
+Ns 28.763239
+illum 2
+d 1.000000
+map_Ka /Users/Kerlan/Library/Application Support/CLO/Marvelous Designer Personal/77443/1059/body_Covered.jpg
+map_Kd /Users/Kerlan/Library/Application Support/CLO/Marvelous Designer Personal/77443/1059/body_Covered.jpg
+newmtl toothSG1
+Ka 0.257132 0.257132 0.257132
+Kd 1.000000 1.000000 1.000000
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+d 1.000000
+map_Ka /Users/Kerlan/Library/Application Support/CLO/Marvelous Designer Personal/77443/1059/tooth.jpg
+map_Kd /Users/Kerlan/Library/Application Support/CLO/Marvelous Designer Personal/77443/1059/tooth.jpg
+newmtl M_Thomas_Sneaker_A_03_Male_Sneaker_02_opencollada_Female_Sneaker_02_opencollada_dummy1FBXASC045fx2SG1SG1SG1SG1SG1SG1SG1
+Ka 0.257132 0.257132 0.257132
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 2.000000
+illum 2
+d 1.000000
+map_Ka /Users/Kerlan/Library/Application Support/CLO/Marvelous Designer Personal/77443/1059/transparency.png
+map_Kd /Users/Kerlan/Library/Application Support/CLO/Marvelous Designer Personal/77443/1059/transparency.png
+map_d /Users/Kerlan/Library/Application Support/CLO/Marvelous Designer Personal/77443/1059/transparency.png
+newmtl M_Thomas_Sneaker_A_03_Male_Sneaker_02_opencollada_Female_Sneaker_02_opencollada_dummy1FBXASC045fx2SG1SG1SG1SG1SG1SG1SG1
+Ka 0.257132 0.257132 0.257132
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ns 2.000000
+illum 2
+d 1.000000
+map_Ka /Users/Kerlan/Library/Application Support/CLO/Marvelous Designer Personal/77443/1059/transparency.png
+map_Kd /Users/Kerlan/Library/Application Support/CLO/Marvelous Designer Personal/77443/1059/transparency.png
+map_d /Users/Kerlan/Library/Application Support/CLO/Marvelous Designer Personal/77443/1059/transparency.png
+newmtl M_Thomas_Sneaker_A_03_Male_Sneaker_02_opencollada_Female_Sneaker_02_opencollada_man_sports_shoes_shoesFBXASC045fx2SG1SG1SG1SG1S1
+Ka 0.257132 0.257132 0.257132
+Kd 1.000000 1.000000 1.000000
+Ks 0.064778 0.064778 0.064778
+Ns 19.999998
+illum 2
+d 1.000000
+map_Ka /Users/Kerlan/Library/Application Support/CLO/Marvelous Designer Personal/77443/1059/Male_Sneaker_01.jpg
+map_Kd /Users/Kerlan/Library/Application Support/CLO/Marvelous Designer Personal/77443/1059/Male_Sneaker_01.jpg
+newmtl M_Thomas_Sneaker_A_03_Male_Sneaker_02_opencollada_Female_Sneaker_02_opencollada_man_sports_shoes_shoesFBXASC045fx2SG1SG1SG1SG1S1
+Ka 0.257132 0.257132 0.257132
+Kd 1.000000 1.000000 1.000000
+Ks 0.064778 0.064778 0.064778
+Ns 19.999998
+illum 2
+d 1.000000
+map_Ka /Users/Kerlan/Library/Application Support/CLO/Marvelous Designer Personal/77443/1059/Male_Sneaker_01.jpg
+map_Kd /Users/Kerlan/Library/Application Support/CLO/Marvelous Designer Personal/77443/1059/Male_Sneaker_01.jpg
+newmtl leg
+Ka 0.257132 0.257132 0.257132
+Kd 1.000000 1.000000 1.000000
+Ks 0.125000 0.125000 0.125000
+Ns 28.763239
+illum 2
+d 1.000000
+map_Ka /Users/Kerlan/Library/Application Support/CLO/Marvelous Designer Personal/77443/1059/leg.jpg
+map_Kd /Users/Kerlan/Library/Application Support/CLO/Marvelous Designer Personal/77443/1059/leg.jpg
+newmtl lambert2
+Ka 0.257132 0.257132 0.257132
+Kd 1.000000 1.000000 1.000000
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+d 1.000000
+map_Ka /Users/Kerlan/Library/Application Support/CLO/Marvelous Designer Personal/77443/1059/hair.png
+map_Kd /Users/Kerlan/Library/Application Support/CLO/Marvelous Designer Personal/77443/1059/hair.png
+map_d /Users/Kerlan/Library/Application Support/CLO/Marvelous Designer Personal/77443/1059/hair.png
