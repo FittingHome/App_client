@@ -150,19 +150,9 @@ function renderModelGarment(modelName, garmentName) {
 
         scene.add(model);
 
-        // mixer = new THREE.AnimationMixer( gltf.scene );
-        // action = mixer.clipAction( gltf.animations[ 0 ] );
-      });
-=======
       // mixer = new THREE.AnimationMixer( gltf.scene );
       // action = mixer.clipAction( gltf.animations[ 0 ] );
-    }, function ( xhr ) {
-      console.log(xhr)  
-    },);
-<<<<<<< HEAD
->>>>>>> fa856fe (login register page)
-=======
->>>>>>> fa856fe (login register page)
+    });
   });
 }
 
