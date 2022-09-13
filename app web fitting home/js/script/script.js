@@ -105,14 +105,22 @@ function renderModel(name) {
     var loaderOBJ = new THREE.OBJLoader();
 
     loaderOBJ.setMaterials(materials);
+<<<<<<< HEAD
     loaderOBJ.load(`${modelFolder}/${name}.obj`,
       function (model) {
 
         model.scale.set(0.1, 0.1, 0.1);
         model.position.y = -100;
+=======
+    loaderOBJ.load(id,
+    function (model) {
+      model.scale.set(0.1, 0.1, 0.1);
+      model.position.y = -100;
+>>>>>>> fa856fe (login register page)
 
         scene.add(model);
 
+<<<<<<< HEAD
         // mixer = new THREE.AnimationMixer( gltf.scene );
         // action = mixer.clipAction( gltf.animations[ 0 ] );
       });
@@ -145,6 +153,13 @@ function renderModelGarment(modelName, garmentName) {
         // mixer = new THREE.AnimationMixer( gltf.scene );
         // action = mixer.clipAction( gltf.animations[ 0 ] );
       });
+=======
+      // mixer = new THREE.AnimationMixer( gltf.scene );
+      // action = mixer.clipAction( gltf.animations[ 0 ] );
+    }, function ( xhr ) {
+      console.log(xhr)  
+    },);
+>>>>>>> fa856fe (login register page)
   });
 }
 

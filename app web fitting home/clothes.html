@@ -27,7 +27,10 @@
     <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
     <div class="" id="main">
         <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Rechercher un produit">
-
+        <div class="spinning-dots-scaled" 
+                role="status" id="loading">
+            <span class="sr-only">Loading...</span>
+        </div>
         <ul id="myUL">
             <li>
                 <div class="card">
@@ -49,6 +52,8 @@
             </li>
         </ul>
     </div>
+    <script src="js/script/getClothes.js"></script>
+
 </body>
 
 </html>

@@ -25,13 +25,13 @@
 
     <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
     <div class="" id="main">
-        <form action="action_page.php" method="post">
+        <form onsubmit="return register()">
             <div class="container">
                 <label for="email"><b>Email</b></label>
-                <input type="text" placeholder="Entrez votre email" name="email" required>
+                <input type="text" id="email" placeholder="Entrez votre email" name="email" required>
 
                 <label for="psw"><b>Mot de passe</b></label>
-                <input type="password" placeholder="Entrez votre mot de passe" name="psw" required>
+                <input type="password" id="password" placeholder="Entrez votre mot de passe" name="psw" required>
 
                 <button type="submit">S'inscrire</button>
                 <a href="login.html">Se connecter ?</a>
@@ -40,5 +40,7 @@
         </form>
     </div>
 </body>
+<script src="js/script/register.js"></script>
+
 
 </html>
