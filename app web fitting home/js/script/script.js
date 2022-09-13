@@ -91,26 +91,60 @@ function init() {
 // }
 
 
-function printModel(id) {
-  init();
+/**
+ * 
+ * @param {string} name - Doit correspondre à des nom de dossier dans resources/ et le dossier en question doit contenir un .mtl et un .obj du même nom
+ */
+function renderModel(name) {
   var mtlLoader = new THREE.MTLLoader();
 
-  mtlLoader.load('resources/model/model.mtl', function (materials) {
+  const modelFolder = `resources/${name}`
+
+  mtlLoader.load(`${modelFolder}/${name}.mtl`, function (materials) {
     materials.preload();
     var loaderOBJ = new THREE.OBJLoader();
 
     loaderOBJ.setMaterials(materials);
-    loaderOBJ.load(id,
-    function (model) {
+    loaderOBJ.load(`${modelFolder}/${name}.obj`,
+      function (model) {
 
-      model.scale.set(0.1, 0.1, 0.1);
-      model.position.y = -100;
+        model.scale.set(0.1, 0.1, 0.1);
+        model.position.y = -100;
 
-      scene.add(model);
+        scene.add(model);
 
-      // mixer = new THREE.AnimationMixer( gltf.scene );
-      // action = mixer.clipAction( gltf.animations[ 0 ] );
-    });
+        // mixer = new THREE.AnimationMixer( gltf.scene );
+        // action = mixer.clipAction( gltf.animations[ 0 ] );
+      });
+  });
+}
+
+/**
+ * resources/${modelName}/garments/${garmentName}/${garmentName}.mtl/obj
+ * @param {string} modelName
+ * @param {string} garmentName
+ */
+function renderModelGarment(modelName, garmentName) {
+  var mtlLoader = new THREE.MTLLoader();
+
+  const garmentFolder = `resources/${modelName}/garments/${garmentName}`
+
+  mtlLoader.load(`${garmentFolder}/${garmentName}.mtl`, function (materials) {
+    materials.preload();
+    var loaderOBJ = new THREE.OBJLoader();
+
+    loaderOBJ.setMaterials(materials);
+    loaderOBJ.load(`${garmentFolder}/${garmentName}.obj`,
+      function (model) {
+
+        model.scale.set(0.1, 0.1, 0.1);
+        model.position.y = -100;
+
+        scene.add(model);
+
+        // mixer = new THREE.AnimationMixer( gltf.scene );
+        // action = mixer.clipAction( gltf.animations[ 0 ] );
+      });
   });
 }
 
@@ -144,5 +178,6 @@ function animate() {
 }
 
 init();
-printModel('resources/model/model.obj');
+renderModel('woman')
+renderModelGarment('woman', "Woman_CropTop_Legging")
 animate();
