@@ -18,7 +18,7 @@
         n = (content.length)
         console.log(content);
         for(i = 0; i <= (n-1); i++){
-          clothes_name += "<h1>"+content[i].name +"</h1>" + "<p>"+content[i].createdAt +"</p>";
+          clothes_name += "<div class='card'><h1>"+content[i].name +"</h1>" + "<p>"+content[i].createdAt +"</p>" + "<p><button href='index.html'>Essayer sur votre model</button></p></div>";
             // document.getElementById("name").innerHTML = "<p>"+content[i].name +"</p>"
             // document.getElementById("date").innerHTML = "<p>"+content[i].createdAt +"</p>"
         }
