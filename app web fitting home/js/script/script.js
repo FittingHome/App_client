@@ -133,7 +133,7 @@ function renderModelGarment(modelName, garmentName) {
     loaderOBJ.setMaterials(materials);
     loaderOBJ.load(`${garmentFolder}/${garmentName}.obj`,
       function (model) {
-
+        model.name = garmentName;
         model.scale.set(0.1, 0.1, 0.1);
         model.position.y = -100;
 
@@ -142,7 +142,9 @@ function renderModelGarment(modelName, garmentName) {
   });
 }
 
-function removeGarment() {
+function removeGarments() {
+  scene.remove(scene.getObjectByName(topGarmentName));
+  scene.remove(scene.getObjectByName(downGarmentName));
   topGarmentName = null;
   downGarmentName = null;
   localStorage.removeItem('topGarmentName');
@@ -182,10 +184,10 @@ init();
 renderModel(modelName);
 
 if (topGarmentName != null) {
-  renderModelGarment(modelName, topGarmentName);
+  setTimeout(() => renderModelGarment(modelName, topGarmentName), 2000);
 }
 
 if (downGarmentName != null) {
-  renderModelGarment(modelName, downGarmentName);
+  setTimeout(() => renderModelGarment(modelName, downGarmentName), 2000);
 }
 animate();

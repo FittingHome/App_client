@@ -2,7 +2,7 @@ const url = "http://api.fittinghome.fr/user/create";
 
 var jwt = localStorage.getItem("jwt");
 if (jwt != null) {
-  window.location.href = '/clothes.html'
+  window.location.href = './account.html'
 }
 
 function register() {
@@ -20,14 +20,15 @@ function register() {
     if (this.readyState == 4) {
       const objects = JSON.parse(this.responseText);
       console.log(objects);
-      window.location.href = '/clothes.html'
+      window.location.href = './account.html'
+      localStorage.setItem("jwt", objects['id']);
 
-      if (objects['status'] == 'ok') {
-        alert("subscribed")
-        localStorage.setItem("jwt", objects['accessToken']);
-      } else {
-       console.log("error")
-      }
+      // if (objects['status'] == 'ok') {
+      //   alert("subscribed")
+      //   localStorage.setItem("jwt", objects['accessToken']);
+      // } else {
+      //  console.log("error")
+      // }
     }
   };
   return false;
