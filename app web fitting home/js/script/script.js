@@ -159,6 +159,9 @@ function renderModelGarment(modelName, garmentName) {
     }, function ( xhr ) {
       console.log(xhr)  
     },);
+<<<<<<< HEAD
+>>>>>>> fa856fe (login register page)
+=======
 >>>>>>> fa856fe (login register page)
   });
 }
