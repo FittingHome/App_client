@@ -142,6 +142,13 @@ function renderModelGarment(modelName, garmentName) {
   });
 }
 
+function removeGarment() {
+  topGarmentName = null;
+  downGarmentName = null;
+  localStorage.removeItem('topGarmentName');
+  localStorage.removeItem('downGarmentName');
+}
+
 function resizeRendererToDisplaySize(renderer) {
   const canvas = renderer.domElement;
   let width = window.innerWidth;
