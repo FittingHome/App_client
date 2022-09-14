@@ -8,6 +8,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link rel="stylesheet" href="css/style.css">
     <script src="js/script/sidenav.js"></script>
+    <script src="js/script/loadModel.js"></script>
 </head>
 
 <body>
@@ -23,17 +24,15 @@
     </div>
     
     <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
-    <button>Upload Model</button>
     <div class="" id="main">
         <div class="row">
             <canvas id="c"></canvas>
         </div>
-        <!-- <div class="row">
+        <div class="row">
             <div class="col-12" style="text-align: center;">
-                <button class="btn btn-default border-button" id="resources/naked/naked.obj" onclick="printModel(this.id)"><</button>
-                <button class="btn btn-default border-button" id="resources/model/model.obj" onclick="printModel(this.id)">></button>
+                <button class="btn btn-default border-button" onclick="init(); renderModel(modelName);">Effacer</button>
             </div>
-        </div> -->
+        </div>
     </div>
 
     <script src="js/node_modules/three/build/three.js"></script>

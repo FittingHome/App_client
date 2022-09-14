@@ -1,0 +1,668 @@
+# MTL Exporter v1.0 by Seungwoo Oh at CLO - Virtual Fashion Inc.
+newmtl Leggings_FRONT_2753
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_1002.png
+map_Kd Woman_CropTop_Legging_diffuse_1002.png
+map_bump Woman_CropTop_Legging_normal_1002.png
+newmtl Hoodie_FRONT_2738
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_1001.png
+map_Kd Woman_CropTop_Legging_diffuse_1001.png
+map_bump Woman_CropTop_Legging_normal_1001.png
+newmtl String_FRONT_2768
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_1001.png
+map_Kd Woman_CropTop_Legging_diffuse_1001.png
+map_bump Woman_CropTop_Legging_normal_1001.png
+newmtl Material13467132
+Ka 0.057477 0.057477 0.057477
+Kd 0.183206 0.183206 0.183206
+Ks 0.480000 0.480000 0.480000
+Ns 128.000000
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_1001.png
+map_Kd Woman_CropTop_Legging_diffuse_1001.png
+newmtl Material13467140
+Ka 0.057477 0.057477 0.057477
+Kd 0.183206 0.183206 0.183206
+Ks 0.480000 0.480000 0.480000
+Ns 128.000000
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_1001.png
+map_Kd Woman_CropTop_Legging_diffuse_1001.png
+newmtl Material3074
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material3074
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material3436
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material3196
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_1001.png
+map_Kd Woman_CropTop_Legging_diffuse_1001.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material3436
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material3196
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_1001.png
+map_Kd Woman_CropTop_Legging_diffuse_1001.png
+newmtl Material3556
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material3556
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material3556
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material3556
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material3556
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material3556
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material3556
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material3556
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material3556
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material3556
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material3556
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material3556
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material3074
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material3074
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material3316
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material3316
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material3316
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material3316
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material3316
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material3316
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material2953
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material3074
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material3074
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material3074
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material3074
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material3074
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material3074
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material3074
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material3074
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material3074
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
+newmtl Material3074
+Ka 0.163354 0.148107 0.109542
+Kd 0.520692 0.472092 0.349167
+Ks 0.075000 0.075000 0.075000
+Ns 28.763239
+illum 2
+map_Ka Woman_CropTop_Legging_diffuse_10-21.png
+map_Kd Woman_CropTop_Legging_diffuse_10-21.png
