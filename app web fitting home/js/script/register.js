@@ -2,7 +2,7 @@ const url = "http://api.fittinghome.fr/user/create";
 
 var jwt = localStorage.getItem("jwt");
 if (jwt != null) {
-  window.location.href = '/app%20web%20fitting%20home/clothes.html'
+  window.location.href = '/clothes.html'
 }
 
 function register() {
@@ -20,7 +20,7 @@ function register() {
     if (this.readyState == 4) {
       const objects = JSON.parse(this.responseText);
       console.log(objects);
-      window.location.href = '/app%20web%20fitting%20home/clothes.html'
+      window.location.href = '/clothes.html'
 
       if (objects['status'] == 'ok') {
         alert("subscribed")
