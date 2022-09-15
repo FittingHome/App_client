@@ -1,0 +1,80 @@
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitting Home</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/list.css">
+    <script src="js/script/sidenav.js"></script>
+    <script src="js/script/filter.js"></script>
+</head>
+
+<body>
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="login.html">Mon compte</a>
+        <a href="clothes.html">Vêtements</a>
+    </div>
+
+    <div class="topnav">
+        <a style="text-decoration: none;" href="index.html"><span>FITTING HOME</span></a>
+        <span style="float: right;" onclick="openNav()">&#9776;</span>
+    </div>
+
+    <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+    <div class="" id="main">
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Rechercher un produit">
+        <ul id="myUL">
+            <li >
+                <div class="card">
+                    <img src="resources/images/Tshirt.png" alt="Denim Jeans" style="width:100%">
+                    <h1 id="name">T-shirt</h1>
+                    <p id="date" class="price" >$19.99</p>
+                    <p>Disponible sur ...</p>
+                    <p><button><a href="index.html?topGarmentName=Henry_Tshirt">Essayer</a></button></p>
+                </div>
+            </li>
+            <li>
+                <div class="card">
+                    <img src="resources/images/Pants.png" alt="Denim Jeans" style="width:100%">
+                    <h1 id="name1">Pant</h1>
+                    <p id="date1" >$19.99</p>
+                    <p>Disponible sur ...</p>
+                    <p><button><a href="index.html?downGarmentName=Henry_Pants">Essayer</a></button></p>
+                </div>
+            </li>
+            <li>
+                <div class="card">
+                    <img src="resources/images/Male_Hoody.png" alt="Denim Jeans" style="width:100%">
+                    <h1 id="name2">Hoody</h1>
+                    <p id="date2" class="price" >$19.99</p>
+                    <p>Disponible sur ...</p>
+                    <p><button><a href="index.html?topGarmentName=Henry_Male_Hoody">Essayer</a></button></p>
+                </div>
+            </li>
+            <li>
+                <div class="card">
+                    <img src="resources/images/Garments1_Hana.png" alt="Denim Jeans" style="width:100%">
+                    <h1 id="name2">Crop Top</h1>
+                    <p id="date2" class="price" >$19.99</p>
+                    <p>Disponible sur ...</p>
+                    <p><button><a href="index.html?topGarmentName=Henry_Garments1_Hana">Essayer</a></button></p>
+                </div>
+            </li>
+            <li>
+                <div class="card">
+                    <img src="resources/images/Female_HalterneckDress.png" alt="Denim Jeans" style="width:100%">
+                    <h1 id="name2">Dress</h1>
+                    <p id="date2" class="price" >$19.99</p>
+                    <p>Disponible sur ...</p>
+                    <p><button><a href="index.html?topGarmentName=Henry_Female_HalterneckDress">Essayer</a></button></p>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!-- <script src="js/script/getClothes.js"></script> -->
+</body>
+
+</html>
