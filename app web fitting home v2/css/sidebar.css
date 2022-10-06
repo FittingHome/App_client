@@ -1,6 +1,6 @@
 .sidebar {
   height: 100%;
-  width: 350px;
+  width: 360px;
   position: fixed;
   z-index: 1;
   top: 0;
@@ -26,7 +26,7 @@
 
 .sidebar-right {
   height: 100%;
-  width: 350px;
+  width: 340px;
   position: fixed;
   z-index: 1;
   top: 0;

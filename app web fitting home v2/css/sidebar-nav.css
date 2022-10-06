@@ -1,11 +1,11 @@
 .sidebar-nav {
   height: 100%;
-  width: 100px;
+  width: 80px;
   position: fixed;
   z-index: 1;
   top: 0;
   right: 0;
-  background-color: #5252d8;
+  background-color: #9339a5;
   overflow-x: hidden;
   padding-top: 20px;
 }
@@ -36,7 +36,7 @@
 }
 
 .main {
-  margin-right: 100px;
+  margin-right: 80px;
   /* Same as the width of the sidebar-nav */
   font-size: 28px;
   /* Increased text to enable scrolling */
