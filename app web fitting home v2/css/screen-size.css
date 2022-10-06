@@ -1,0 +1,11 @@
+.screen-size {
+    height: 40px;
+    width: 40px;
+    position: fixed;
+    z-index: 1;
+    bottom: 0;
+    right: 350px;
+    overflow-x: hidden;
+    transition: 0.5s;
+    color: #5252d8;
+}

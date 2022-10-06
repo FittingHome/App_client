@@ -42,6 +42,7 @@
   /* Increased text to enable scrolling */
   padding: 0px 10px;
   text-align: center;
+  overflow: hidden;
 }
 
 @media screen and (max-height: 450px) {
