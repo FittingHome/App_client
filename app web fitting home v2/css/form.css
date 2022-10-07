@@ -1,40 +1,5 @@
-* {
-  margin: 0;
-  padding: 0;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  -webkit-transition: 0.3s;
-  -o-transition: 0.3s;
-  transition: 0.3s;
-}
 
-body {
-  background-color: #F8F5F5;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  overflow-x: hidden;
-}
 
-article,
-aside,
-details,
-figure,
-footer,
-header,
-main,
-menu,
-nav,
-section,
-summary {
-  display: block;
-}
-
-img {
-  border: none;
-}
-
-*:focus {
-  outline: none;
-}
 
 .clearfix::after {
   content: "";
