@@ -19,8 +19,8 @@
             <h2>FittingHome, le mannequin c’est vous !
             </h2>
         
-            <div class="login-form">
-              <form onsubmit="return login()" action="">
+            <div class="login-form" id="main">
+              <form onsubmit="return register()" action="">
                 <div class="name_form">
                     <div class="name_item">
                         <label for="name"><b>Prénom</b></label>
@@ -32,18 +32,13 @@
                     </div>
                 </div>
                 <label for="email"><b>Email</b></label>
-                <input type="email" id="email"  placeholder="E-mail Address" >
+                <input type="text" id="email"  placeholder="E-mail Address" name="email" required >
                 <label for="psw"><b>Mot de passe</b></label>
-                <input type="password" id="password" placeholder="Password">
-                <div class="remember-form">
-                  <input type="checkbox">
-                  <span>Remember me</span>
-                </div>
-
+                <input type="password" id="password" placeholder="Password" name="psw" required>
     
                 <!-- <button type="submit" href="avatar_settings.html">S'inscrire</button> -->
                 <div class="btn_form">
-                    <button  href="avatar_settings.html">S'inscrire</button>
+                    <button type="submit">S'inscrire</button>
                     <a href="login.html">Deja un compte ?</a>
                 </div>
               </form>
@@ -52,24 +47,8 @@
           </div>
           </div>
       </div>
-    <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
-    <!-- <div class="" id="main">
-        <form onsubmit="return register()">
-            <div class="container">
-                <label for="email"><b>Email</b></label>
-                <input type="text" id="email" placeholder="Entrez votre email" name="email" required>
-
-                <label for="psw"><b>Mot de passe</b></label>
-                <input type="password" id="password" placeholder="Entrez votre mot de passe" name="psw" required>
-
-                <button type="submit">S'inscrire</button>
-                <a href="login.html">Se connecter ?</a>
-                <a href="forgot-password.html">Mot de passe oublié ?</a>
-            </div>
-        </form>
-    </div> -->
 </body>
-<!-- <script src="../js/script/register.js"></script> -->
+<script src="../js/script/register.js"></script>
 
 
 </html>
