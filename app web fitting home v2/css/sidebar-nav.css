@@ -1,11 +1,11 @@
 .sidebar-nav {
   height: 100%;
-  width: 80px;
+  width: 100px;
   position: fixed;
   z-index: 1;
   top: 0;
   right: 0;
-  background-color: #9339a5;
+  background-color: #5252d8;
   overflow-x: hidden;
   padding-top: 20px;
 }
@@ -36,10 +36,11 @@
 }
 
 .main {
-  margin-right: 80px;
+  margin-right: 100px;
   /* Same as the width of the sidebar-nav */
   font-size: 28px;
   /* Increased text to enable scrolling */
+
   text-align: center;
   overflow: hidden;
 }
