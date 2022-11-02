@@ -1,8 +1,9 @@
 
-
 .clearfix{
-  background-color: #E4DFD2;
-
+  background-color: #f8f5f50f;
+  width: 100%;
+  height: 100%;
+  
 }
 .clearfix::after {
   content: "";
@@ -11,25 +12,19 @@
 }
 .title{
   color: #7C3E3D;
+  width: 127px;
 }
+
+.title2{
+  color: #7C3E3D;
+margin-left: -180px;}
+
 .bg-illustration {
-  position: relative;
-  height: 100vh;
-  width: 640px;
-  background: url("../assets/images/p4-08-1.jpeg") no-repeat center center scroll;
-  background-size: cover;
-  float: left;
-  -webkit-animation: bgslide 2.3s forwards;
-          animation: bgslide 2.3s forwards;
-}
-.bg-illustration img {
-  width: 248px;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-  height: auto;
-  margin: 19px 0 0 25px;
+  filter: blur(2px);
+  background: url("../assets/images/p4-08-1.jpeg") ;
+  width: 100%;
+  height: 100%;
+  opacity: 0.9;
 }
 
 @-webkit-keyframes bgslide {
@@ -59,28 +54,33 @@
 }
 
 .login {
-  max-height: 100vh;
-  overflow-Y: auto;
+  max-height: 100%;
   float: left;
   margin: 0 auto;
-  width: calc(85% - 794px);
-  background-color: #E4DFD2;
+  width: calc(85% - 764px);
+  
 }
 .login .container {
-  width: 504px;
+  width: 420px;
   margin: 0 auto;
-  position: relative;
+  top: 130px;
+  position: fixed;
+  padding: 50px;
+  right: 20%;
+  border: solid;
+  background-color: #fbf6f6da;
+  border-radius: 20px;
+
 }
 .login .container h1 {
-  margin-top: 20%;
   margin-bottom: 30px;
   font-size: 32px;
   font-weight: bolder;
 }
 .login .container h2 {
   margin-top: 10px;
-  font-size: 24px;
-  font-weight: bolder;
+  font-size: 20px;
+  font-weight: 400;
 }
 .login .container .login-form {
   margin-top: 40px;
@@ -97,6 +97,19 @@
   margin: 16px 0;
   height: 48px;
   margin-bottom: 40px;
+  border: 2px solid rgb(206, 204, 204);
+  padding: 0 30px;
+  border-radius: 10px;
+}
+
+.login .container .login-form form select {
+  font-size: 16px;
+  font-weight: normal;
+  background: #E4DFD2;
+  margin: 8px 0;
+  height: 48px;
+  width: 200px;
+  margin-bottom: 8px;
   border: 2px solid rgb(206, 204, 204);
   padding: 0 30px;
   border-radius: 10px;
@@ -121,7 +134,7 @@
   background: #E4DFD2;
   margin: 8px 0;
   height: 48px;
-  width: 230px;
+  width: 200px;
   margin-bottom: 8px;
   border: 2px solid rgb(206, 204, 204);
   padding: 0 30px;
@@ -170,7 +183,58 @@
 .morpho_manager{
   display: flex;
 }
-.morpho{
+.icon-arrow {
+  display: inline-block;
+  height: 0;
+  width: 0;
+  border-style: solid;
+  border-color: transparent;
+  cursor: pointer;
+}
+
+.icon-sort-desc {
+  display: inline-block;
+  height: 0%;
+  width: 0%;
+  border-style: dashed;
+  border-color: #c9161600;
+  border-width: 30px 15px 0;
+  border-top-color: #000000;
+}
+
+.rectangle-icon {
+  display: inline-block;
+  height: 0%;
+  width: 0%;
+  border-style: dashed;
+  border-width: 40px 15px 0;
+  border-top-color: #000000;
+}
+.circle-icon {
+  background: #000000;
+  border-radius: 50%;
+  line-height: 100px;
+  padding: 20px;
+  display: inline-block;
+
+}
+.morpho {
+  border: none;
+  margin-bottom: 20px;
+  width: 112px;
+  height: 88px;
+  margin: auto;
+  margin-bottom: 32px;
+  margin-top: 16px;
+  text-transform: uppercase;
+  border-radius: 10px;
+  position: relative;
+  z-index: 2;
+  font-weight: bold;
+  font-size: 16px;
+  cursor:pointer;
+}
+/* .morpho{
   border: none;
   margin-bottom: 20px;
   width: 112px;
@@ -187,7 +251,7 @@
   font-size: 16px;
   cursor:pointer;
   background-color: #9f9e9e;
-}
+} */
 
 .login .container .login-form form button:hover::after {
   opacity: 1;
@@ -205,10 +269,8 @@
   transition: 0.3s ease-in-out;
   right: 0;
   bottom: 0;
-  background: -webkit-gradient(linear, left bottom, left top, from(#929faf), to(#5252d8));
-  background: -webkit-linear-gradient(bottom, #f6fafe 0%, #5252d8 100%);
-  background: -o-linear-gradient(bottom, #adb2b9 0%, #7575c5 100%);
-  background: linear-gradient(to top, #d8dbdf 0%, #8080d9 100%);
+  background: #9f9e9e;
+
 }
 .login .container .remember-form {
   position: relative;
@@ -258,13 +320,13 @@
 
 @media only screen and (min-width: 1024px) and (max-width: 1680px) {
   .bg-illustration {
-    width: 50%;
+    width: 100%;
     -webkit-animation: none;
             animation: none;
   }
 
   .login {
-    width: 50%;
+    width: 100%;
   }
 }
 /* Display 12", iPad PRO Portrait, iPad landscape */
