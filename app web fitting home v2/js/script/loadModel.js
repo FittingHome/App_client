@@ -2,8 +2,8 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 
 let modelName = "woman"; // remplacer par default
-let jwt = localStorage.getItem("jwt");
-if (jwt != null) {
+let _jwt = localStorage.getItem("jwt");
+if (_jwt != null) {
     if (urlParams.get('modelName') != null) {
         modelName = urlParams.get('modelName');
         localStorage.setItem('modelName', modelName);
