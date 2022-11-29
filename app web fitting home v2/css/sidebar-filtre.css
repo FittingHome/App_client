@@ -4,15 +4,15 @@
   position: fixed;
   z-index: 1;
   top: 0;
-  left: 0;
+  right: 0px;
   background-color: rgb(245, 245, 245);
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 20px;
+  display: none;
 }
 
 .sidebar-filtre a {
-  
   padding: 6px 8px 6px 16px;
   text-decoration: none;
   font-size: 25px;
@@ -25,11 +25,10 @@
 }
 
 .main {
-  margin-left: 320px;
+  margin-left: 100px;
   /* Same as the width of the sidebar-filtre */
   font-size: 28px;
   /* Increased text to enable scrolling */
-  padding: 0px 10px;
 }
 
 @media screen and (max-height: 450px) {
@@ -39,5 +38,16 @@
 
   .sidebar-filtre a {
     font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .sidebar-filtre {
+    display: none;
+    margin-top: 100px;
+  }
+
+  .main {
+    margin-left: 0px;
   }
 }

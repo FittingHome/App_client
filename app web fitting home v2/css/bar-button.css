@@ -1,0 +1,23 @@
+.bar-button-bottom {
+    position: fixed;
+    z-index: 2;
+    overflow-x: hidden;
+    bottom: 0px;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.bar-button-bottom button {
+    margin: 20px;
+    padding: 10px;
+    min-width: 60px;
+    border-radius: 10px;
+    background: #5252d8;
+    color: #fff;
+    border: 2px solid #5252d8;
+}
+
+@media screen and (min-width: 600px) {
+    .bar-button-bottom {display: none;}
+}

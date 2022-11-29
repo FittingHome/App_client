@@ -4,8 +4,12 @@
     position: fixed;
     z-index: 1;
     bottom: 0;
-    right: 350px;
+    right: 250px;
     overflow-x: hidden;
     transition: 0.5s;
     color: #5252d8;
 }
+
+@media screen and (max-width: 600px) {
+    .screen-size {display: none;}
+  }
