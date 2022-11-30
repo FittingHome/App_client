@@ -412,7 +412,7 @@ a.button {
     -webkit-animation: slideIn 0.8s ease-in-out forwards;
     animation: slideIn 0.8s ease-in-out forwards;
     width: 100%;
-    height: 200px;
+    height: 100px;
     text-align: center;
   }
   .bg-illustration img {
@@ -432,9 +432,9 @@ a.button {
 
     height: 50%;
     margin: 0 auto;
-    top: 130px;
+    top: 80px;
     padding: auto;
-    left: 10%;
+    left: 0%;
     position: fixed;
     background-color: #ffffff00;
     border-radius: 20px;

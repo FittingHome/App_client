@@ -7,7 +7,7 @@ var modelList = {
   size: "180",
   age: "12",
 };
-var dataApi = [];
+var dataApi;
 
 var modelPath = "../assets/male.obj";
 
@@ -112,24 +112,29 @@ function prevMorpho() {
   var modelToDisp = [];
 
   ////get final model
-  document.getElementById("myBtn").style.visibility="visible";  
-  console.log("myBtn")
+  if (dataApi) {
+    document.getElementById("myBtn").style.visibility="visible";  
+    console.log("myBtn")
+    
+    finalModels = compareModels();
   
-  finalModels = compareModels();
+    ////// assign path new model
+    modelToDisp = finalModels[0];
+    // modelPath = modelToDisp.path;
+  
+    console.log(finalModels.id)
+    modelId = modelToDisp[0].id
+    getModelFromId()
+    getModels();
+  
+    ////// search models choice
+    finalModels.forEach((element) => {
+      console.log(element);
+    });
 
-  ////// assign path new model
-  modelToDisp = finalModels[0];
-  // modelPath = modelToDisp.path;
-
-  console.log(finalModels.id)
-  modelId = modelToDisp[0].id
-  getModelFromId()
-  getModels();
-
-  ////// search models choice
-  finalModels.forEach((element) => {
-    console.log(element);
-  });
+  } else [
+    console.log("error : couldn't find data")
+  ]
 
 }
 
