@@ -29,13 +29,13 @@
                   <span>Remember me</span>
                 </div> -->
                 <div class="forget-pass">
-                  <a href="forgot-password.html">Forgot Password ?</a>
+                  <a href="forgot-password.php">Forgot Password ?</a>
                 </div>
     
               
                 <div class="btn_form">
                   <button type="submit">Se connecter</button>
-                  <a class="button" href="signup.html" ><p class="btn_text">S'inscrire</p></a>
+                  <a class="button" href="signup.php" ><p class="btn_text">S'inscrire</p></a>
                           
                 </div>
               </form>

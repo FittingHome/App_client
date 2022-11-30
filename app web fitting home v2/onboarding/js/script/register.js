@@ -3,7 +3,7 @@ const url = "http://api.fittinghome.fr/user/create";
 var jwt = localStorage.getItem("jwt");
 if (jwt != null) {
   console.log(jwt)
-  window.location.href = '../onboarding/avatar_settings.html'
+  window.location.href = '../onboarding/avatar_settings.php'
 }
 
 function register() {
@@ -21,7 +21,7 @@ function register() {
     if (this.readyState == 4) {
       const objects = JSON.parse(this.responseText);
       console.log("obj",objects);
-      window.location.href = '../onboarding/avatar_settings.html'
+      window.location.href = '../../onboarding/html/avatar_settings.php'
       localStorage.setItem("jwt", objects['id']);
       console.log(objects)
       // if (objects['status'] == 'ok') {

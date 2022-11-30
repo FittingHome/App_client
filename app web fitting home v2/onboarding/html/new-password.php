@@ -20,7 +20,7 @@
                 <input type="text" placeholder="Entrez votre mot de passe" name="email" required>
                 <div class="btn_form">
                   <!-- <button type="submit">Confirmer</button> -->
-                  <a class="button" href="../../index.html" ><p class="btn_text">Confirmer</p></a>
+                  <a class="button" href="../../index.php" ><p class="btn_text">Confirmer</p></a>
               </div>
               </form>
             </div>

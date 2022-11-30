@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <label for="email"><b>Email *</b></label>
-                <input type="text" id="email"  placeholder="hdubois@gmail.com" name="email" required >
+                <input type="text" id="email" placeholder="hdubois@gmail.com" name="email" required >
                 <label for="psw"><b>Mot de passe</b></label>
                 <input type="password" id="password" placeholder="******" name="psw" required>
     
@@ -39,7 +39,7 @@
                     <button type="submit">S'inscrire</button>
 
                     <!-- <button type="submit">S'inscrire</button> -->
-                    <a class="link-login" href="login.html">Deja un compte ?</a>
+                    <a class="link-login" href="login.php">Deja un compte ?</a>
                 </div>
               </form>
             </div>

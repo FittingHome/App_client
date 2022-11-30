@@ -1,8 +1,9 @@
-("use strict");
+
+// import {SFTPClient} from "../../../sftp.js";
 
 var modelList = {
   morphologie: "fat",
-  gender: "woman",
+  isMale: true,
   weight: "110",
   size: "180",
   age: "12",
@@ -24,15 +25,15 @@ function compareModels() {
   var sizeMin = modelList.size - 10;
   var sizeMax = modelList.size + 10;
 
-  if (modelList.gender) {
-    console.log("----------", modelList.gender);
+  if (modelList.isMale) {
+    console.log("----------", modelList.isMale);
     for (var i; i <= data.length; i++) {
-      if (data[i].gender == modelList.gender) {
+      if (data[i].isMale == modelList.isMale) {
         modelGender.push(data[i]);
       }
-      console.log(data[i].gender);
+      console.log(data[i].isMale);
     }
-    console.log(data[i].gender);
+    console.log(data[i].isMale);
   }
 
   //////////////////
@@ -107,6 +108,7 @@ function getModelFromId() {
 
 var canContinue = false
 function prevMorpho() {
+  getModels();
   console.log(dataApi);
   var finalModels = [];
   var modelToDisp = [];
@@ -116,30 +118,30 @@ function prevMorpho() {
     document.getElementById("myBtn").style.visibility="visible";  
     console.log("myBtn")
     
-    finalModels = compareModels();
+    // finalModels = compareModels();
   
-    ////// assign path new model
-    modelToDisp = finalModels[0];
+    // ////// assign path new model
+    // modelToDisp = finalModels[0];
     // modelPath = modelToDisp.path;
   
-    console.log(finalModels.id)
-    modelId = modelToDisp[0].id
-    getModelFromId()
-    getModels();
+    // console.log(finalModels.id)
+    // modelId = modelToDisp[0].id
+    // getModelFromId()
   
-    ////// search models choice
-    finalModels.forEach((element) => {
-      console.log(element);
-    });
+    // ////// search models choice
+    // finalModels.forEach((element) => {
+    //   console.log(element);
+    // });
 
-  } else [
+  } else {
     console.log("error : couldn't find data")
-  ]
+  }
 
 }
 
 
 function getModels() {
+  console.log("get")
   fetch("http://api.fittinghome.fr/body/getAll")
     .then((response) => {
       if (response.ok) {
@@ -156,12 +158,16 @@ function getModels() {
 }
 
 function defineMorpho(value) {
-  modelList.morphologie = value;
+  if (value != "femme")
+    modelList.isMale = true
+  else 
+    modelList.isMale = false
+  console.log(modelList.isMale)
 }
 
 /* global THREE */
 
-function main() {
+function modelHandler() {
   const canvas = document.querySelector("#c");
   const renderer = new THREE.WebGLRenderer({ canvas });
 
@@ -233,7 +239,7 @@ function main() {
   }
   requestAnimationFrame(render);
 }
-main();
+modelHandler();
 
 
 

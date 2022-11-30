@@ -20,7 +20,7 @@
                 <input type="text" placeholder="Entrez votre email" name="email" required>
                 <div class="btn_form">
                   <!-- <button >Envoyer l'email</button> -->
-                  <a class="button" href="new-password.html"><p class="btn_text">Envoyer l'email</p></a>
+                  <a class="button" href="new-password.php"><p class="btn_text">Envoyer l'email</p></a>
 
               </div>
               </form>
