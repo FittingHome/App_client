@@ -8,6 +8,11 @@
   display: table;
   clear: both;
 }
+
+body {
+  font: 0.8em "Open Sans", sans-serif;
+
+}
 .title {
   color: #7c3e3d;
   width: 127px;
@@ -82,13 +87,14 @@
 }
 
 .login .container {
+  box-shadow: 5px 5px 2px rgba(100, 99, 99, 0.285);
+
   width: 420px;
   margin: 0 auto;
   top: 130px;
   position: fixed;
   padding: 50px;
   right: 20%;
-  border: solid;
   background-color: #fbf6f6da;
   border-radius: 20px;
 }
@@ -114,9 +120,11 @@
   font-size: 16px;
   font-weight: normal;
   background: #e4dfd2;
-  margin: 16px 0;
+  margin: 5px 0;
   height: 48px;
-  margin-bottom: 40px;
+  width: 96%;
+
+  margin-bottom: 26px;
   border: 2px solid rgb(206, 204, 204);
   padding: 0 30px;
   border-radius: 10px;
@@ -135,15 +143,20 @@
   border-radius: 10px;
 }
 
+.link-login {
+  padding-left: 10%;
+}
+
 .name_form {
   display: grid;
+  grid-gap: 20px;
+
   grid-template-columns: auto auto auto;
   background-color: #ffffff00;
 }
 
 .name_item {
   background-color: rgba(255, 255, 255, 0);
-  font-size: 16px;
   width: 200px;
   max-width: 200px;
   min-width: 100px;
@@ -192,7 +205,6 @@
   margin-bottom: 20px;
   width: 241px;
   height: 48px;
-  text-transform: uppercase;
   color: white;
   border-radius: 10px;
   position: relative;
@@ -278,10 +290,10 @@ a.button {
   -webkit-appearance: button;
   -moz-appearance: button;
   appearance: button;
-  width: 241px;
+  width: 240px;
   background-color: #7c3e3d;
   height: 48px;
-  text-transform: uppercase;
+  font-size: 16px;
   border-radius: 10px;
   position: relative;
   font-weight: bold;

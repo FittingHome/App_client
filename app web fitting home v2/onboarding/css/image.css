@@ -40,18 +40,21 @@
 
 .modal_title {
     padding-bottom: 3%;
+    font-size: 30px;
 }
 
 .grid-item {
-    border: 1px solid rgba(0, 0, 0, 0.8);
-    margin: 20px;
-        padding: 20px;
+    border: 2px solid rgba(0, 0, 0, 0);
+    margin: 25px;
+        padding: 5px;
     text-align: center;
-    width: 60%;
+    width: 70%;
+    background-color:rgb(255, 255, 255);
+
 }
 .grid-item:hover {
-    border: 1px solid rgba(169, 44, 44, 0.8);
-    background-color: #888;
+    border: 2px solid rgba(169, 44, 44, 0);
+    background-color: #7c3e3d;
     text-align: center;
     cursor: pointer;
 }

@@ -147,9 +147,9 @@ i.hidden {
   font-size: 16px;
   font-weight: normal;
   background: #e4dfd2;
-  margin: 16px 0;
+  margin: 5px 0;
   height: 48px;
-  margin-bottom: 40px;
+  margin-bottom: 26px;
   border: 2px solid rgb(206, 204, 204);
   padding: 0 30px;
   border-radius: 10px;
@@ -380,9 +380,7 @@ a.button {
   appearance: button;
   width: 241px;
   background-color: #7c3e3d;
-  height: 48px;
   margin: 1%;
-  text-transform: uppercase;
   border-radius: 10px;
   position: relative;
   font-weight: bold;
@@ -391,6 +389,7 @@ a.button {
   color: white;
 }
 .btn_text {
+  font-size: 16px;
   text-align: center;
 }
 .txt {

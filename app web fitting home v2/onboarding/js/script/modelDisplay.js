@@ -124,7 +124,7 @@ function prevMorpho() {
   console.log(finalModels.id)
   modelId = modelToDisp[0].id
   getModelFromId()
-  // getModels();
+  getModels();
 
   ////// search models choice
   finalModels.forEach((element) => {
@@ -164,8 +164,9 @@ function main() {
   const aspect = 20; // the canvas default
   const near = 0.1;
   const far = 100;
+  
   const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-  camera.position.set(10, 15, 35);
+  camera.position.set(10, 15, 28);
 
   const controls = new THREE.OrbitControls(camera, canvas);
   controls.target.set(0, 11, 0);
@@ -203,6 +204,7 @@ function main() {
     });
   }
 
+ 
   function resizeRendererToDisplaySize(renderer) {
     const canvas = renderer.domElement;
     const width = canvas.clientWidth;
@@ -220,7 +222,6 @@ function main() {
       camera.aspect = canvas.clientWidth / canvas.clientHeight;
       camera.updateProjectionMatrix();
     }
-
     renderer.render(scene, camera);
 
     requestAnimationFrame(render);

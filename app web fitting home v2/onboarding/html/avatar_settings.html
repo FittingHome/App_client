@@ -104,14 +104,14 @@
                 <!-- Modal content -->
                 <div class="modal-content">
                     <span class="close">&times;</span>
-                    <h1 class="modal_title">Allez plus loin</h1>
+                    <h1 class="modal_title">Être plus précis</h1>
                         <div class="grid-container" id="img_grid"></div>
                     <a class="button button-modal" href="../../index.html">
                         <p class="btn_text ">Confirmer</p>
                     </a>
                 </div>
                 <script>
-                    const images = ["http://placekitten.com/400/300", "http://placekitten.com/400/300", "http://placekitten.com/400/300", "http://placekitten.com/400/300", "http://placekitten.com/400/300", "http://placekitten.com/400/300", "http://placekitten.com/400/300", "http://placekitten.com/400/300"];
+                    const images = ["http://placekitten.com/400/307", "http://placekitten.com/200/100", "http://placekitten.com/402/300", "http://placekitten.com/440/300", "http://placekitten.com/400/300", "http://placekitten.com/400/300", "http://placekitten.com/400/300", "http://placekitten.com/400/300"];
                     const myHtml = images.map(function (path) {
                         return '<img class="grid-item" src="' + path + '">';
                     }).join('');
@@ -120,6 +120,17 @@
                 </script>
             </div>
             <script>
+                const pict = document.getElementById('img_grid');
+
+                pict.addEventListener('click', function onClick(event) {
+                console.log(event.target.style.backgroundColor);
+                pict.style.backgroundColor = 'salmon';
+
+                // 👇️ change background color
+
+                // 👇️ optionally change text color
+                // event.target.style.color = 'white';
+                });
                 var modal = document.getElementById("myModal");
                 var btn = document.getElementById("myBtn");
                 var span = document.getElementsByClassName("close")[0];
