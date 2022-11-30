@@ -464,11 +464,7 @@ a.button {
 }
 
 @media only screen and (min-width: 1024px) and (max-width: 1680px) {
-  .bg-illustration {
-    width: 80%;
-    -webkit-animation: none;
-    animation: none;
-  }
+
 
   .login {
     width: 100%;
