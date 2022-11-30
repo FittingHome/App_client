@@ -179,7 +179,7 @@ function animate() {
   requestAnimationFrame(animate);
   renderer.render(scene, camera);
 }
-let modelName = localStorage.getItem('modelName');
+let modelName = "Henry";//localStorage.getItem('modelName');
 let topGarmentName = localStorage.getItem('topGarmentName');
 let downGarmentName = localStorage.getItem('downGarmentName');
 
