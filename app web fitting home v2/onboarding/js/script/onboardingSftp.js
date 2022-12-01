@@ -1,6 +1,6 @@
 let Client = require("ssh2-sftp-client");
 
-class SFTPClient {
+class SFTPClientOnboarding {
   constructor() {
     this.client = new Client();
   }
@@ -81,7 +81,7 @@ class SFTPClient {
   const password = "";
 
   //* Open the connection
-  const client = new SFTPClient();
+  const client = new SFTPClientOnboarding();
   await client.connect({ host, port, username, password });
 
   //* List working directory files
