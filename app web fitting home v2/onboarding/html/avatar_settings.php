@@ -112,7 +112,7 @@
                     <span class="close">&times;</span>
                     <h1 class="modal_title">Être plus précis</h1>
                     <div class="grid-container" id="img_grid"></div>
-                    <a class="button button-modal" href="/index.php">
+                    <a class="button button-modal" href="/">
                         <p class="btn_text ">Confirmer</p>
                     </a>
                 </div>

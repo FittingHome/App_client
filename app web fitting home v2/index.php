@@ -109,8 +109,9 @@ if (isset($_REQUEST["garment"])) {
 
 <body>
   <script>
-    if (!jwt) {
-      window.location.href = './onboarding/html/login.js'
+    if (!localStorage.getItem("jwt")) {
+      console.log("jwt")
+      window.location.href = './onboarding/html/login.php';
     }
   </script>
 
