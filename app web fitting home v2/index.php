@@ -83,17 +83,17 @@ if (isset($_REQUEST["garment"])) {
 
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/sidebar-nav.css">
-  <link rel="stylesheet" href="css/sidebar.css">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/card.css">
-  <link rel="stylesheet" href="css/screen-size.css">
-  <link rel="stylesheet" href="css/pill-nav.css">
-  <link rel="stylesheet" href="css/search-bar.css">
-  <link rel="stylesheet" href="css/bar-button.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="./css/sidebar-nav.css">
+  <link rel="stylesheet" type="text/css" href="./css/sidebar.css">
+  <link rel="stylesheet" type="text/css" href="./css/style.css">
+  <link rel="stylesheet" type="text/css" href="./css/card.css">
+  <link rel="stylesheet" type="text/css" href="./css/screen-size.css">
+  <link rel="stylesheet" type="text/css" href="./css/pill-nav.css">
+  <link rel="stylesheet" type="text/css" href="./css/search-bar.css">
+  <link rel="stylesheet" type="text/css" href="./css/bar-button.css">
 
   <script src="js/script/sidebar-size.js"></script>
 
