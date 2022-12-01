@@ -4,10 +4,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Fitting Home</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <!-- <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/form2.css">
-    <link rel="stylesheet" href="../css/loading.css">
-    <link rel="stylesheet" href="../css/image.css">
+    <link rel="stylesheet" href="../css/loading.css"> -->
+    <style>
+        <?php include '../css/image.css'; ?>
+    </style>
+    <style>
+        <?php include '../css/form2.css'; ?>
+    </style>
+    <style>
+        <?php include '../css/loading.css'; ?>
+    </style>
+    ><style>
+        <?php include '../css/loading.css'; ?>
+    </style>
+
+
     <script src="https://r105.threejsfundamentals.org/threejs/resources/threejs/r105/three.min.js"></script>
     <script src="https://r105.threejsfundamentals.org/threejs/resources/threejs/r105/js/controls/OrbitControls.js"></script>
     <script src="https://r105.threejsfundamentals.org/threejs/resources/threejs/r105/js/loaders/LoaderSupport.js"></script>

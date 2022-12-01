@@ -95,6 +95,32 @@ if (isset($_REQUEST["garment"])) {
   <link rel="stylesheet" type="text/css" href="./css/search-bar.css">
   <link rel="stylesheet" type="text/css" href="./css/bar-button.css">
 
+  <style>
+    <?php include 'css/sidebar-nav.css'; ?>
+  </style>
+  <style>
+    <?php include 'css/sidebar.css'; ?>
+  </style>
+  <style>
+    <?php include 'css/style.css'; ?>
+  </style>
+  >
+  <style>
+    <?php include 'css/card.css'; ?>
+  </style>
+  <style>
+    <?php include 'css/screen-size.css'; ?>
+  </style>
+  <style>
+    <?php include 'css/pill-nav.css'; ?>
+  </style>
+  <style>
+    <?php include 'css/search-bar.css'; ?>
+  </style>
+  <style>
+    <?php include 'css/bar-button.css'; ?>
+  </style>
+
   <script src="js/script/sidebar-size.js"></script>
 
   <script src="js/script/filter.js"></script>
