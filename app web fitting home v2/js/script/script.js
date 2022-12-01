@@ -143,10 +143,11 @@ function renderModelGarment(modelName, garmentName) {
 }
 
 function removeGarments() {
+  let topGarmentName = localStorage.getItem('topGarmentName');
+  let downGarmentName = localStorage.getItem('downGarmentName');
   scene.remove(scene.getObjectByName(topGarmentName));
   scene.remove(scene.getObjectByName(downGarmentName));
-  topGarmentName = null;
-  downGarmentName = null;
+
   localStorage.removeItem('topGarmentName');
   localStorage.removeItem('downGarmentName');
 }
@@ -179,18 +180,24 @@ function animate() {
   requestAnimationFrame(animate);
   renderer.render(scene, camera);
 }
-let modelName = "Henry";//localStorage.getItem('modelName');
-let topGarmentName = localStorage.getItem('topGarmentName');
-let downGarmentName = localStorage.getItem('downGarmentName');
 
-init();
-renderModel(modelName);
 
-if (topGarmentName != null) {
-  setTimeout(() => renderModelGarment(modelName, topGarmentName), 2000);
+function runViewport() {
+  let modelName = "Henry";//localStorage.getItem('modelName');
+  let topGarmentName = localStorage.getItem('topGarmentName');
+  let downGarmentName = localStorage.getItem('downGarmentName');
+
+  init();
+  renderModel(modelName);
+
+  if (topGarmentName != null) {
+    setTimeout(() => renderModelGarment(modelName, topGarmentName), 2000);
+  }
+
+  if (downGarmentName != null) {
+    setTimeout(() => renderModelGarment(modelName, downGarmentName), 2000);
+  }
+  animate();
 }
 
-if (downGarmentName != null) {
-  setTimeout(() => renderModelGarment(modelName, downGarmentName), 2000);
-}
-animate();
+runViewport();

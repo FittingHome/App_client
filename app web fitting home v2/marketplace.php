@@ -1,56 +1,3 @@
-<?php
-session_start();
-$json = '
-[
-  {
-    "id": "Tshirt",
-    "name": "T-shirt",
-    "pathImg": "resources/images/Tshirt.png",
-    "price": "$19.99",
-    "size": ["S"],
-    "type": "top"
-  },
-  {
-    "id": "Pants",
-    "name": "Pant",
-    "pathImg": "resources/images/Pants.png",
-    "price": "$19.99",
-    "size": ["S", "M", "L"],
-    "type": "down"
-  },
-  {
-    "id": "hoodie",
-    "name": "Hoody",
-    "pathImg": "resources/images/Male_Hoody.png",
-    "price": "$19.99",
-    "size": ["S", "M", "L"],
-    "type": "top"
-  },
-  {
-    "id": "Garments1_Hana",
-    "name": "Crop Top",
-    "pathImg": "resources/images/Garments1_Hana.png",
-    "price": "$19.99",
-    "size": ["S"],
-    "type": "top"
-  },
-  {
-    "id": "Female_HalterneckDress",
-    "name": "Dress",
-    "pathImg": "resources/images/Female_HalterneckDress.png",
-    "price": "$19.99",
-    "size": ["S"],
-    "type": "top"
-  }
-]
-';
-
-$products = json_decode($json, true);
-
-$page = 0;
-$sizePage = 12;
-$maxPage = 1;
-?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -183,11 +130,11 @@ $maxPage = 1;
 
   <div class="main">
     <div class="row" style="margin: 10px;">
-      <form class="col-12 search-bar" action="">
-        <input type="text" placeholder="Rechercher un article...">
+      <div class="col-12 search-bar">
+        <input id="search" type="text" placeholder="Rechercher un article...">
         <button type="button" onclick="openFilter()"><svg width="30" height="30" viewBox="0 0 512 512"><path fill="currentColor" d="M0 416c0-17.7 14.3-32 32-32h54.7c12.3-28.3 40.5-48 73.3-48s61 19.7 73.3 48H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H233.3c-12.3 28.3-40.5 48-73.3 48s-61-19.7-73.3-48H32c-17.7 0-32-14.3-32-32zm192 0c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32zm192-160c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32zm-32-80c32.8 0 61 19.7 73.3 48H480c17.7 0 32 14.3 32 32s-14.3 32-32 32h-54.7c-12.3 28.3-40.5 48-73.3 48s-61-19.7-73.3-48H32c-17.7 0-32-14.3-32-32s14.3-32 32-32h246.7c12.3-28.3 40.5-48 73.3-48zM192 64c-17.7 0-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32s-14.3-32-32-32zm73.3 0H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H265.3c-12.3 28.3-40.5 48-73.3 48s-61-19.7-73.3-48H32c-17.7 0-32-14.3-32-32s14.3-32 32-32h86.7C131 35.7 159.2 16 192 16s61 19.7 73.3 48z"/></svg></button>
-        <button type="submit"><svg width="30" height="30" viewBox="0 0 512 512"><path fill="currentColor" d="M416 208c0 45.9-14.9 88.3-40 122.7l126.6 126.7c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0s208 93.1 208 208zM208 352c79.5 0 144-64.5 144-144S287.5 64 208 64S64 128.5 64 208s64.5 144 144 144z"/></svg></button>
-      </form>
+        <button type="button" onclick="searchItem()"><svg width="30" height="30" viewBox="0 0 512 512"><path fill="currentColor" d="M416 208c0 45.9-14.9 88.3-40 122.7l126.6 126.7c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0s208 93.1 208 208zM208 352c79.5 0 144-64.5 144-144S287.5 64 208 64S64 128.5 64 208s64.5 144 144 144z"/></svg></button>
+      </div>
     </div>
 
     <div id="myModal" class="modal">
@@ -196,57 +143,22 @@ $maxPage = 1;
         <canvas id="c"></canvas>
         <button onclick="closeModal()" class="button-size-active">Ajouter à mes favoris</button>
       </div>
-
-    </div>
-  <div class="row" style="margin: 30px;">
-    <?php
-    foreach ($products as $product) {
-    ?>
-    
-    <div class="col-sm-4 col-12 card">
-      <button onclick='removeGarments(); location.href="marketplace.php?garment=<?php echo($product["id"] . "&type=" . $product["type"]) ?>";'>
-        <img
-          src="<?php echo($product["pathImg"]) ?>"
-          alt="<?php echo($product["name"]) ?>" style="width:100%">
-        <h1><?php echo($product["name"]) ?></h1>
-        <p class="price"><?php echo($product["price"]) ?></p>
-      </button>
-    </div>
-    
-    <?php
-    }
-    ?>
-  </div>
-    <div class="row pagination">
-      <div class="col-12">
-        
-        <?php
-        if ($page > 0) {
-          ?>
-          <a href="#"><svg width="20" height="20" viewBox="0 0 512 512"><path fill="currentColor" d="M459.5 440.6c9.5 7.9 22.8 9.7 34.1 4.4s18.4-16.6 18.4-29V96c0-12.4-7.2-23.7-18.4-29s-24.5-3.6-34.1 4.4L288 214.3v83.4l171.5 142.9zM256 352V96c0-12.4-7.2-23.7-18.4-29s-24.5-3.6-34.1 4.4l-192 160C4.2 237.5 0 246.5 0 256s4.2 18.5 11.5 24.6l192 160c9.5 7.9 22.8 9.7 34.1 4.4s18.4-16.6 18.4-29v-64z"/></svg></a>
-          <?php
-        }
-        for ($i=0; $i < $maxPage; $i++) { 
-          if ($i == $page) {
-            ?>
-            <a class="active" href="#"><?php echo($i + 1) ?></a>
-            <?php
-          } else {
-            ?>
-            <a href="#"><?php echo($i + 1) ?></a>
-            <?php
-          }
-        }
-        if ($page + 1 < $maxPage) {
-          ?>
-          <a href="#"><svg width="20" height="20" viewBox="0 0 512 512"><path fill="currentColor" d="M52.5 440.6c-9.5 7.9-22.8 9.7-34.1 4.4S0 428.4 0 416V96c0-12.4 7.2-23.7 18.4-29s24.5-3.6 34.1 4.4L224 214.3v83.4L52.5 440.6zM256 352V96c0-12.4 7.2-23.7 18.4-29s24.5-3.6 34.1 4.4l192 160c7.3 6.1 11.5 15.1 11.5 24.6s-4.2 18.5-11.5 24.6l-192 160c-9.5 7.9-22.8 9.7-34.1 4.4S256 428.4 256 416v-64z"/></svg></a>
-          <?php
-        }
-        ?>
-        </div>
     </div>
 
+    <div class="row" style="margin: 30px;">
+      <div id="product" class="col-sm-4 col-12 card">
+        <button onclick="removeGarments(); selectItem(this);">
+          <img
+            src=""
+            alt="" style="width:100%">
+          <h1></h1>
+          <p class="price"></p>
+        </button>
+      </div>
+    </div>
+    
   </div>
+
   <script>
     let name = localStorage.getItem('modelName');
 
@@ -268,42 +180,93 @@ $maxPage = 1;
   <script src="js/node_modules/three/src/animation/AnimationMixer.js"></script>
   <script src="js/node_modules/three/src/animation/AnimationClip.js"></script>
   <script src="js/script/script.js"></script>
+  <script src="js/script/actionGarment.js"></script>
   <script>
-// Get the modal
-var modal = document.getElementById("myModal");
+    // Get the modal
+    var modal = document.getElementById("myModal");
 
-var filter = document.getElementById("myFilter");
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+    var filter = document.getElementById("myFilter");
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
 
-// When the user clicks the button, open the modal 
-var openModal = function() {
-  modal.style.display = "block";
-}
-<?php
-if (isset($_REQUEST['garment']) || isset($_REQUEST['downGarmentName'])) {
-  echo 'openModal()';
-}
-?>
-// When the user clicks on <span> (x), close the modal
-var closeModal = function() {
-  modal.style.display = "none";
-}
+    // When the user clicks the button, open the modal 
+    var openModal = function() {
+      modal.style.display = "block";
+    }
+    <?php
+    if (isset($_REQUEST['garment']) || isset($_REQUEST['downGarmentName'])) {
+      echo 'openModal()';
+    }
+    ?>
+    // When the user clicks on <span> (x), close the modal
+    var closeModal = function() {
+      modal.style.display = "none";
+    }
 
-var openFilter = function() {
-  filter.style.display = "block";
-}
+    var openFilter = function() {
+      filter.style.display = "block";
+    }
 
-var closeFilter = function() {
-  filter.style.display = "none";
-}
+    var closeFilter = function() {
+      filter.style.display = "none";
+    }
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+
+    function displayProducts(garments) {
+      var elem = document.querySelector('#product');
+      
+      for (let i = 0; i < garments.length; i++) {
+        var clone;
+        
+        if (i == 0) {
+          clone = elem;
+        } else {
+          clone = elem.cloneNode(true);
+        }
+
+        // Update the ID and add a class
+        
+        clone.getElementsByTagName('button')[0].name = garments[i].id + '/' + garments[i].type;
+        clone.getElementsByTagName('img')[0].src = garments[i].pathImg;
+        clone.getElementsByTagName('h1')[0].innerHTML = garments[i].name;
+        clone.getElementsByTagName('p')[0].innerHTML = garments[i].price;
+        // Inject it into the DOM
+        elem.after(clone);
+      }
+    }
+    displayProducts(getAllGarments());
+    
+    function clearProducts() {
+      const elements = document.querySelectorAll("#product");
+      for (let i = 0; i < elements.length - 1; i++) {
+        elements[i].remove();
+      }
+    }
+
+    function searchItem() {
+      clearProducts();
+      var item = document.querySelector('#search').value;
+      if (item == "") {
+        displayProducts(getAllGarments());
+      } else {
+        displayProducts(searchGarments(item));
+      }
+    }
+
+    function selectItem(b) {
+      var elem = b.name.split('/');
+      
+      putGarment(elem[0], elem[1]);
+
+      window.location.href="marketplace.php?garment=" + elem[0] + "&type=" + elem[1];
+    }
+   
 </script>
 
 

@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 $json = '
 [
   {
@@ -47,7 +46,6 @@ $json = '
 ';
 $_SESSION['favorites'] = json_decode($json, true);
 $favorites = $_SESSION['favorites'];
-
 $selectedItem = "top";
 $selectedSize = "M";
 $selectedGarments = [];
@@ -128,23 +126,19 @@ if (isset($_REQUEST["garment"])) {
       </div>
 
       <ul id="myUL">
-      <?php
-      foreach ($favorites as $favorite) {
-      ?>
+
         <li>
           <div class="col-12" style="margin: 10px;">
-            <div class="card">
-              <button onclick='location.href="<?php echo("index.php?garment=" . $favorite["id"] . "&size=S") ?>"'>
-                <img src="<?php echo($favorite["pathImg"]) ?>" alt="<?php echo($favorite["name"]) ?>" style="width:100%">
-                <h1><?php echo($favorite["name"]) ?></h1>
-                <p class="price"><?php echo($favorite["price"]) ?></p>
+            <div id="product" class="card">
+              <button onclick="selectItem(this)">
+                <img src="" alt="" style="width:100%">
+                <h1></h1>
+                <p class="price"></p>
               </button>
             </div>
           </div>
         </li>
-      <?php
-      }
-      ?>
+
       </ul>
     </div>
   </div>
@@ -277,7 +271,7 @@ if (isset($_REQUEST["garment"])) {
     }
 
   </script>
-  <script src="js/script/loadModel.js"></script>
+  <!-- <script src="js/script/loadModel.js"></script> -->
   <script src="js/node_modules/three/build/three.js"></script>
   <script src="js/node_modules/three/examples/js/controls/OrbitControls.js"></script>
   <script src="js/node_modules/three/examples/js/loaders/MTLLoader.js"></script>
@@ -287,6 +281,40 @@ if (isset($_REQUEST["garment"])) {
   <script src="js/node_modules/three/src/animation/AnimationMixer.js"></script>
   <script src="js/node_modules/three/src/animation/AnimationClip.js"></script>
   <script src="js/script/script.js"></script>
+  <script src="js/script/actionGarment.js"></script>
+  <script>
+    function displayProducts(garments) {
+      var elem = document.querySelector('#product');
+      
+      for (let i = 0; i < garments.length; i++) {
+        var clone;
+        
+        if (i == 0) {
+          clone = elem;
+        } else {
+          clone = elem.cloneNode(true);
+        }
+
+        // Update the ID and add a class
+        
+        clone.getElementsByTagName('button')[0].name = garments[i].id + '/' + garments[i].type;
+        clone.getElementsByTagName('img')[0].src = garments[i].pathImg;
+        clone.getElementsByTagName('h1')[0].innerHTML = garments[i].name;
+        clone.getElementsByTagName('p')[0].innerHTML = garments[i].price;
+        // Inject it into the DOM
+        elem.after(clone);
+      }
+    }
+    displayProducts(getFavoriteGarments());
+
+    function selectItem(b) {
+      var elem = b.name.split('/');
+      
+      putGarment(elem[0], elem[1]);
+
+      window.location.href="index.php?garment=" + elem[0] + "&size=S";
+    }
+  </script>
 </body>
 
 </html>
