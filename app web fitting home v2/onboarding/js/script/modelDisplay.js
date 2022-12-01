@@ -1,55 +1,54 @@
-
 // import {SFTPClient} from "../../../sftp.js";
 
 const spinner = document.getElementById("spinner");
+const noModel = document.getElementById("noModel");
 
+var canContinue = false;
 var modelList = {
   morphologie: "circle",
   isMale: true,
   weight: "70",
-  height: "170",
+  height: "130",
   age: "12",
 };
 var dataApi;
-
 var modelPath = "../assets/male.obj";
+document.getElementById("myBtn").style.visibility = "hidden";
 
 function defineGender(object) {
-  console.log(object.value)
-  if (object.value != "femme")
-    modelList.isMale = true
-  else 
-    modelList.isMale = false
-    console.log(modelList.isMale)
-  }
+  if (object.value != "femme") modelList.isMale = true;
+  else modelList.isMale = false;
+}
 
 function compareModels() {
   modelGender = [];
   modelWeight = [];
   modelheight = [];
-  var weightMin = modelList.weight - 15;
-  var weightMax = modelList.weight + 15;
-  var heightMin = modelList.height - 15;
-  var heightMax = modelList.height + 15;
+  var weightMin = modelList.weight - 10;
+  var weightMax = modelList.weight + 10;
+  var heightMin = modelList.height - 10;
+  var heightMax = modelList.height + 10;
 
   if (modelList.isMale == true) {
     console.log("----------", modelList.isMale);
     for (var i = 0; i < dataApi.length; i++) {
       if (dataApi[i].morphology.isMale == modelList.isMale) {
         modelGender.push(dataApi[i]);
+      } else {
+        console.log("gender no good");
+        noModel.removeAttribute("hidden");
       }
-      console.log(dataApi[i].morphology.isMale);
     }
-    console.log("modelGender", modelGender);
-  }  else if (modelList.isMale == false) {
+  } else if (modelList.isMale == false) {
     console.log("----------", modelList.isMale);
     for (var i; i < dataApi.length; i++) {
       if (dataApi[i].morphology.isMale == modelList.isMale) {
         modelGender.push(dataApi[i]);
+      } else {
+        console.log("gender no good");
+        noModel.removeAttribute("hidden");
       }
-      console.log(dataApi[i].morphology.isMale);
     }
-    console.log("modelGender", modelGender);
   }
 
   //////////////////
@@ -57,16 +56,17 @@ function compareModels() {
   if (modelList.weight) {
     console.log("----------", modelList.weight);
     for (var i = 0; i < modelGender.length; i++) {
-      console.log(modelGender[i].morphology.weight)
+      console.log(modelGender[i].morphology.weight);
       if (
         modelGender[i].morphology.weight >= weightMin &&
         modelGender[i].morphology.weight <= weightMax
       ) {
         modelWeight.push(modelGender[i]);
-      } else (console.log("weight no good"))
-      console.log(modelWeight.weight);
+      } else {
+        console.log("weight no good");
+        noModel.removeAttribute("hidden");
+      }
     }
-    console.log("modelWeight", modelWeight);
   }
   //////////////////
 
@@ -77,10 +77,12 @@ function compareModels() {
         modelWeight[i].morphology.height <= heightMax
       ) {
         modelheight.push(modelWeight[i]);
-      } else (console.log("height no good"))
-      console.log(modelWeight[i].morphology.height);
+        spinner.setAttribute("hidden", "");
+      } else {
+        console.log("height no good");
+        noModel.removeAttribute("hidden");
+      }
     }
-    console.log(modelheight);
     console.log("----------", modelList.height);
   }
 
@@ -93,13 +95,10 @@ function compareModels() {
   return modelheight;
 }
 
-document.getElementById("myBtn").style.visibility="hidden";  
-
-
 function getModelFromId(modelId) {
-  spinner.removeAttribute('hidden');
+  spinner.removeAttribute("hidden");
 
-  fetch("http://api.fittinghome.fr/body/getByid/" + modelId)
+  fetch("http://api.fittinghome.fr/body/getByid/id?=" + modelId)
     .then((response) => {
       if (response.ok) {
         return response.json();
@@ -110,17 +109,14 @@ function getModelFromId(modelId) {
     .then((data) => {
       modelPathTd = data;
       console.log("data print by id :", modelPathTd);
-      modelPath = modelPathTd
-      spinner.setAttribute('hidden', '')
-
+      modelPath = modelPathTd;
+      spinner.setAttribute("hidden", "");
     })
     .catch((error) => console.error("FETCH ERROR:", error));
 }
 
-var canContinue = false
-
 function getModels() {
-  spinner.removeAttribute('hidden');
+  spinner.removeAttribute("hidden");
 
   fetch("http://api.fittinghome.fr/body/getAll")
     .then((response) => {
@@ -132,15 +128,14 @@ function getModels() {
     })
     .then((data) => {
       console.log("data print :", data);
-      dataApi = data
-            spinner.setAttribute('hidden', '')
-
+      dataApi = data;
+      spinner.setAttribute("hidden", "");
     })
     .catch((error) => console.error("FETCH ERROR:", error));
 }
 
 function defineMorpho(value) {
-  modelList.morphologie = value
+  modelList.morphologie = value;
 }
 function prevMorpho() {
   getModels();
@@ -148,51 +143,48 @@ function prevMorpho() {
   var finalModels = [];
   var modelToDisp = [];
 
-  
   /////////////////////////////////
-  const images = [
-    {image : "http://placekitten.com/400/307", id: "test"},
-    {image : "http://placekitten.com/400/307", id: "test"},
-    {image : "http://placekitten.com/400/307", id: "test"}
-  ]
-  
+
   ////////////////////////////////////
   ////get final model
 
   if (dataApi) {
-    document.getElementById("myBtn").style.visibility="visible";  
-    console.log("myBtn")
-    
+    document.getElementById("myBtn").style.visibility = "visible";
+
     finalModels = compareModels();
 
-    console.log("final", finalModels)
-  
+    console.log("final", finalModels);
+
     ////// assign path new model
     modelToDisp = finalModels[0];
 
     localStorage.setItem("modelToDisp", modelToDisp);
+
+    ////////////////
+    const images = [
+      { image: "http://placekitten.com/400/307", id: "test" },
+      { image: "http://placekitten.com/400/307", id: "test" },
+      { image: "http://placekitten.com/400/307", id: "test" },
+    ];
     localStorage.setItem("finalModels", JSON.stringify(images));
     // modelPath = modelToDisp.path;
-  
-    console.log(modelToDisp._id)
-    modelId = modelToDisp._id
+
+    console.log(modelToDisp._id);
+    modelId = modelToDisp._id;
     // getModelFromId(modelId)
-  
+
     ////// search models choice
     finalModels.forEach((element) => {
       console.log(element);
     });
-
   } else {
-    console.log("error : couldn't find data")
+    console.log("error : couldn't find data");
   }
-
 }
 
 /* global THREE */
 
 function modelHandler() {
-
   const canvas = document.querySelector("#c");
   const renderer = new THREE.WebGLRenderer({ canvas });
 
@@ -200,7 +192,7 @@ function modelHandler() {
   const aspect = 20; // the canvas default
   const near = 0.1;
   const far = 100;
-  
+
   const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
   camera.position.set(10, 15, 28);
 
@@ -235,16 +227,14 @@ function modelHandler() {
 
     if (window.morphologie) console.log(morphologie);
     objLoader.load(modelPath, (event) => {
-      spinner.removeAttribute('hidden');
+      spinner.removeAttribute("hidden");
 
       const root = event.detail.loaderRootNode;
       scene.add(root);
-      spinner.setAttribute('hidden', '')
+      spinner.setAttribute("hidden", "");
     });
-
   }
 
- 
   function resizeRendererToDisplaySize(renderer) {
     const canvas = renderer.domElement;
     const width = canvas.clientWidth;
@@ -270,12 +260,11 @@ function modelHandler() {
 }
 modelHandler();
 
-
 ///////// get chosen item /////////////////////
 
 function setIdModelDisp(object) {
-  console.log(object.id)
-  var modelChoose = object.id
+  console.log(object.id);
+  var modelChoose = object.id;
 }
 ////////////////////
 
