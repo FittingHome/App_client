@@ -1,11 +1,13 @@
 
 // import {SFTPClient} from "../../../sftp.js";
 
+const spinner = document.getElementById("spinner");
+
 var modelList = {
-  morphologie: "fat",
+  morphologie: "circle",
   isMale: true,
-  weight: "110",
-  size: "180",
+  weight: "70",
+  height: "170",
   age: "12",
 };
 var dataApi;
@@ -13,83 +15,90 @@ var dataApi;
 var modelPath = "../assets/male.obj";
 
 function defineGender(object) {
-  modelList.gender = object.value;
-}
+  console.log(object.value)
+  if (object.value != "femme")
+    modelList.isMale = true
+  else 
+    modelList.isMale = false
+    console.log(modelList.isMale)
+  }
 
 function compareModels() {
   modelGender = [];
   modelWeight = [];
-  modelSize = [];
-  var weightMin = modelList.weight - 10;
-  var weightMax = modelList.weight + 10;
-  var sizeMin = modelList.size - 10;
-  var sizeMax = modelList.size + 10;
+  modelheight = [];
+  var weightMin = modelList.weight - 15;
+  var weightMax = modelList.weight + 15;
+  var heightMin = modelList.height - 15;
+  var heightMax = modelList.height + 15;
 
-  if (modelList.isMale) {
+  if (modelList.isMale == true) {
     console.log("----------", modelList.isMale);
-    for (var i; i <= data.length; i++) {
-      if (data[i].isMale == modelList.isMale) {
-        modelGender.push(data[i]);
+    for (var i = 0; i < dataApi.length; i++) {
+      if (dataApi[i].morphology.isMale == modelList.isMale) {
+        modelGender.push(dataApi[i]);
       }
-      console.log(data[i].isMale);
+      console.log(dataApi[i].morphology.isMale);
     }
-    console.log(data[i].isMale);
+    console.log("modelGender", modelGender);
+  }  else if (modelList.isMale == false) {
+    console.log("----------", modelList.isMale);
+    for (var i; i < dataApi.length; i++) {
+      if (dataApi[i].morphology.isMale == modelList.isMale) {
+        modelGender.push(dataApi[i]);
+      }
+      console.log(dataApi[i].morphology.isMale);
+    }
+    console.log("modelGender", modelGender);
   }
 
   //////////////////
 
   if (modelList.weight) {
     console.log("----------", modelList.weight);
-    for (var i; i <= modelGender.length; i++) {
+    for (var i = 0; i < modelGender.length; i++) {
+      console.log(modelGender[i].morphology.weight)
       if (
-        modelGender[i].weight >= weightMin &&
-        modelGender[i].weight <= weightMax
+        modelGender[i].morphology.weight >= weightMin &&
+        modelGender[i].morphology.weight <= weightMax
       ) {
         modelWeight.push(modelGender[i]);
-      }
-      console.log(modelWeight[i].weight);
+      } else (console.log("weight no good"))
+      console.log(modelWeight.weight);
     }
-    console.log(modelWeight);
+    console.log("modelWeight", modelWeight);
   }
   //////////////////
 
-  if (modelList.size) {
-    for (var i; i <= modelWeight.length; i++) {
+  if (modelList.height) {
+    for (var i = 0; i < modelWeight.length; i++) {
       if (
-        modelWeight[i].weight >= sizeMin &&
-        modelWeight[i].weight <= sizeMax
+        modelWeight[i].morphology.height >= heightMin &&
+        modelWeight[i].morphology.height <= heightMax
       ) {
-        modelSize.push(modelWeight[i]);
-      }
-      console.log(modelSize[i].weight);
+        modelheight.push(modelWeight[i]);
+      } else (console.log("height no good"))
+      console.log(modelWeight[i].morphology.height);
     }
-    console.log(modelSize);
-    console.log("----------", modelList.size);
+    console.log(modelheight);
+    console.log("----------", modelList.height);
   }
 
   if (modelList.morphologie) {
     console.log("----------", modelList.morphologie);
-    // for (var i; i <= modelWeight.length; i++) {
-    //   if (
-    //     modelWeight[i].weight >= sizeMin &&
-    //     modelWeight[i].weight <= sizeMax
-    //   ) {
-    //     modelSize.push(modelWeight[i]);
-    //   }
-    //   console.log(modelSize[i].weight);
-    // }
   }
   if (modelList.age) {
     console.log("----------", modelList.age);
   }
-  return modelSize;
+  return modelheight;
 }
 
 document.getElementById("myBtn").style.visibility="hidden";  
 
-var modelId = 0
 
-function getModelFromId() {
+function getModelFromId(modelId) {
+  spinner.removeAttribute('hidden');
+
   fetch("http://api.fittinghome.fr/body/getByid/" + modelId)
     .then((response) => {
       if (response.ok) {
@@ -100,48 +109,19 @@ function getModelFromId() {
     })
     .then((data) => {
       modelPathTd = data;
-      console.log("data print :", modelPathTd);
+      console.log("data print by id :", modelPathTd);
       modelPath = modelPathTd
+      spinner.setAttribute('hidden', '')
+
     })
     .catch((error) => console.error("FETCH ERROR:", error));
 }
 
 var canContinue = false
-function prevMorpho() {
-  getModels();
-  console.log(dataApi);
-  var finalModels = [];
-  var modelToDisp = [];
-
-  ////get final model
-  if (dataApi) {
-    document.getElementById("myBtn").style.visibility="visible";  
-    console.log("myBtn")
-    
-    // finalModels = compareModels();
-  
-    // ////// assign path new model
-    // modelToDisp = finalModels[0];
-    // modelPath = modelToDisp.path;
-  
-    // console.log(finalModels.id)
-    // modelId = modelToDisp[0].id
-    // getModelFromId()
-  
-    // ////// search models choice
-    // finalModels.forEach((element) => {
-    //   console.log(element);
-    // });
-
-  } else {
-    console.log("error : couldn't find data")
-  }
-
-}
-
 
 function getModels() {
-  console.log("get")
+  spinner.removeAttribute('hidden');
+
   fetch("http://api.fittinghome.fr/body/getAll")
     .then((response) => {
       if (response.ok) {
@@ -151,23 +131,68 @@ function getModels() {
       }
     })
     .then((data) => {
-      dataApi = data;
       console.log("data print :", data);
+      dataApi = data
+            spinner.setAttribute('hidden', '')
+
     })
     .catch((error) => console.error("FETCH ERROR:", error));
 }
 
 function defineMorpho(value) {
-  if (value != "femme")
-    modelList.isMale = true
-  else 
-    modelList.isMale = false
-  console.log(modelList.isMale)
+  modelList.morphologie = value
+}
+function prevMorpho() {
+  getModels();
+  console.log(dataApi);
+  var finalModels = [];
+  var modelToDisp = [];
+
+  
+  /////////////////////////////////
+  const images = [
+    {image : "http://placekitten.com/400/307", id: "test"},
+    {image : "http://placekitten.com/400/307", id: "test"},
+    {image : "http://placekitten.com/400/307", id: "test"}
+  ]
+  
+  ////////////////////////////////////
+  ////get final model
+
+  if (dataApi) {
+    document.getElementById("myBtn").style.visibility="visible";  
+    console.log("myBtn")
+    
+    finalModels = compareModels();
+
+    console.log("final", finalModels)
+  
+    ////// assign path new model
+    modelToDisp = finalModels[0];
+
+    localStorage.setItem("modelToDisp", modelToDisp);
+    localStorage.setItem("finalModels", JSON.stringify(images));
+    // modelPath = modelToDisp.path;
+  
+    console.log(modelToDisp._id)
+    modelId = modelToDisp._id
+    // getModelFromId(modelId)
+  
+    ////// search models choice
+    finalModels.forEach((element) => {
+      console.log(element);
+    });
+
+  } else {
+    console.log("error : couldn't find data")
+  }
+
 }
 
 /* global THREE */
 
 function modelHandler() {
+
   const canvas = document.querySelector("#c");
   const renderer = new THREE.WebGLRenderer({ canvas });
 
@@ -210,9 +235,13 @@ function modelHandler() {
 
     if (window.morphologie) console.log(morphologie);
     objLoader.load(modelPath, (event) => {
+      spinner.removeAttribute('hidden');
+
       const root = event.detail.loaderRootNode;
       scene.add(root);
+      spinner.setAttribute('hidden', '')
     });
+
   }
 
  
@@ -242,7 +271,12 @@ function modelHandler() {
 modelHandler();
 
 
+///////// get chosen item /////////////////////
 
+function setIdModelDisp(object) {
+  console.log(object.id)
+  var modelChoose = object.id
+}
 ////////////////////
 
 function maxLengthCheck(object) {
@@ -263,7 +297,7 @@ function maxLengthCheck(object) {
     modelList.age = object.value;
   }
   if (object.id === "numberSize") {
-    modelList.size = object.value;
+    modelList.height = object.value;
   }
   if (object.id === "numberWeight") {
     modelList.weight = object.value;

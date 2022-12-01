@@ -14,11 +14,11 @@
 </head>
 <body>
     <div class="parent clearfix">
-        <div id="load" class="trigger" style="visibility: hidden;"></div>
-            <canvas class="iframewrapper" id="c"></canvas>
+        <canvas class="iframewrapper" id="c"></canvas>
         <div class="login">
-          <div class="container2">
-            <h1 class="title2">Création de profil</h1>
+            <div class="container2">
+                <div hidden id="spinner"></div>
+                <h1 class="title2">Création de profil</h1>
             <div class="login-form">
               <form onsubmit="return login()" action="">
                 <div class="name_form">
@@ -111,26 +111,28 @@
                     </a>
                 </div>
                 <script>
+                var finalModel = JSON.parse(localStorage.getItem("finalModels"));
+                    console.log("frr", finalModel)
                     const images = ["http://placekitten.com/400/307", "http://placekitten.com/200/100", "http://placekitten.com/402/300", "http://placekitten.com/440/300", "http://placekitten.com/400/300", "http://placekitten.com/400/300", "http://placekitten.com/400/300", "http://placekitten.com/400/300"];
-                    const myHtml = images.map(function (path) {
-                        return '<img class="grid-item" src="' + path + '">';
+                    const myHtml = finalModel.map(function (path) {
+                        return '<img class="grid-item" onclick="setIdModelDisp(this)" + id="'+ path.id +'" src="' + path.image + '">';
                     }).join('');
                     
                         document.getElementById('img_grid').innerHTML = myHtml;
                 </script>
             </div>
             <script>
-                const pict = document.getElementById('img_grid');
-
-                pict.addEventListener('click', function onClick(event) {
-                console.log(event.target.style.backgroundColor);
-                pict.style.backgroundColor = 'salmon';
-
+                
                 // 👇️ change background color
+                // const pict = document.getElementById('picture_grid');
 
-                // 👇️ optionally change text color
-                // event.target.style.color = 'white';
-                });
+                // pict.addEventListener('click', function onClick(event) {
+                // console.log(event.target.style.backgroundColor);
+                // pict.style.backgroundColor = 'salmon';
+
+                // // 👇️ optionally change text color
+                // // event.target.style.color = 'white';
+                // });
                 var modal = document.getElementById("myModal");
                 var btn = document.getElementById("myBtn");
                 var span = document.getElementsByClassName("close")[0];

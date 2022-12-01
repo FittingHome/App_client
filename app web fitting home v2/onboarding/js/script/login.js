@@ -2,7 +2,7 @@ const url = "http://api.fittinghome.fr/user/connect";
 
 var jwt = localStorage.getItem("jwt");
 if (jwt != null) {
-  window.location.href = '../../index.php'
+  // window.location.href = '../../index.php'
 }
 console.log(jwt)
 
@@ -21,8 +21,9 @@ function login() {
     if (this.readyState == 4) {
       const objects = JSON.parse(this.responseText);
       console.log("obj", objects);
-      window.location.href = '/'
+      // window.location.href = '/'
       localStorage.setItem("jwt", objects['id']);
+      localStorage.setItem("userId", objects._id)
 
       // if (objects['status'] == 'ok') {
       //   alert("login")
