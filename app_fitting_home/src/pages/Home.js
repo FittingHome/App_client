@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Navbar from "./login/components/Navbar";
 
 function Home() {
   return (
@@ -6,6 +7,7 @@ function Home() {
       <h1>Home</h1>
       <nav>
         <ul>
+          <Navbar></Navbar>
           <li>
             <Link to="/login">login</Link>
           </li>

@@ -170,7 +170,7 @@ function Login() {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Connection
+                Connexion
               </LoginButton>
               <RegisterButton
                 type="submit"
