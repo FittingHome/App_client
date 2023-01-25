@@ -19,6 +19,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import AvatarCreationDisplay from "../components/AvatarCreationDisplay";
 import "../../../style/App.css";
+import ModalSelect from "../components/Modal";
 
 const LoginButton = styled(Button)({
   backgroundColor: "#7C3E3D",
@@ -96,6 +97,13 @@ function AvatarCreation() {
     });
   };
 
+  const [num, setNum] = React.useState("");
+
+  const handleNumChange = (event) => {
+    const limit = 4;
+    setNum(event.target.value.slice(0, limit));
+  };
+
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -132,11 +140,15 @@ function AvatarCreation() {
               >
                 <Grid item xs={12} sm={6}>
                   <LogTextField
+                    inputProps={{ minLength: 2, maxLength: 3 }}
+                    type="number"
                     fullWidth
                     id="age"
                     label="Age"
                     name="age"
                     autoComplete="age"
+                    value={num}
+                    onChange={handleNumChange}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -150,6 +162,7 @@ function AvatarCreation() {
                       value={sexe}
                       label="Sexe"
                       onChange={handleChange}
+                      fullWidth
                     >
                       <MenuItem value="">
                         <em>Sexe</em>
@@ -161,19 +174,22 @@ function AvatarCreation() {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <LogTextField
-                    fullWidth
+                    inputProps={{ maxLength: 3 }}
+                    type="number"
                     id="size"
                     label="Taille"
                     name="size"
                     autoComplete="size"
+                    fullWidth
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <LogTextField
+                    inputProps={{ maxLength: 3 }}
+                    type="number"
                     fullWidth
                     name="weight"
                     label="Poids"
-                    type="weight"
                     id="weight"
                     autoComplete="weight"
                   />
@@ -187,14 +203,7 @@ function AvatarCreation() {
               >
                 Prévisualiser
               </LoginButton>
-              <LoginButton
-                type="submit"
-                fullWidth
-                variant="contained"
-                onClick={navigateRegister}
-              >
-                Continuer ?
-              </LoginButton>
+              <ModalSelect></ModalSelect>
             </Box>
           </Box>
         </Container>

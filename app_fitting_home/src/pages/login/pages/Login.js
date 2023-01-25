@@ -9,6 +9,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import { useEffect } from "react";
 
 import { useState } from "react";
 import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
@@ -76,35 +77,44 @@ async function loginUser(credentials) {
 }
 
 function Login() {
-  const [username, setUserName] = useState();
+  const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
   const navigate = useNavigate();
   const navigateRegister = () => {
     navigate("/register");
   };
+  const url = "http://api.fittinghome.fr/user/connect";
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const response = await loginUser({
-      username,
-      password,
+    // GET request using fetch inside useEffect React hook
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+      },
+      body: JSON.stringify(email, password),
+    }).then((value) => {
+      window.location.href = "/home";
     });
-    if ("accessToken" in response) {
-      console
-        .log("Success", response.message, "success", {
-          buttons: false,
-          timer: 2000,
-        })
-        .then((value) => {
-          localStorage.setItem("accessToken", response["accessToken"]);
-          localStorage.setItem("user", JSON.stringify(response["user"]));
-          window.location.href = "/profile";
-        });
-    } else {
-      console.log("Failed :", response.message, "error");
-    }
+
+    // empty dependency array means this effect will only run once (like componentDidMount in classes)
+    // if ("accessToken" in response) {
+    //   console
+    //     .log("Success", response.message, "success", {
+    //       buttons: false,
+    //       timer: 2000,
+    //     })
+    //     .then((value) => {
+    //       localStorage.setItem("accessToken", response["accessToken"]);
+    //       localStorage.setItem("user", JSON.stringify(response["user"]));
+    //       window.location.href = "/profile";
+    //     });
+    // } else {
+    //   console.log("Failed :", response.message, "error");
+    // }
   };
   return (
     <>
@@ -148,7 +158,7 @@ function Login() {
                     label="Adresse email"
                     name="email"
                     autoComplete="email"
-                    onChange={(e) => setUserName(e.target.value)}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </Grid>
                 <Grid item xs={12}>
