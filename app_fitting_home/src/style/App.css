@@ -36,6 +36,18 @@ h2{
   color: #61dafb;
 }
 
+.navbar-nav a {
+  font-size: 18px;
+}
+
+.colors button {
+  width: 30px;
+  height: 30px;
+  outline: none;
+  border: 0px solid;
+  border-radius: 50%;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
