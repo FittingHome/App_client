@@ -95,7 +95,8 @@ async function loginUser(credentials) {
 function Login() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [open, setOpen] = useState(false);
+  const [openWrong, setOpenWrong] = useState(false);
+  const [openRight, setOpenRight] = useState(false);
 
   const navigate = useNavigate();
   const navigateRegister = () => {
@@ -104,7 +105,7 @@ function Login() {
   const url = "http://api.fittinghome.fr/user/connect";
 
   const handleClick = () => {
-    setOpen(true);
+    setOpenWrong(true);
   };
 
   const handleSubmit = async (event) => {
@@ -117,9 +118,19 @@ function Login() {
         "Content-Type": "application/json;charset=UTF-8",
       },
       body: JSON.stringify(email, password),
-    }).then((value) => {
-      window.location.href = "/home";
-    });
+    })
+      .then((response) => {
+        if (response.ok) {
+          window.location.href = "/home";
+        } else {
+          setOpenWrong(true);
+          throw new Error("login failed");
+        }
+      })
+      .catch((error) => {
+        console.error("Error", error);
+        setOpenWrong(true);
+      });
 
     // empty dependency array means this effect will only run once (like componentDidMount in classes)
     // if ("accessToken" in response) {
@@ -213,16 +224,16 @@ function Login() {
               </RegisterButton>
             </Box>
           </Box>
-          <Button variant="outlined" onClick={handleClick}>
-            #test snackbar#
-          </Button>
           <AlertWrong
-            open={open}
-            setOpen={setOpen}
+            open={openWrong}
+            setOpen={setOpenWrong}
             text="Votre mot de passe est incorrect"
           >
             <Typography variant="body"></Typography>
           </AlertWrong>
+          <AlertRight open={openRight} setOpen={setOpenRight} text="Bonjour">
+            <Typography variant="body"></Typography>
+          </AlertRight>
         </Container>
       </ThemeProvider>
     </>
