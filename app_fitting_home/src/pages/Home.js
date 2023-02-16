@@ -15,44 +15,7 @@ import Stack from "@mui/material/Stack";
 import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 import Divider from "@mui/material/Divider";
 import Paper from "@mui/material/Paper";
-
-const LoginButton = styled(Button)({
-  backgroundColor: "#FFFFFF",
-  color: "#7C3E3D",
-
-  borderRadius: 6,
-  "&:hover": {
-    color: "#FFFFFF",
-    backgroundColor: "#7C3E3D",
-  },
-});
-
-const RegisterButton = styled(Button)({
-  backgroundColor: "#7C3E3D",
-  borderRadius: 6,
-  "&:hover": {
-    backgroundColor: "#FFFFFF",
-    color: "#7C3E3D",
-  },
-});
-
-const LogTextField = styled(TextField)({
-  "& label.Mui-focused": {
-    color: "#7C3E3D",
-    borderBottomColor: "#7C3E3D",
-  },
-  "& .MuiOutlinedInput-root": {
-    "& fieldset": {
-      borderColor: "black",
-    },
-    "&:hover fieldset": {
-      borderColor: "grey",
-    },
-    "&.Mui-focused fieldset": {
-      borderColor: "#7C3E3D",
-    },
-  },
-});
+import ObjFile from "./login/components/ObjFile";
 
 const theme = createTheme({
   typography: {
@@ -64,29 +27,81 @@ const theme = createTheme({
   },
 });
 
-theme.typography.h1 = {
+const LoginButton = styled(Button)({
+  backgroundColor: "#FFFFFF",
+  color: "#7C3E3D",
+  width: 100,
+  fontSize: "0.8rem",
+  borderRadius: 6,
+  "&:hover": {
+    color: "#FFFFFF",
+    backgroundColor: "#7C3E3D",
+  },
+  "@media (min-width:600px)": {
+    width: 140,
+    fontSize: "0.9rem",
+  },
+  [theme.breakpoints.up("md")]: {
+    width: 160,
+    fontSize: "1.2rem",
+  },
+});
+
+const RegisterButton = styled(Button)({
+  backgroundColor: "#7C3E3D",
+  borderRadius: 6,
+  width: 100,
+  fontSize: "0.6rem",
+  "&:hover": {
+    backgroundColor: "#FFFFFF",
+    color: "#7C3E3D",
+  },
+  "@media (min-width:600px)": {
+    width: 140,
+    fontSize: "0.9rem",
+  },
+  [theme.breakpoints.up("md")]: {
+    width: 160,
+    fontSize: "1.2rem",
+  },
+});
+
+theme.typography.body2 = {
   fontWeight: "200",
-  fontSize: "3.2rem",
+  fontSize: "1rem",
   "@media (min-width:600px)": {
     fontWeight: "200",
-    fontSize: "6.5rem",
+    fontSize: "1.2rem",
   },
   [theme.breakpoints.up("md")]: {
     fontWeight: "200",
-    fontSize: "8rem",
+    fontSize: "1.6rem",
+  },
+};
+
+theme.typography.h1 = {
+  fontWeight: "200",
+  fontSize: "3.6rem",
+  "@media (min-width:600px)": {
+    fontWeight: "200",
+    fontSize: "5.6rem",
+  },
+  [theme.breakpoints.up("md")]: {
+    fontWeight: "200",
+    fontSize: "6.8rem",
   },
 };
 
 theme.typography.h2 = {
   fontWeight: "200",
-  fontSize: "2.2rem",
+  fontSize: "3.2rem",
   "@media (min-width:600px)": {
     fontWeight: "200",
     fontSize: "4.5rem",
   },
   [theme.breakpoints.up("md")]: {
     fontWeight: "200",
-    fontSize: "6rem",
+    fontSize: "5rem",
   },
 };
 
@@ -102,67 +117,57 @@ function Home() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Grid
-          container
-          justifyContent="flex-end"
+        <Box
+          align="right"
           sx={{
-            marginTop: "2%",
+            marginTop: "8%",
             marginBottom: "4%",
+            marginRight: "10%",
           }}
         >
           <Box
             sx={{
-              marginTop: "8%",
               marginBottom: "4%",
-              marginRight: "10%",
-              width: "80%",
             }}
           >
-            <Box
-              sx={{
-                marginBottom: "4%",
-              }}
-            >
-              <Grid container justifyContent="flex-end">
-                <Typography variant="h2">Bienvenue sur </Typography>
-              </Grid>
-
-              <Grid container justifyContent="flex-end">
-                <Typography variant="h1">FittingHome </Typography>
-              </Grid>
-            </Box>
             <Grid container justifyContent="flex-end">
-              <Box
-                sx={{
-                  width: "60%",
-                }}
-              >
-                <Typography variant="body2">
-                  FittingHome vous donne la posibilité d'accéder à votre propre
-                  cabine d'essayage virtuel grace à une technologie dernier cri
-                  !
-                </Typography>
-              </Box>
+              <Typography variant="h2">Bienvenue sur </Typography>
             </Grid>
-            <Grid
-              container
-              sx={{
-                marginTop: "2%",
-                marginBottom: "4%",
-                justifyContent: "right",
-              }}
-            >
-              <Stack spacing={2} direction="row">
-                <LoginButton variant="contained" onClick={navigateLogin}>
-                  Connexion
-                </LoginButton>
-                <RegisterButton variant="contained" onClick={navigateRegister}>
-                  S'inscrire ?
-                </RegisterButton>
-              </Stack>
+
+            <Grid container justifyContent="flex-end">
+              <Typography variant="h1">FittingHome </Typography>
             </Grid>
           </Box>
-        </Grid>
+          <Grid container justifyContent="flex-end">
+            <Typography
+              variant="body2"
+              align="right"
+              sx={{
+                width: "60%",
+                minWidth: "300px",
+              }}
+            >
+              FittingHome vous donne la possibilité d'accéder à votre propre
+              cabine d'essayage virtuel grace à une technologie dernier cri !
+            </Typography>
+          </Grid>
+          <Grid
+            container
+            sx={{
+              marginTop: "6%",
+              justifyContent: "right",
+            }}
+          >
+            <Stack spacing={2} direction="row">
+              <LoginButton variant="contained" onClick={navigateLogin}>
+                Connexion
+              </LoginButton>
+              <RegisterButton variant="contained" onClick={navigateRegister}>
+                S'inscrire ?
+              </RegisterButton>
+            </Stack>
+          </Grid>
+        </Box>
       </ThemeProvider>
     </>
   );

@@ -10,10 +10,13 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useEffect } from "react";
-
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 import { useState } from "react";
 import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 import "../../../style/App.css";
+import AlertWrong from "../../../component/alert/AlertWrong";
+import AlertRight from "../../../component/alert/AlertRight";
 
 const LoginButton = styled(Button)({
   backgroundColor: "#7C3E3D",
@@ -63,6 +66,19 @@ const theme = createTheme({
   },
 });
 
+theme.typography.body = {
+  fontWeight: "500",
+  fontSize: "0.7rem",
+  "@media (min-width:600px)": {
+    fontWeight: "450",
+    fontSize: "0.8rem",
+  },
+  [theme.breakpoints.up("md")]: {
+    fontWeight: "400",
+    fontSize: "0.9rem",
+  },
+};
+
 async function loginUser(credentials) {
   const url = "http://api.fittinghome.fr/user/connect";
 
@@ -79,12 +95,17 @@ async function loginUser(credentials) {
 function Login() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [open, setOpen] = useState(false);
 
   const navigate = useNavigate();
   const navigateRegister = () => {
     navigate("/register");
   };
   const url = "http://api.fittinghome.fr/user/connect";
+
+  const handleClick = () => {
+    setOpen(true);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -192,6 +213,16 @@ function Login() {
               </RegisterButton>
             </Box>
           </Box>
+          <Button variant="outlined" onClick={handleClick}>
+            #test snackbar#
+          </Button>
+          <AlertWrong
+            open={open}
+            setOpen={setOpen}
+            text="Votre mot de passe est incorrect"
+          >
+            <Typography variant="body"></Typography>
+          </AlertWrong>
         </Container>
       </ThemeProvider>
     </>

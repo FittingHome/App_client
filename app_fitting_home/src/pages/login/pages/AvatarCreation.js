@@ -20,6 +20,7 @@ import Select from "@mui/material/Select";
 import AvatarCreationDisplay from "../components/AvatarCreationDisplay";
 import "../../../style/App.css";
 import ModalSelect from "../components/Modal";
+import ObjFile from "../components/ObjFile";
 
 const LoginButton = styled(Button)({
   backgroundColor: "#7C3E3D",
@@ -109,6 +110,10 @@ function AvatarCreation() {
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
+          <Box>
+            <ObjFile />
+          </Box>
+
           <Box
             sx={{
               bgcolor: "background.paper",
