@@ -47,42 +47,33 @@ const Product = () => {
 
     const ShowProduct = () => {
         return (
-            <>
-                <div className="col-md-6">
-                    <img src={product.image} alt={product.title} height="400px" width="400px" />
-                </div>
-                <div className="col-md-6">
-                    <h4 className="text-uppercase text-black-50">{product.category}</h4>
-                    <h1 className="display-5">{product.title}</h1>
-                    <h3 className="display-6 fw-bold my-4">{product.price} €</h3>
-                    <div className="buttons d-flex my-4">
+            <div>
+                <h4 className="text-uppercase text-black-50">{product.category}</h4>
+                <h1 className="display-5">{product.title}</h1>
+                <h3 className="display-6 fw-bold my-4">{product.price} €</h3>
+                <div className="buttons d-flex my-4">
                     {["S", "M", "L", "XL"].map((size) => {
                         return (
-                            <button className="btn btn-outline-dark me-2">{size}</button>
+                            <button key={size} className="btn btn-outline-dark me-2">{size}</button>
                         );
                     })}
-                    </div>
-                    <div className="buttons d-flex colors my-4">
+                </div>
+                <div className="buttons d-flex colors my-4">
                     {["red", "blue", "green", "black"].map((color) => {
                         return (
-                            <button className="btn btn-outline-dark me-2" style={{ background: color }}></button>
+                            <button key={color} className="btn btn-outline-dark me-2" style={{ background: color }}></button>
                         );
                     })}
-                    </div>
-                    <button className="btn btn-outline-dark px-4 py-2" onClick={() => addProduct(product)}>Ajouter au panier</button>
-                    <NavLink to="/shopping-cart" className="btn btn-dark ms-2 px-3 py-2">Aller au panier</NavLink>
                 </div>
-            </>
+                <button className="btn btn-outline-dark px-4 py-2" onClick={() => addProduct(product)}>Ajouter au panier</button>
+                <NavLink to="/shopping-cart" className="btn btn-dark ms-2 px-3 py-2">Aller au panier</NavLink>
+            </div>
         );
     };
 
     return (
         <div>
-            <div className="container py-5">
-                <div className="row py-4">
-                    {loading ? <Loading /> : <ShowProduct />}
-                </div>
-            </div>
+            {loading ? <Loading /> : <ShowProduct />}
         </div>
     );
 }

@@ -58,7 +58,7 @@ const FittingCart = () => {
     return (
         <div>
             <div className="container my-5">
-                <div className="overflow-auto" style={{ "max-width": "400px", "max-height": "500px" }}>
+                <div className="overflow-auto" style={{ "maxWidth": "400px", "maxHeight": "500px" }}>
                     <div className="text-center mb-2 pb-3">
                         <h2>Mon Panier</h2>
                     </div>
