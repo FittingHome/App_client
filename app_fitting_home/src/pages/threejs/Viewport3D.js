@@ -102,7 +102,7 @@ const Viewport3D = () => {
 
 	return (
 		<div className="container my-5">
-			<canvas className="col-12" id="c"></canvas>
+			<canvas className="col-12" id="c" style={{ maxHeight: "450px"}}></canvas>
 		</div>
 	)
 }

@@ -10,6 +10,9 @@ import ShoppingCart from "./pages/home/pages/ShoppingCart";
 import Account from "./pages/home/pages/Account";
 import ProductDetail from "./pages/home/pages/ProductDetail";
 import Checkout from "./pages/home/pages/Checkout";
+import StripePayment from "./pages/home/pages/StripePayment";
+import StripeCompletion from "./pages/home/pages/StripeCompletion";
+import AR from "./pages/home/pages/AR";
 
 function App() {
   return (
@@ -25,6 +28,9 @@ function App() {
         <Route path="/shopping-cart" element={<ShoppingCart />} />
         <Route path="/account" element={<Account />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/payment" element={<StripePayment />} />
+        <Route path="/completion" element={<StripeCompletion />} />
+        <Route path="/ar-view" element={<AR />} />
       </Routes>
     </>
   );
