@@ -64,7 +64,7 @@ const Product = () => {
                     {["S", "M", "L", "XL"].map((s) => {
                         const isActive = (s === size ? "active" : "");
                         return (
-                            <button id={s} key={s} className={"size btn btn-outline-dark me-2 " + isActive} onClick={(e) => setSize(e.target.id)}>{s}</button>
+                            <button id={s} key={s} className={"btn btn-outline-dark me-2 " + isActive} onClick={(e) => setSize(e.target.id)}>{s}</button>
                         );
                     })}
                 </div>

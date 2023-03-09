@@ -1,10 +1,10 @@
 import * as THREE from './libs/three/three.module.js';
-import { GLTFLoader } from './libs/three/jsm/GLTFLoader.js';
+import { FBXLoader } from './libs/three/jsm/FBXLoader.js';
 import { LoadingBar } from './libs/LoadingBar.js';
 
 class App{
-	constructor(){
-		const container = document.createElement( 'div' );
+    init(){
+        const container = document.createElement( 'div' );
 		document.body.appendChild( container );
         
         this.loadingBar = new LoadingBar();
@@ -39,9 +39,8 @@ class App{
         this.setupXR();
 		
 		window.addEventListener('resize', this.resize.bind(this) );
-        
-	}
-    
+    }
+
     setupXR(){
         this.renderer.xr.enabled = true;
         
@@ -65,11 +64,11 @@ class App{
         this.hitTestSource = null;
         
         function onSelect() {
-            if (self.chair===undefined) return;
+            if (self.model===undefined) return;
             
             if (self.reticle.visible){
-                self.chair.position.setFromMatrixPosition( self.reticle.matrix );
-                self.chair.visible = true;
+                self.model.position.setFromMatrixPosition( self.reticle.matrix );
+                self.model.visible = true;
             }
         }
 
@@ -85,10 +84,11 @@ class App{
     	this.renderer.setSize( window.innerWidth, window.innerHeight ); 
     }
     
-	showChair(id){
+	showModel(id){
+        this.init();
         this.initAR();
         
-		const loader = new GLTFLoader( ).setPath(this.assetsPath);
+		const loader = new FBXLoader().setPath(this.assetsPath);
         const self = this;
         
         this.loadingBar.visible = true;
@@ -96,14 +96,14 @@ class App{
 		// Load a glTF resource
 		loader.load(
 			// resource URL
-			`chair.glb`,
+			`chair.fbx`,
 			// called when the resource is loaded
-			function ( gltf ) {
+			function ( object ) {
 
-				self.scene.add( gltf.scene );
-                self.chair = gltf.scene;
-        
-                self.chair.visible = false; 
+				self.scene.add( object );
+                self.model = object;
+                self.model.scale.set(0.05, 0.05, 0.05);
+                self.model.visible = false; 
                 
                 self.loadingBar.visible = false;
                 
@@ -148,9 +148,9 @@ class App{
 
             currentSession = null;
             
-            if (self.chair !== null){
-                self.scene.remove( self.chair );
-                self.chair = null;
+            if (self.model !== null){
+                self.scene.remove( self.model );
+                self.model = null;
             }
             
             self.renderer.setAnimationLoop( null );
