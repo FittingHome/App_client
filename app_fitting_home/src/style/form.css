@@ -26,6 +26,12 @@ body {
   color: #7c3e3d;
 }
 
+.iframewrapper {
+  border-radius: 10px;
+  height: 200%;
+  width: 100%;
+}
+
 .bg-illustration {
   filter: blur(2px);
   background: url("../assets/images/image\ 4.png");

@@ -25,11 +25,7 @@ function AlertRight(opener) {
   };
 
   return (
-    <Snackbar
-      open={opener.open}
-      autoHideDuration={300000}
-      onClose={handleClose}
-    >
+    <Snackbar open={opener.open} autoHideDuration={3000} onClose={handleClose}>
       <CustomAlert
         elevation={6}
         variant="filled"

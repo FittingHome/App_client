@@ -11,16 +11,20 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useEffect } from "react";
 import Snackbar from "@mui/material/Snackbar";
-import MuiAlert from "@mui/material/Alert";
+import CircularProgress from "@mui/material/CircularProgress";
 import { useState } from "react";
 import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 import "../../../style/App.css";
 import AlertWrong from "../../../component/alert/AlertWrong";
 import AlertRight from "../../../component/alert/AlertRight";
+import { color } from "@mui/system";
+import { TurnedIn } from "@mui/icons-material";
 
 const LoginButton = styled(Button)({
   backgroundColor: "#7C3E3D",
   borderRadius: 6,
+  border: "solid 1px",
+
   "&:hover": {
     backgroundColor: "#FFFFFF",
     color: "#7C3E3D",
@@ -30,6 +34,7 @@ const LoginButton = styled(Button)({
 const RegisterButton = styled(Button)({
   backgroundColor: "#FFFFFF",
   color: "#7C3E3D",
+  border: "solid 1px",
 
   borderRadius: 6,
   "&:hover": {
@@ -79,24 +84,26 @@ theme.typography.body = {
   },
 };
 
-async function loginUser(credentials) {
-  const url = "http://api.fittinghome.fr/user/connect";
+// async function loginUser(credentials) {
+//   const url = "http://api.fittinghome.fr/user/connect";
 
-  console.log("data sent :", credentials);
-  return fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json;charset=UTF-8",
-    },
-    body: JSON.stringify(credentials),
-  }).then((data) => data.json());
-}
+//   console.log("data sent :", credentials);
+//   return fetch(url, {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json;charset=UTF-8",
+//     },
+//     body: JSON.stringify(credentials),
+//   }).then((data) => data.json());
+// }
 
 function Login() {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [openWrong, setOpenWrong] = useState(false);
   const [openRight, setOpenRight] = useState(false);
+  const [isEmpty, setIsEmpty] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const navigateRegister = () => {
@@ -107,12 +114,19 @@ function Login() {
   const handleClick = () => {
     setOpenWrong(true);
   };
-
+  useEffect(() => {
+    if (password.length > 1 && email.length > 1) {
+      setIsEmpty(true);
+    } else {
+      setIsEmpty(false);
+    }
+  }, [password, email]);
   const handleSubmit = async (event) => {
+    setLoading(true);
     event.preventDefault();
-
+    console.log("isloding", isLoading);
     // GET request using fetch inside useEffect React hook
-    fetch(url, {
+    await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
@@ -124,13 +138,17 @@ function Login() {
           window.location.href = "/home";
         } else {
           setOpenWrong(true);
+          setLoading(false);
+
           throw new Error("login failed");
         }
       })
       .catch((error) => {
         console.error("Error", error);
+        setLoading(false);
         setOpenWrong(true);
       });
+    // .finally(setLoading(true));
 
     // empty dependency array means this effect will only run once (like componentDidMount in classes)
     // if ("accessToken" in response) {
@@ -206,14 +224,27 @@ function Login() {
                   />
                 </Grid>
               </Grid>
-              <LoginButton
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                Connexion
-              </LoginButton>
+              {isEmpty ? (
+                <LoginButton
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  Connexion
+                </LoginButton>
+              ) : (
+                <LoginButton
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                  disabled
+                >
+                  Connexion
+                </LoginButton>
+              )}
+
               <RegisterButton
                 type="submit"
                 fullWidth
@@ -224,10 +255,17 @@ function Login() {
               </RegisterButton>
             </Box>
           </Box>
+          {isLoading && (
+            <div
+              style={{ position: "absolute", bottom: "20px", right: "20px" }}
+            >
+              <CircularProgress style={{ color: "#7C3E3D" }} size={60} />
+            </div>
+          )}
           <AlertWrong
             open={openWrong}
             setOpen={setOpenWrong}
-            text="Votre mot de passe est incorrect"
+            text="Votre mot de passe ou login est incorrect"
           >
             <Typography variant="body"></Typography>
           </AlertWrong>

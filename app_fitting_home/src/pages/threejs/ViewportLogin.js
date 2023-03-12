@@ -3,10 +3,17 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
 import { MTLLoader } from "three/examples/jsm/loaders/MTLLoader";
+import "../../style/form.css";
+import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 
-const Viewport3D = () => {
-  const url = "/Henry/Henry";
+const theme = createTheme({});
 
+const CanvasModel = styled("canvas")({
+  height: 600,
+  width: 600,
+});
+
+const ViewportLogin = ({ url }) => {
   useEffect(() => {
     let scene,
       camera,
@@ -17,12 +24,12 @@ const Viewport3D = () => {
     const init = () => {
       scene = new THREE.Scene();
       camera = new THREE.PerspectiveCamera(
-        15,
+        12,
         window.innerWidth / window.innerHeight,
         0.1,
         30000
       );
-      camera.position.z = 85;
+      camera.position.z = 15;
       camera.position.x = 0;
       camera.position.y = 0;
 
@@ -33,13 +40,13 @@ const Viewport3D = () => {
       });
       renderer.setClearColor(0xffffff);
 
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+      const ambientLight = new THREE.AmbientLight(0xdddddd, 0.3);
       ambientLight.castShadow = true;
       scene.add(ambientLight);
 
-      const spotLight = new THREE.SpotLight(0xffffff, 1);
+      const spotLight = new THREE.SpotLight(0xdddddd, 1);
       spotLight.castShadow = true;
-      spotLight.position.set(0, 64, 32);
+      spotLight.position.set(20, 24, 12);
       scene.add(spotLight);
 
       const controls = new OrbitControls(camera, renderer.domElement);
@@ -47,28 +54,24 @@ const Viewport3D = () => {
     };
 
     const renderModel = (url) => {
-      const mtlLoader = new MTLLoader();
+      console.log(url + ".obj");
 
-      mtlLoader.load(`${url}.mtl`, (materials) => {
-        materials.preload();
-        const objLoader = new OBJLoader();
+      const objLoader = new OBJLoader();
 
-        objLoader.setMaterials(materials);
-        objLoader.load(
-          `${url}.obj`,
-          (object) => {
-            object.scale.set(0.011, 0.011, 0.011);
-            object.position.y = -11;
-            scene.add(object);
-          },
-          (xhr) => {
-            console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
-      });
+      objLoader.load(
+        `${url}.obj`,
+        (object) => {
+          object.scale.set(0.1, 0.1, 0.1);
+          object.position.y = -1;
+          scene.add(object);
+        },
+        (xhr) => {
+          console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     };
 
     const resizeRendererToDisplaySize = (renderer) => {
@@ -105,10 +108,12 @@ const Viewport3D = () => {
   }, []);
 
   return (
-    <div className="container my-5">
-      <canvas className="col-12" id="c"></canvas>
+    <div>
+      <ThemeProvider theme={theme}>
+        <CanvasModel className="iframewrapper" id="c"></CanvasModel>
+      </ThemeProvider>
     </div>
   );
 };
 
-export default Viewport3D;
+export default ViewportLogin;
