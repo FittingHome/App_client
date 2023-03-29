@@ -10,7 +10,8 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 const LoginButton = styled(Button)({
   backgroundColor: "#7C3E3D",
@@ -60,35 +61,96 @@ async function RegisterUser(credentials) {
   }).then((data) => data.json());
 }
 
+const EmailField = ({ email, setEmail }) => {
+  const [emailError, setEmailError] = useState(false);
+
+  const handleEmailChange = (event) => {
+    const emailValue = event.target.value;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    setEmail(emailValue);
+    setEmailError(!emailRegex.test(emailValue));
+  };
+
+  return (
+    <LogTextField
+      id="email"
+      label="Adresse email"
+      name="email"
+      autoComplete="email"
+      value={email}
+      error={emailError}
+      onChange={handleEmailChange}
+      helperText={emailError ? "Veuillez rentrer un email valide" : ""}
+      variant="outlined"
+      required
+      fullWidth
+    />
+  );
+};
+
 function Register() {
-  const [username, setUserName] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isEmpty, setIsEmpty] = useState(false);
+  const url = "http://api.fittinghome.fr/user/create";
 
   const navigate = useNavigate();
   const navigateRegister = () => {
     navigate("/avatar");
   };
-  const handleSubmit = async (event) => {
-    event.preventDefault();
 
-    const response = await RegisterUser({
-      username,
-      password,
-    });
-    if ("accessToken" in response) {
-      console
-        .log("Success", response.message, "success", {
-          buttons: false,
-          timer: 2000,
-        })
-        .then((value) => {
-          localStorage.setItem("accessToken", response["accessToken"]);
-          localStorage.setItem("user", JSON.stringify(response["user"]));
-          window.location.href = "/profile";
-        });
+  useEffect(() => {
+    if (password.length > 1 && email.length > 1) {
+      setIsEmpty(true);
     } else {
-      console.log("Failed :", response.message, "error");
+      setIsEmpty(false);
     }
+  }, [password, email]);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+      },
+      body: JSON.stringify(email, password),
+    })
+      .then((response) => {
+        if (response.ok) {
+          window.location.href = "/home";
+        } else {
+          throw new Error("login failed");
+        }
+      })
+      .then((data) => {
+        console.log("Success:", data);
+        localStorage.setItem("user", JSON.stringify(data));
+        navigateRegister();
+        // Add code here to store registration data in Local Storage
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
+    // const response = await RegisterUser({
+    //   email,
+    //   password,
+    // });
+    // if ("accessToken" in response) {
+    //   console
+    //     .log("Success", response.message, "success", {
+    //       buttons: false,
+    //       timer: 2000,
+    //     })
+    //     .then((value) => {
+    //       localStorage.setItem("accessToken", response["accessToken"]);
+    //       localStorage.setItem("user", JSON.stringify(response["user"]));
+    //       window.location.href = "/profile";
+    //     });
+    // } else {
+    //   console.log("Failed :", response.message, "error");
+    // }
   };
   return (
     <>
@@ -140,15 +202,7 @@ function Register() {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <LogTextField
-                    required
-                    fullWidth
-                    id="email"
-                    label="Adresse email"
-                    name="email"
-                    autoComplete="email"
-                    onChange={(e) => setUserName(e.target.value)}
-                  />
+                  <EmailField email={email} setEmail={setEmail} />
                 </Grid>
                 <Grid item xs={12}>
                   <LogTextField
@@ -163,15 +217,26 @@ function Register() {
                   />
                 </Grid>
               </Grid>
-              <LoginButton
-                onClick={navigateRegister}
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                s'inscrire
-              </LoginButton>
+              {isEmpty ? (
+                <LoginButton
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  Connexion
+                </LoginButton>
+              ) : (
+                <LoginButton
+                  type="submit"
+                  fullWidth
+                  variant="outlined"
+                  sx={{ mt: 3, mb: 2 }}
+                  disabled
+                >
+                  S'inscrire
+                </LoginButton>
+              )}
               <Grid container justifyContent="flex-end">
                 <Grid item>
                   <Link to="/login" variant="body2">

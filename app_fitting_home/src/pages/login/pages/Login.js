@@ -97,6 +97,34 @@ theme.typography.body = {
 //   }).then((data) => data.json());
 // }
 
+const EmailField = ({ email, setEmail }) => {
+  const [emailError, setEmailError] = useState(false);
+
+  const handleEmailChange = (event) => {
+    const emailValue = event.target.value;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    setEmail(emailValue);
+    setEmailError(!emailRegex.test(emailValue));
+  };
+
+  return (
+    <LogTextField
+      id="email"
+      label="Adresse email"
+      name="email"
+      autoComplete="email"
+      value={email}
+      error={emailError}
+      onChange={handleEmailChange}
+      helperText={emailError ? "Veuillez rentrer un email valide" : ""}
+      variant="outlined"
+      required
+      fullWidth
+    />
+  );
+};
+
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -126,7 +154,7 @@ function Login() {
     event.preventDefault();
     console.log("isloding", isLoading);
     // GET request using fetch inside useEffect React hook
-    await fetch(url, {
+    fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
@@ -142,6 +170,9 @@ function Login() {
 
           throw new Error("login failed");
         }
+      })
+      .then((data) => {
+        localStorage.setItem("user", JSON.stringify(data));
       })
       .catch((error) => {
         console.error("Error", error);
@@ -201,15 +232,7 @@ function Login() {
                 sx={{ marginTop: 2, marginBottom: 5 }}
               >
                 <Grid item xs={12}>
-                  <LogTextField
-                    required
-                    fullWidth
-                    id="email"
-                    label="Adresse email"
-                    name="email"
-                    autoComplete="email"
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
+                  <EmailField email={email} setEmail={setEmail} />
                 </Grid>
                 <Grid item xs={12}>
                   <LogTextField
