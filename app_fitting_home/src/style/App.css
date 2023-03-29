@@ -48,6 +48,12 @@ h2{
   border-radius: 50%;
 }
 
+.color.active {
+  border-color: #000000;
+  box-shadow: 0 0 10px 0.5px rgba(0, 0, 0, 0.2);
+  transform: scale(0.7);
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

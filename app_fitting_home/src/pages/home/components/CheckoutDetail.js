@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { NavLink } from 'react-router-dom';
 
 const CheckoutDetail = () => {
     const state = useSelector((state) => state.HandleCart)
@@ -56,25 +57,6 @@ const CheckoutDetail = () => {
                                 </div>
 
                                 <div className="col-12">
-                                    <label htmlFor="username" className="form-label">Nom d'utilisateur</label>
-                                    <div className="input-group has-validation">
-                                        <span className="input-group-text">@</span>
-                                        <input type="text" className="form-control" id="username" placeholder="Username" required="" />
-                                        <div className="invalid-feedback">
-                                            Votre nom d'utilisateur est obligatoire.
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="col-12">
-                                    <label htmlFor="email" className="form-label">Email <span className="text-muted">(Optionel)</span></label>
-                                    <input type="email" className="form-control" id="email" placeholder="you@example.com" />
-                                    <div className="invalid-feedback">
-                                        Entrez une adresse email valide.
-                                    </div>
-                                </div>
-
-                                <div className="col-12">
                                     <label htmlFor="address" className="form-label">Adresse</label>
                                     <input type="text" className="form-control" id="address" placeholder="1234 Main St" required="" />
                                     <div className="invalid-feedback">
@@ -110,24 +92,18 @@ const CheckoutDetail = () => {
                             <hr className="my-4" />
 
                             <div className="form-check">
-                                <input type="checkbox" className="form-check-input" id="same-address" />
+                                <input type="checkbox" className="form-check-input" id="same-address" checked/>
                                 <label className="form-check-label" htmlFor="same-address">L'adresse de livraison est la même que l'adresse de facturation</label>
                             </div>
 
                             <div className="form-check">
-                                <input type="checkbox" className="form-check-input" id="save-info" />
+                                <input type="checkbox" className="form-check-input" id="save-info" checked/>
                                 <label className="form-check-label" htmlFor="save-info">Enregistrer ces informations pour une prochaine fois</label>
                             </div>
 
                             <hr className="my-4" />
 
-                            <h4 className="mb-3">Paiement</h4>
-
-                            
-
-                            <hr className="my-4" />
-
-                            <button className="w-100 btn btn-primary btn-lg" type="submit">Procéder au paiement</button>
+                            <NavLink to={"/payment"} className="btn btn-dark ms-2 px-3 py-2">Procéder au paiement</NavLink>
                         </form>
                     </div>
                 </div>
