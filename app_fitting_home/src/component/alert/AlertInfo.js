@@ -16,7 +16,6 @@ const CustomAlert = styled(MuiAlert)({
 });
 
 function AlertInfo(opener) {
-  console.log(opener.open);
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;

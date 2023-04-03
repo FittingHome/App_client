@@ -95,7 +95,11 @@ const LoginButton = styled(Button)({
 
 const FetchModelCarrousel = () => {};
 
-export default function ModalSelect({ handlePrev, navigateRegister }) {
+export default function ModalSelect({
+  credentials,
+  handlePrev,
+  navigateRegister,
+}) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -104,12 +108,41 @@ export default function ModalSelect({ handlePrev, navigateRegister }) {
   const handleClose = () => setOpen(false);
   const [isImageSelected, setImageSelected] = React.useState(false);
   const [clickedIndex, setClickedIndex] = React.useState(-1);
-
   const selectImg = (index) => {
     console.log(index);
     setImageSelected(true);
     setClickedIndex(index);
   };
+  const url = "http://api.fittinghome.fr/user/create";
+
+  function handleClick() {
+    console.log("credentials", credentials);
+
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+      },
+      body: JSON.stringify(credentials.email, credentials.password),
+    })
+      .then((response) => {
+        if (response.ok) {
+          console.log("is okk");
+        } else {
+          throw new Error("login failed");
+        }
+      })
+      .then((data) => {
+        console.log("Success:", data);
+        localStorage.setItem("user", JSON.stringify(data));
+        navigateRegister();
+        // Add code here to store registration data in Local Storage
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        console.log("can't connect");
+      });
+  }
 
   return (
     <div>
@@ -177,17 +210,12 @@ export default function ModalSelect({ handlePrev, navigateRegister }) {
                 <LoginButton
                   type="submit"
                   variant="contained"
-                  onClick={navigateRegister}
+                  onClick={handleClick}
                 >
                   Continuer
                 </LoginButton>
               ) : (
-                <LoginButton
-                  type="submit"
-                  variant="contained"
-                  onClick={navigateRegister}
-                  disabled
-                >
+                <LoginButton type="submit" variant="contained" disabled>
                   Continuer
                 </LoginButton>
               )}

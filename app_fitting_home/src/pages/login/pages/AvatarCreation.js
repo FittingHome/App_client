@@ -22,6 +22,7 @@ import "../../../style/App.css";
 import ModalSelect from "../components/Modal";
 import ObjFile from "../components/ObjFile";
 import ViewportLogin from "../../threejs/ViewportLogin";
+import { height } from "@mui/system";
 
 const LoginButton = styled(Button)({
   backgroundColor: "#7C3E3D",
@@ -172,10 +173,96 @@ function AvatarCreation() {
   const [buttonPrev, setButtonPrev] = React.useState(false);
   const [handlePrev, setHandlePrev] = React.useState(false);
   const [url, setUrl] = React.useState("/FinalBaseMesh");
+  const credentials = JSON.parse(localStorage.getItem("credentials"));
+  const [num, setNum] = React.useState("");
 
-  function FetchModel() {}
+  function checkGoodParams({ model }) {
+    if (model.age <= age + 5 && model.age >= age - 5)
+      if (model.height <= height - 10 && model.height >= height - 10)
+        if (model.weight <= weight - 10 && model.weight >= weight - 10)
+          return true;
+        else return false;
+      else return false;
+    else return false;
+  }
+
+  function findModel({ morphologys }) {
+    for (var i = 0; i < morphologys.length; i++) {
+      if (sexe === "Homme" && morphologys[i].morphology.isMale) {
+        if (checkGoodParams(morphologys[i])) return morphologys[i];
+      } else {
+        if (checkGoodParams(morphologys[i])) return morphologys[i];
+      }
+    }
+    return [];
+  }
+
+  function getAllModels() {
+    fetch("http://api.fittinghome.fr/body/all", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          console.log("is getting");
+        } else {
+          throw new Error("login failed");
+        }
+      })
+      .then((data) => {
+        console.log("http://api.fittinghome.fr/body/all success:", data);
+        return data;
+        // localStorage.setItem("user", JSON.stringify(data));
+        // navigateRegister();
+        // Add code here to store registration data in Local Storage
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        console.log("can't connect");
+      });
+  }
+
+  // function callsftp() {
+
+  // }
+  function fetchModel() {
+    const morphologys = getAllModels();
+    const model = findModel(morphologys);
+    if (model === []) {
+      console.log("cannot find model");
+      return null;
+    }
+    console.log(credentials);
+
+    // fetch(url, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json;charset=UTF-8",
+    //   },
+    //   body: JSON.stringify(credentials.email, credentials.password),
+    // })
+    //   .then((response) => {
+    //     if (response.ok) {
+    //       window.location.href = "/home";
+    //     } else {
+    //       throw new Error("login failed");
+    //     }
+    //   })
+    //   .then((data) => {
+    //     console.log("Success:", data);
+    //     localStorage.setItem("user", JSON.stringify(data));
+    //     navigateRegister();
+    //     // Add code here to store registration data in Local Storage
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error:", error);
+    //     console.log("can't connect");
+    //   });
+  }
   const onClickPrev = () => {
-    FetchModel();
+    fetchModel();
     setHandlePrev(true);
   };
 
@@ -198,7 +285,7 @@ function AvatarCreation() {
       weight,
     });
   };
-  const fetchModels = () => {
+  const fetchSFTPfile = () => {
     var url = [];
     return url;
   };
@@ -207,16 +294,10 @@ function AvatarCreation() {
     /////set url with params
     const pathUrl = "/FinalBaseMesh";
     console.log("data saved", weight, size, age, sexe);
-    const modelsinfo = fetchModels();
+    fetchSFTPfile();
     setUrl(pathUrl);
   };
 
-  const [num, setNum] = React.useState("");
-
-  const handleNumChange = (event) => {
-    const limit = 4;
-    setNum(event.target.value.slice(0, limit));
-  };
   const navigate = useNavigate();
   const navigateRegister = () => {
     navigate("/fitting-room");
@@ -316,12 +397,13 @@ function AvatarCreation() {
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}
                     disabled
-                    onClick={changeAvatar}
+                    // onClick={changeAvatar}
                   >
                     Prévisualiser
                   </LoginButton>
                 )}
                 <ModalSelect
+                  credentials={credentials}
                   handlePrev={handlePrev}
                   navigateRegister={navigateRegister}
                 ></ModalSelect>
@@ -332,7 +414,9 @@ function AvatarCreation() {
               xs={6}
               sx={{
                 minWidth: 200,
-                flexDirection: "column",
+                "@media (max-width:600px)": {
+                  visibility: "hidden",
+                },
               }}
             >
               <ViewportLogin url={url} />

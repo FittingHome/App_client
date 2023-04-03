@@ -12,6 +12,8 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import AlertWrong from "../../../component/alert/AlertWrong";
+import AlertRight from "../../../component/alert/AlertRight";
 
 const LoginButton = styled(Button)({
   backgroundColor: "#7C3E3D",
@@ -48,19 +50,6 @@ const theme = createTheme({
   },
 });
 
-async function RegisterUser(credentials) {
-  const url = "http://api.fittinghome.fr/user/register";
-
-  console.log("data sent :", credentials);
-  return fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json;charset=UTF-8",
-    },
-    body: JSON.stringify(credentials),
-  }).then((data) => data.json());
-}
-
 const EmailField = ({ email, setEmail }) => {
   const [emailError, setEmailError] = useState(false);
 
@@ -93,6 +82,9 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isEmpty, setIsEmpty] = useState(false);
+  const [openWrong, setOpenWrong] = useState(false);
+  const [openRight, setOpenRight] = useState(false);
+
   const url = "http://api.fittinghome.fr/user/create";
 
   const navigate = useNavigate();
@@ -107,50 +99,38 @@ function Register() {
       setIsEmpty(false);
     }
   }, [password, email]);
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json;charset=UTF-8",
-      },
-      body: JSON.stringify(email, password),
-    })
-      .then((response) => {
-        if (response.ok) {
-          window.location.href = "/home";
-        } else {
-          throw new Error("login failed");
-        }
-      })
-      .then((data) => {
-        console.log("Success:", data);
-        localStorage.setItem("user", JSON.stringify(data));
-        navigateRegister();
-        // Add code here to store registration data in Local Storage
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-
-    // const response = await RegisterUser({
-    //   email,
-    //   password,
-    // });
-    // if ("accessToken" in response) {
-    //   console
-    //     .log("Success", response.message, "success", {
-    //       buttons: false,
-    //       timer: 2000,
-    //     })
-    //     .then((value) => {
-    //       localStorage.setItem("accessToken", response["accessToken"]);
-    //       localStorage.setItem("user", JSON.stringify(response["user"]));
-    //       window.location.href = "/profile";
-    //     });
-    // } else {
-    //   console.log("Failed :", response.message, "error");
-    // }
+    var credentials = { email: email, password: password };
+    localStorage.setItem("credentials", JSON.stringify(credentials));
+    navigateRegister();
+    // fetch(url, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json;charset=UTF-8",
+    //   },
+    //   body: JSON.stringify(email, password),
+    // })
+    //   .then((response) => {
+    //     if (response.ok) {
+    //       window.location.href = "/home";
+    //     } else {
+    //       setOpenWrong(true);
+    //       throw new Error("login failed");
+    //     }
+    //   })
+    //   .then((data) => {
+    //     console.log("Success:", data);
+    //     localStorage.setItem("user", JSON.stringify(data));
+    //     navigateRegister();
+    //     // Add code here to store registration data in Local Storage
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error:", error);
+    //     console.log("can't connect");
+    //     setOpenWrong(true);
+    //   });
   };
   return (
     <>
@@ -246,6 +226,16 @@ function Register() {
               </Grid>
             </Box>
           </Box>
+          <AlertWrong
+            open={openWrong}
+            setOpen={setOpenWrong}
+            text="Impossible de créer un compte"
+          >
+            <Typography variant="body"></Typography>
+          </AlertWrong>
+          <AlertRight open={openRight} setOpen={setOpenRight} text="Bonjour">
+            <Typography variant="body"></Typography>
+          </AlertRight>
         </Container>
       </ThemeProvider>
     </>

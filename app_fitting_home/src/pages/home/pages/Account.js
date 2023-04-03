@@ -40,18 +40,15 @@ function Account() {
   const [password, setPassword] = useState("");
   const [openDelet, setOpenDelet] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
-
   const handleOpenEdit = () => setOpenEdit(true);
   const handleCloseEdit = () => setOpenEdit(false);
-
   const handleOpenDelet = () => setOpenDelet(true);
   const handleCloseDelet = () => setOpenDelet(false);
-  console.log(localStorage.getItem("user"));
-  const userData = localStorage.getItem("user");
+  const userData = JSON.parse(localStorage.getItem("user"));
   const token = "";
   const url = "http://api.fittinghome.fr/user";
 
-  const handleDelete = async (event) => {
+  const deleteAccount = async (event) => {
     event.preventDefault();
     fetch(url, {
       method: "DELETE",
@@ -74,15 +71,14 @@ function Account() {
       });
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const editAccount = () => {
     fetch(url, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
         Autorization: "Bearer " + { token },
       },
-      body: JSON.stringify(email, password),
+      body: JSON.stringify(userData.email, userData.password),
     })
       .then((response) => {
         if (response.ok) {
@@ -119,9 +115,8 @@ function Account() {
             Information du compte
           </Typography>
           <Box
-            component="form"
             noValidate
-            onSubmit={handleSubmit}
+            // onSubmit={handleSubmit}
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2} sx={{ marginTop: 2, marginBottom: 5 }}>
@@ -175,8 +170,13 @@ function Account() {
         <ModalDelete
           open={openDelet}
           handleClose={handleCloseDelet}
+          deleteAccount={deleteAccount}
         ></ModalDelete>
-        <ModalEdit open={openEdit} handleClose={handleCloseEdit}></ModalEdit>
+        <ModalEdit
+          open={openEdit}
+          handleClose={handleCloseEdit}
+          editAccount={editAccount}
+        ></ModalEdit>
         {/* <AlertWrong
           open={openWrong}
           setOpen={setOpenWrong}

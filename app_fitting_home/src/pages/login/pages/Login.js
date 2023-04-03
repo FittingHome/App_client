@@ -137,7 +137,7 @@ function Login() {
   const navigateRegister = () => {
     navigate("/register");
   };
-  const url = "http://api.fittinghome.fr/user/connect";
+  const url = "http://api.fittinghome.fr/user/login";
 
   const handleClick = () => {
     setOpenWrong(true);
@@ -163,11 +163,10 @@ function Login() {
     })
       .then((response) => {
         if (response.ok) {
-          window.location.href = "/home";
+          console.log("is loged");
         } else {
           setOpenWrong(true);
           setLoading(false);
-
           throw new Error("login failed");
         }
       })

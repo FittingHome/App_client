@@ -17,7 +17,7 @@ const style = {
   p: 4,
 };
 
-export default function ModalEdit({ open, handleClose }) {
+export default function ModalEdit({ open, handleClose, editAccount }) {
   return (
     <Modal
       open={open}
@@ -50,7 +50,7 @@ export default function ModalEdit({ open, handleClose }) {
 
           <Grid item xs={4}>
             <Button
-              // onClick={handleOpenDelet}
+              onClick={editAccount}
               style={{
                 backgroundColor: "white",
                 color: "blue",

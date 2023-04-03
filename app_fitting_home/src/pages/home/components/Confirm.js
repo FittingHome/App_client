@@ -17,7 +17,7 @@ const style = {
   p: 4,
 };
 
-export default function ModalDelete({ open, handleClose }) {
+export default function ModalDelete({ open, handleClose, deleteAccount }) {
   return (
     <Modal
       open={open}
@@ -50,7 +50,7 @@ export default function ModalDelete({ open, handleClose }) {
 
           <Grid item xs={4}>
             <Button
-              // onClick={handleOpenDelet}
+              onClick={deleteAccount}
               style={{
                 backgroundColor: "white",
                 color: "red",
