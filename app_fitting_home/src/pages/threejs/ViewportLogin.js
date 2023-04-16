@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
-import { MTLLoader } from "three/examples/jsm/loaders/MTLLoader";
+import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import "../../style/form.css";
 import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 
@@ -46,7 +46,7 @@ const ViewportLogin = ({ url }) => {
 
       const spotLight = new THREE.SpotLight(0xdddddd, 1);
       spotLight.castShadow = true;
-      spotLight.position.set(20, 24, 12);
+      spotLight.position.set(2, 2, 2);
       scene.add(spotLight);
 
       const controls = new OrbitControls(camera, renderer.domElement);
@@ -54,14 +54,14 @@ const ViewportLogin = ({ url }) => {
     };
 
     const renderModel = (url) => {
-      console.log(url + ".obj");
+      console.log("rp_nathan.fbx");
 
-      const objLoader = new OBJLoader();
+      const fbxLoader = new FBXLoader();
 
-      objLoader.load(
-        `${url}.obj`,
+      fbxLoader.load(
+        `/Dragon_25_fbx.fbx`,
         (object) => {
-          object.scale.set(0.1, 0.1, 0.1);
+          object.scale.set(1, 1, 1);
           object.position.y = -1;
           scene.add(object);
         },
@@ -104,7 +104,7 @@ const ViewportLogin = ({ url }) => {
 
     init();
     renderModel(url);
-    animate();
+    // animate();
   }, []);
 
   return (

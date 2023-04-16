@@ -174,96 +174,115 @@ function AvatarCreation() {
   const [handlePrev, setHandlePrev] = React.useState(false);
   const [url, setUrl] = React.useState("/FinalBaseMesh");
   const credentials = JSON.parse(localStorage.getItem("credentials"));
-  const [num, setNum] = React.useState("");
+  const [modelUser, setModelUser] = React.useState("");
+  const [modelsData, setModelData] = React.useState([]);
+  const [modelImage, setModelImage] = React.useState([]);
 
-  function checkGoodParams({ model }) {
-    if (model.age <= age + 5 && model.age >= age - 5)
-      if (model.height <= height - 10 && model.height >= height - 10)
-        if (model.weight <= weight - 10 && model.weight >= weight - 10)
-          return true;
-        else return false;
-      else return false;
-    else return false;
+  function createAccount() {
+    fetch("http://91.172.40.53:8080/user/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+      },
+      body: JSON.stringify({
+        email: credentials.email,
+        password: credentials.password,
+        bodyId: modelUser._id,
+      }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          window.location.href = "/fitting-room";
+        } else {
+          throw new Error("Register failed");
+        }
+      })
+      .then((data) => {
+        console.log("Success:", data);
+        localStorage.setItem("user", JSON.stringify(data));
+        navigateRegister();
+        // Add code here to store registration data in Local Storage
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        console.log("can't connect to api");
+      });
   }
 
-  function findModel({ morphologys }) {
-    for (var i = 0; i < morphologys.length; i++) {
-      if (sexe === "Homme" && morphologys[i].morphology.isMale) {
-        if (checkGoodParams(morphologys[i])) return morphologys[i];
-      } else {
-        if (checkGoodParams(morphologys[i])) return morphologys[i];
+  function checkGoodParams(model) {
+    console.log("model stat", model);
+    if (age <= model.age + 5 && age >= model.age - 5) {
+      if (size <= model.height + 10 && size >= model.height - 10) {
+        if (weight <= model.weight + 10 && weight >= model.weight - 10)
+          return true;
+        else return false;
+      } else return false;
+    } else return false;
+  }
+
+  function findModel() {
+    if (modelsData) {
+      for (var i = 0; i < modelsData.length; i++) {
+        if (sexe === "Homme" && modelsData[i].morphology.isMale) {
+          if (checkGoodParams(modelsData[i].morphology)) return modelsData[i];
+        } else {
+          if (checkGoodParams(modelsData[i].morphology)) return modelsData[i];
+        }
       }
     }
+    console.log("cannot find matching model");
     return [];
   }
 
   function getAllModels() {
-    fetch("http://api.fittinghome.fr/body/all", {
+    fetch("http://91.172.40.53:8080/body/all", {
       method: "GET",
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
       },
     })
-      .then((response) => {
-        if (response.ok) {
-          console.log("is getting");
-        } else {
-          throw new Error("login failed");
-        }
-      })
-      .then((data) => {
-        console.log("http://api.fittinghome.fr/body/all success:", data);
-        return data;
-        // localStorage.setItem("user", JSON.stringify(data));
-        // navigateRegister();
-        // Add code here to store registration data in Local Storage
-      })
+      .then((res) => res.json())
+      .then((result) => setModelData(result))
       .catch((error) => {
         console.error("Error:", error);
-        console.log("can't connect");
+        console.log("can't connect to api");
       });
   }
 
-  // function callsftp() {
+  function getImage() {
+    console.log("idddddddd", modelUser._id);
+    fetch("http://91.172.40.53:8080/bodyimage?id=" + modelUser._id, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+        // accept: "*/*",
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => setModelImage(result))
+      .catch(console.log);
+  }
 
-  // }
   function fetchModel() {
-    const morphologys = getAllModels();
-    const model = findModel(morphologys);
-    if (model === []) {
-      console.log("cannot find model");
-      return null;
-    }
-    console.log(credentials);
+    getAllModels();
+    console.log("all models", modelsData);
+    const model = findModel();
+    setModelUser(model);
+    console.log("the model :", model);
 
-    // fetch(url, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json;charset=UTF-8",
-    //   },
-    //   body: JSON.stringify(credentials.email, credentials.password),
-    // })
-    //   .then((response) => {
-    //     if (response.ok) {
-    //       window.location.href = "/home";
-    //     } else {
-    //       throw new Error("login failed");
-    //     }
-    //   })
-    //   .then((data) => {
-    //     console.log("Success:", data);
-    //     localStorage.setItem("user", JSON.stringify(data));
-    //     navigateRegister();
-    //     // Add code here to store registration data in Local Storage
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error:", error);
-    //     console.log("can't connect");
-    //   });
+    createAccount();
   }
   const onClickPrev = () => {
     fetchModel();
     setHandlePrev(true);
+    const changeAvatar = () => {
+      /////set url with params
+      const pathUrl = modelUser.filename;
+      console.log("data saved", weight, size, age, sexe);
+      // getImage();
+      setUrl(pathUrl);
+    };
+    changeAvatar();
   };
 
   React.useEffect(() => {
@@ -284,18 +303,6 @@ function AvatarCreation() {
       size,
       weight,
     });
-  };
-  const fetchSFTPfile = () => {
-    var url = [];
-    return url;
-  };
-
-  const changeAvatar = () => {
-    /////set url with params
-    const pathUrl = "/FinalBaseMesh";
-    console.log("data saved", weight, size, age, sexe);
-    fetchSFTPfile();
-    setUrl(pathUrl);
   };
 
   const navigate = useNavigate();
@@ -419,7 +426,7 @@ function AvatarCreation() {
                 },
               }}
             >
-              <ViewportLogin url={url} />
+              {/* <ViewportLogin url={url} /> */}
             </Grid>
           </Grid>
         </Container>

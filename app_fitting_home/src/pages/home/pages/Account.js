@@ -6,6 +6,7 @@ import Navbar from "../components/Navbar";
 import Modal from "@mui/material/Modal";
 import ModalDelete from "../components/Confirm";
 import ModalEdit from "../components/ConfirmEdit";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
 const EmailField = ({ email, setEmail }) => {
   const [emailError, setEmailError] = useState(false);
@@ -35,6 +36,8 @@ const EmailField = ({ email, setEmail }) => {
   );
 };
 
+////////////////coordonnée : prenom, nom, adresse (localisation), numéro de tel, carte bancaire (stocker ou non) et coordonnées facturation
+
 function Account() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -45,8 +48,16 @@ function Account() {
   const handleOpenDelet = () => setOpenDelet(true);
   const handleCloseDelet = () => setOpenDelet(false);
   const userData = JSON.parse(localStorage.getItem("user"));
-  const token = "";
-  const url = "http://api.fittinghome.fr/user";
+  const token = JSON.parse(localStorage.getItem("token"));
+  console.log(userData);
+
+  console.log(token);
+  const url = "http://91.172.40.53:8080/user";
+
+  const navigate = useNavigate();
+  const navigateHome = () => {
+    navigate("/");
+  };
 
   const deleteAccount = async (event) => {
     event.preventDefault();
@@ -54,14 +65,14 @@ function Account() {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
-        Autorization: "Bearer " + { token },
+        Authorization: "Bearer " + token,
       },
       //   body: JSON.stringify(email, password),
     })
       .then((response) => {
         if (response.ok) {
           console.log("delete");
-          window.location.href = "/";
+          navigateHome();
         } else {
           throw new Error("login failed");
         }
@@ -76,15 +87,19 @@ function Account() {
       method: "PUT",
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
-        Autorization: "Bearer " + { token },
+        Authorization: "Bearer " + token,
       },
-      body: JSON.stringify(userData.email, userData.password),
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
     })
       .then((response) => {
         if (response.ok) {
           console.log("modified");
+          return response.json();
         } else {
-          throw new Error("login failed");
+          throw new Error("edit failed");
         }
       })
       .then((data) => {

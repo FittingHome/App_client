@@ -133,11 +133,17 @@ function Login() {
   const [isEmpty, setIsEmpty] = useState(false);
   const [isLoading, setLoading] = useState(false);
 
+  console.log(localStorage);
+
   const navigate = useNavigate();
   const navigateRegister = () => {
     navigate("/register");
   };
-  const url = "http://api.fittinghome.fr/user/login";
+
+  const navigateHome = () => {
+    navigate("/fitting-room");
+  };
+  const url = "http://91.172.40.53:8080/user/login";
 
   const handleClick = () => {
     setOpenWrong(true);
@@ -159,11 +165,11 @@ function Login() {
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
       },
-      body: JSON.stringify(email, password),
+      body: JSON.stringify({ email: email, password: password }),
     })
       .then((response) => {
         if (response.ok) {
-          console.log("is loged");
+          return response.json();
         } else {
           setOpenWrong(true);
           setLoading(false);
@@ -172,6 +178,10 @@ function Login() {
       })
       .then((data) => {
         localStorage.setItem("user", JSON.stringify(data));
+        localStorage.setItem("token", JSON.stringify(data.token));
+
+        console.log(JSON.stringify(data));
+        navigateHome();
       })
       .catch((error) => {
         console.error("Error", error);
