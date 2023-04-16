@@ -7,13 +7,18 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 const Navigation = () => {
   const navigate = useNavigate();
   const navigateRegister = () => {
-    navigate("/");
+    navigate("/login");
   };
 
   function disconnect() {
     console.log("disconnect");
+    console.log(JSON.parse(localStorage.getItem("user")));
+
     localStorage.removeItem("user");
     localStorage.removeItem("token");
+    localStorage.removeItem("credentials");
+
+    console.log(JSON.parse(localStorage.getItem("user")));
     navigateRegister();
   }
   const state = useSelector((state) => state.HandleCart);
@@ -64,11 +69,13 @@ const Navigation = () => {
                 style={{
                   maxWidth: "200px",
                   marginLeft: "10px",
-                  backgroundColor: "red",
+                  backgroundColor: "white",
+                  color: "red",
                 }}
+                className="btn btn-outline-dark"
                 onClick={disconnect}
               >
-                Out
+                <i class="fa fa-sign-out" aria-hidden="true"></i>
               </Button>
             </div>
           </Navbar.Collapse>

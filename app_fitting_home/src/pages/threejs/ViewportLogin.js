@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
@@ -14,104 +14,51 @@ const CanvasModel = styled("canvas")({
 });
 
 const ViewportLogin = ({ url }) => {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [model, setModel] = useState(null);
+  const containerRef = useRef(null);
+  const canvasRef = useRef();
+  console.log("url", url);
+
   useEffect(() => {
-    let scene,
-      camera,
-      renderer,
-      mixer,
-      clock = new THREE.Clock();
+    async function loadFbxModel() {
+      const loader = new FBXLoader();
+      loader.load(url, (fbx) => {
+        const scene = new THREE.Scene();
+        scene.add(fbx);
 
-    const init = () => {
-      scene = new THREE.Scene();
-      camera = new THREE.PerspectiveCamera(
-        12,
-        window.innerWidth / window.innerHeight,
-        0.1,
-        30000
-      );
-      camera.position.z = 15;
-      camera.position.x = 0;
-      camera.position.y = 0;
+        const camera = new THREE.PerspectiveCamera(
+          75,
+          window.innerWidth / window.innerHeight,
+          0.1,
+          1000
+        );
+        camera.position.z = 5;
 
-      const canvas = document.querySelector("#c");
-      renderer = new THREE.WebGLRenderer({
-        canvas,
-        antialias: true,
+        const renderer = new THREE.WebGLRenderer({
+          canvas: canvasRef.current,
+        });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        const animate = function () {
+          requestAnimationFrame(animate);
+
+          fbx.rotation.x += 0.01;
+          fbx.rotation.y += 0.01;
+
+          renderer.render(scene, camera);
+        };
+
+        animate();
       });
-      renderer.setClearColor(0xffffff);
+    }
 
-      const ambientLight = new THREE.AmbientLight(0xdddddd, 0.3);
-      ambientLight.castShadow = true;
-      scene.add(ambientLight);
-
-      const spotLight = new THREE.SpotLight(0xdddddd, 1);
-      spotLight.castShadow = true;
-      spotLight.position.set(2, 2, 2);
-      scene.add(spotLight);
-
-      const controls = new OrbitControls(camera, renderer.domElement);
-      controls.update();
-    };
-
-    const renderModel = (url) => {
-      console.log("rp_nathan.fbx");
-
-      const fbxLoader = new FBXLoader();
-
-      fbxLoader.load(
-        `/Dragon_25_fbx.fbx`,
-        (object) => {
-          object.scale.set(1, 1, 1);
-          object.position.y = -1;
-          scene.add(object);
-        },
-        (xhr) => {
-          console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-    };
-
-    const resizeRendererToDisplaySize = (renderer) => {
-      const canvas = renderer.domElement;
-      let width = window.innerWidth;
-      let height = window.innerHeight;
-      let canvasPixelWidth = canvas.width / window.devicePixelRatio;
-      let canvasPixelHeight = canvas.height / window.devicePixelRatio;
-
-      const needResize =
-        canvasPixelWidth !== width || canvasPixelHeight !== height;
-      if (needResize) {
-        renderer.setSize(width, height, false);
-      }
-      return needResize;
-    };
-
-    const animate = () => {
-      if (mixer) {
-        mixer.update(clock.getDelta());
-      }
-      if (resizeRendererToDisplaySize(renderer)) {
-        const canvas = renderer.domElement;
-        camera.aspect = canvas.clientWidth / canvas.clientHeight;
-        camera.updateProjectionMatrix();
-      }
-      renderer.render(scene, camera);
-      window.requestAnimationFrame(animate);
-    };
-
-    init();
-    renderModel(url);
-    // animate();
+    loadFbxModel();
   }, []);
-
   return (
     <div>
-      <ThemeProvider theme={theme}>
-        <CanvasModel className="iframewrapper" id="c"></CanvasModel>
-      </ThemeProvider>
+      <div ref={canvasRef} />
     </div>
   );
 };

@@ -7,9 +7,12 @@ import Modal from "@mui/material/Modal";
 import ModalDelete from "../components/Confirm";
 import ModalEdit from "../components/ConfirmEdit";
 import { Routes, Route, useNavigate } from "react-router-dom";
+import CardManager from "../components/CardManager.js";
+import MuiPhoneNumber from "material-ui-phone-number";
 
 const EmailField = ({ email, setEmail }) => {
   const [emailError, setEmailError] = useState(false);
+  const userData = JSON.parse(localStorage.getItem("user"));
 
   const handleEmailChange = (event) => {
     const emailValue = event.target.value;
@@ -23,7 +26,7 @@ const EmailField = ({ email, setEmail }) => {
     <TextField
       id="email"
       fullWidth
-      label="Jo@test.fr"
+      label={userData.email}
       name="email"
       autoComplete="email"
       value={email}
@@ -39,16 +42,19 @@ const EmailField = ({ email, setEmail }) => {
 ////////////////coordonnée : prenom, nom, adresse (localisation), numéro de tel, carte bancaire (stocker ou non) et coordonnées facturation
 
 function Account() {
-  const [email, setEmail] = useState("");
+  const userData = JSON.parse(localStorage.getItem("user"));
+  const token = JSON.parse(localStorage.getItem("token"));
+  const [email, setEmail] = useState(userData.email);
+  const [name, setName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
+  const [phone, setPhone] = useState(0);
   const [openDelet, setOpenDelet] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const handleOpenEdit = () => setOpenEdit(true);
   const handleCloseEdit = () => setOpenEdit(false);
   const handleOpenDelet = () => setOpenDelet(true);
   const handleCloseDelet = () => setOpenDelet(false);
-  const userData = JSON.parse(localStorage.getItem("user"));
-  const token = JSON.parse(localStorage.getItem("token"));
   console.log(userData);
 
   console.log(token);
@@ -59,6 +65,9 @@ function Account() {
     navigate("/");
   };
 
+  function handleOnChange(value) {
+    setPhone(value);
+  }
   const deleteAccount = async (event) => {
     event.preventDefault();
     fetch(url, {
@@ -135,6 +144,33 @@ function Account() {
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2} sx={{ marginTop: 2, marginBottom: 5 }}>
+              Informations personnelles
+              <Grid item xs={12}>
+                <Typography> Nom :</Typography>
+                <br />
+                <TextField
+                  name="Nom"
+                  label="John"
+                  type="name"
+                  id="name"
+                  autoComplete="new-name"
+                  onChange={(e) => setName(e.target.value)}
+                  fullWidth
+                ></TextField>{" "}
+              </Grid>
+              <Grid item xs={12}>
+                <Typography> Prénom :</Typography>
+                <br />
+                <TextField
+                  name="last name"
+                  label="Parker"
+                  type="lastname"
+                  id="lastname"
+                  autoComplete="new-lastname"
+                  onChange={(e) => setLastName(e.target.value)}
+                  fullWidth
+                ></TextField>
+              </Grid>
               <Grid item xs={12}>
                 <Typography> Adresse email :</Typography>
                 <EmailField email={email} setEmail={setEmail}></EmailField>
@@ -144,13 +180,22 @@ function Account() {
                 <br />
                 <TextField
                   name="Mot de passe"
-                  label="John"
+                  label="******"
                   type="password"
                   id="password"
                   autoComplete="new-password"
                   onChange={(e) => setPassword(e.target.value)}
                   fullWidth
                 ></TextField>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography> Numéro de téléphone :</Typography>
+                <br />
+                <MuiPhoneNumber
+                  defaultCountry={"fr"}
+                  onChange={handleOnChange}
+                />
+                ,
               </Grid>
             </Grid>
             <Grid item xs={12}>
@@ -192,6 +237,7 @@ function Account() {
           handleClose={handleCloseEdit}
           editAccount={editAccount}
         ></ModalEdit>
+        <CardManager></CardManager>
         {/* <AlertWrong
           open={openWrong}
           setOpen={setOpenWrong}

@@ -3,21 +3,16 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
-import Collapse from "@mui/material/Collapse";
 import * as React from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import AvatarCreationDisplay from "../components/AvatarCreationDisplay";
 import "../../../style/App.css";
 import ModalSelect from "../components/Modal";
 import ObjFile from "../components/ObjFile";
@@ -177,6 +172,7 @@ function AvatarCreation() {
   const [modelUser, setModelUser] = React.useState("");
   const [modelsData, setModelData] = React.useState([]);
   const [modelImage, setModelImage] = React.useState([]);
+  const [fbxData, setFbxData] = React.useState(null);
 
   function createAccount() {
     fetch("http://91.172.40.53:8080/user/create", {
@@ -249,18 +245,73 @@ function AvatarCreation() {
       });
   }
 
-  function getImage() {
-    console.log("idddddddd", modelUser._id);
-    fetch("http://91.172.40.53:8080/bodyimage?id=" + modelUser._id, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json;charset=UTF-8",
-        // accept: "*/*",
-      },
-    })
-      .then((res) => res.json())
-      .then((result) => setModelImage(result))
+  // function getImage() {
+  //   console.log("id == ", modelUser._id);
+  //   fetch("http://91.172.40.53:8080/bodyimage?id=" + modelUser._id, {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json;charset=UTF-8",
+  //       // accept: "*/*",
+  //     },
+  //   })
+  //     .then((res) => res.json())
+  //     .then((result) => setModelImage(result))
+  //     .catch(console.log);
+  // }
+
+  async function fetchStream() {
+    // const id = modelUser._id;
+    // console.log(id);
+    // console.log("filename ==", modelUser.filename);
+    // fetch(
+    //   "http://91.172.40.53:8080/model?folder=bodies&filename=" +
+    //     modelUser.filename +
+    //     ".fbx"
+    // )
+    //   .then((res) => {
+    //     console.log(res);
+    //     res.arrayBuffer();
+    //   })
+    //   .then((buffer) => {
+    //     console.log(buffer);
+    //     setFbxData(buffer);
+    //   })
+    //   .catch(console.log);
+    // console.log(fbxData);
+
+    const response = await fetch(
+      "http://91.172.40.53:8080/model?folder=bodies&filename=" +
+        modelUser.filename +
+        ".fbx",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/octet-stream",
+        },
+      }
+    )
+      .then((res) => {
+        console.log("res", res);
+      })
+      .then((buffer) => {
+        console.log("buffer", buffer);
+      })
       .catch(console.log);
+
+    const reader = response.body.getReader();
+    const chunks = [];
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) {
+        break;
+      }
+
+      chunks.push(value);
+    }
+
+    const blob = new Blob(chunks, { type: "application/octet-stream" });
+    setUrl(URL.createObjectURL(blob));
   }
 
   function fetchModel() {
@@ -270,7 +321,7 @@ function AvatarCreation() {
     setModelUser(model);
     console.log("the model :", model);
 
-    createAccount();
+    // createAccount();
   }
   const onClickPrev = () => {
     fetchModel();
@@ -280,6 +331,7 @@ function AvatarCreation() {
       const pathUrl = modelUser.filename;
       console.log("data saved", weight, size, age, sexe);
       // getImage();
+      fetchStream();
       setUrl(pathUrl);
     };
     changeAvatar();
@@ -315,6 +367,17 @@ function AvatarCreation() {
       <ThemeProvider theme={theme}>
         <Container component="main">
           <CssBaseline />
+          <div>
+            {fbxData ? (
+              <div>
+                <p>FBX file retrieved successfully!</p>
+                <p>FBX file size: {fbxData.byteLength} bytes</p>
+              </div>
+            ) : (
+              <p>Loading FBX file...</p>
+            )}
+          </div>
+
           <Grid
             container
             justifyContent="center"
@@ -426,7 +489,7 @@ function AvatarCreation() {
                 },
               }}
             >
-              {/* <ViewportLogin url={url} /> */}
+              {/* {url && <ViewportLogin buffer={url} />} */}
             </Grid>
           </Grid>
         </Container>
