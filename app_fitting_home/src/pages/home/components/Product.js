@@ -25,7 +25,7 @@ const Product = () => {
     useEffect(() => {
         const getProduct = async () => {
             setLoading(true);
-            const response = await fetch(`https://fakestoreapi.com/products/${id}`);
+            const response = await fetch(`http://91.172.40.53:8080/garmentCollection?id=${id}`);
             setProduct(await response.json());
             setLoading(false);
         };
@@ -57,8 +57,8 @@ const Product = () => {
     const ShowProduct = () => {
         return (
             <div>
-                <h4 className="text-uppercase text-black-50">{product.category}</h4>
-                <h1 className="display-5">{product.title}</h1>
+                <h4 className="text-uppercase text-black-50">{product.type}</h4>
+                <h1 className="display-5">{product.name}</h1>
                 <h3 className="display-6 fw-bold my-4">{product.price} €</h3>
                 <div className="buttons d-flex my-4">
                     {["S", "M", "L", "XL"].map((s) => {

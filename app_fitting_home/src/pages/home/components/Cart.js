@@ -32,10 +32,10 @@ const Cart = () => {
                 <div className="container py-4">
                     <div className="row justify-content-center">
                         <div className="col-md-4">
-                            <img src={product.image} alt={product.title} height="200px" width="180px" />
+                            <img crossOrigin="anonymous" src={`http://91.172.40.53:8080/image?id=${product.imagePath.substring(0, 36)}`} alt={product.name} height="200px" width="180px" />
                         </div>
                         <div className="col-md-4">
-                            <h3>{product.title}</h3>
+                            <h3>{product.name}</h3>
                             <p className="lead fw-bold">
                                 {product.qty} X {product.price} € = {product.qty * product.price} €
                             </p>

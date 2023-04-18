@@ -18,7 +18,7 @@ function FittingRoom() {
                         <div className="row text-center">
                             <div className="">
                                 <button className="btn btn-outline-dark me-3 mb-3" onClick={() => setModal(true)}>Mes vêtements</button>
-                                <button className="btn btn-outline-dark mb-3" onClick={() => window.app.showModel(1)}>AR</button>
+                                <button className="btn btn-outline-dark mb-3" onClick={() => window.app.showModel("chair.fbx")}>AR</button>
                             </div>
                         </div>
                     </div>

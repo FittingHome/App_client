@@ -1,11 +1,10 @@
 import { useEffect } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
-import { MTLLoader } from "three/examples/jsm/loaders/MTLLoader";
+import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 
 const Viewport3D = () => {
-  const url = "/Henry/Henry";
+  const modelId = "chair.fbx";
 
   useEffect(() => {
     let scene,
@@ -46,29 +45,37 @@ const Viewport3D = () => {
       controls.update();
     };
 
-    const renderModel = (url) => {
-      const mtlLoader = new MTLLoader();
+    const renderModel = async (id) => {
+      const response = await fetch(`http://91.172.40.53:8080/model?folder=bodies&filename=${id}`);
+      const buffer = await response.arrayBuffer();
 
-      mtlLoader.load(`${url}.mtl`, (materials) => {
-        materials.preload();
-        const objLoader = new OBJLoader();
+      const loader = new FBXLoader();
+      const object = loader.parse(buffer, '');
+      object.position.y = -11;
+      
+      scene.add(object);
+      // const mtlLoader = new MTLLoader();
 
-        objLoader.setMaterials(materials);
-        objLoader.load(
-          `${url}.obj`,
-          (object) => {
-            object.scale.set(0.011, 0.011, 0.011);
-            object.position.y = -11;
-            scene.add(object);
-          },
-          (xhr) => {
-            console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
-      });
+      // mtlLoader.load(`${url}.mtl`, (materials) => {
+      //   materials.preload();
+      //   const objLoader = new OBJLoader();
+
+      //   objLoader.setMaterials(materials);
+      //   objLoader.load(
+      //     `${url}.obj`,
+      //     (object) => {
+      //       object.scale.set(0.011, 0.011, 0.011);
+      //       object.position.y = -11;
+      //       scene.add(object);
+      //     },
+      //     (xhr) => {
+      //       console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+      //     },
+      //     (error) => {
+      //       console.log(error);
+      //     }
+      //   );
+      // });
     };
 
     const resizeRendererToDisplaySize = (renderer) => {
@@ -100,7 +107,7 @@ const Viewport3D = () => {
     };
 
     init();
-    renderModel(url);
+    renderModel(modelId);
     animate();
   }, []);
 

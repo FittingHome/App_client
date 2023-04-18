@@ -84,44 +84,55 @@ class App{
     	this.renderer.setSize( window.innerWidth, window.innerHeight ); 
     }
     
-	showModel(id){
+	async showModel(id) {
         this.init();
         this.initAR();
         
 		const loader = new FBXLoader().setPath(this.assetsPath);
         const self = this;
         
+        const response = await fetch(`http://91.172.40.53:8080/model?folder=bodies&filename=${id}`);
+        const buffer = await response.arrayBuffer();
+
         this.loadingBar.visible = true;
 		
+        var object = loader.parse(buffer, '');
+        self.scene.add( object );
+        self.model = object;
+        self.model.scale.set(0.05, 0.05, 0.05);
+        self.model.visible = false;
+        self.loadingBar.visible = false;
+        self.renderer.setAnimationLoop( self.render.bind(self) );
+
 		// Load a glTF resource
-		loader.load(
-			// resource URL
-			`chair.fbx`,
-			// called when the resource is loaded
-			function ( object ) {
+		// loader.load(
+		// 	// resource URL
+		// 	`chair.fbx`,
+		// 	// called when the resource is loaded
+		// 	function ( object ) {
 
-				self.scene.add( object );
-                self.model = object;
-                self.model.scale.set(0.05, 0.05, 0.05);
-                self.model.visible = false; 
+		// 		self.scene.add( object );
+        //         self.model = object;
+        //         self.model.scale.set(0.05, 0.05, 0.05);
+        //         self.model.visible = false; 
                 
-                self.loadingBar.visible = false;
+        //         self.loadingBar.visible = false;
                 
-                self.renderer.setAnimationLoop( self.render.bind(self) );
-			},
-			// called while loading is progressing
-			function ( xhr ) {
+        //         self.renderer.setAnimationLoop( self.render.bind(self) );
+		// 	},
+		// 	// called while loading is progressing
+		// 	function ( xhr ) {
 
-				self.loadingBar.progress = (xhr.loaded / xhr.total);
+		// 		self.loadingBar.progress = (xhr.loaded / xhr.total);
 				
-			},
-			// called when loading has errors
-			function ( error ) {
+		// 	},
+		// 	// called when loading has errors
+		// 	function ( error ) {
 
-				console.log( 'An error happened' );
+		// 		console.log( 'An error happened' );
 
-			}
-		);
+		// 	}
+		// );
 	}			
     
     initAR(){

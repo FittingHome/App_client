@@ -11,7 +11,7 @@ const Products = () => {
     useEffect(() => {
         const getProducts = async () => {
             setLoading(true);
-            const response = await fetch("https://fakestoreapi.com/products");
+            const response = await fetch("http://91.172.40.53:8080/garmentCollection/all");
 
             if (componentMounted) {
                 setData(await response.clone().json());
@@ -49,7 +49,7 @@ const Products = () => {
 
 
     const FilterProduct = (cat) => {
-        const updateList = data.filter((x) => x.category === cat);
+        const updateList = data.filter((x) => x.type === cat);
 
         setFilter(updateList);
     }
@@ -59,19 +59,18 @@ const Products = () => {
             <>
                 <div className="buttons d-flex justify-content-center mb-5 pb-5">
                     <button className="btn btn-outline-dark me-2" onClick={() => setFilter(data)}>Tout</button>
-                    <button className="btn btn-outline-dark me-2" onClick={() => FilterProduct("men's clothing")}>T-Shirt</button>
-                    <button className="btn btn-outline-dark me-2" onClick={() => FilterProduct("women's clothing")}>Sweat</button>
-                    <button className="btn btn-outline-dark me-2" onClick={() => FilterProduct("electronics")}>Pantalon</button>
+                    <button className="btn btn-outline-dark me-2" onClick={() => FilterProduct("top")}>Haut</button>
+                    <button className="btn btn-outline-dark me-2" onClick={() => FilterProduct("bottom")}>Bas</button>
                 </div>
                 {filter.map((product) => {
                     return (
-                        <div key={product.title} className="col-md-3 mb-4">
-                            <div className="card h-100 text-center p-4" key={product.id}>
-                                <img src={product.image} className="card-img-top" alt={product.title} height="250px" />
+                        <div key={product.name} className="col-md-3 mb-4">
+                            <div className="card h-100 text-center p-4" key={product._id}>
+                                <img crossOrigin="anonymous" src={`http://91.172.40.53:8080/image?id=${product.imagePath.substring(0, 36)}`} className="card-img-top" alt={product.name} height="250px" />
                                 <div className="card-body">
-                                    <h5 className="card-title mb-0">{product.title.substring(0, 12)}...</h5>
+                                    <h5 className="card-title mb-0">{product.description.substring(0, 20)}...</h5>
                                     <p className="card-text lead fw-bold">{product.price} €</p>
-                                    <NavLink to={`/marketplace/${product.id}`} className="btn btn-outline-dark">Essayer</NavLink>
+                                    <NavLink to={`/marketplace/${product._id}`} className="btn btn-outline-dark">Essayer</NavLink>
                                 </div>
                             </div>
                         </div>
