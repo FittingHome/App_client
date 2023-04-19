@@ -70,6 +70,7 @@ const FetchModelCarrousel = () => {};
 export default function ModalSelect({
   credentials,
   handlePrev,
+  modelImages,
   navigateRegister,
 }) {
   const [open, setOpen] = React.useState(false);
@@ -80,12 +81,15 @@ export default function ModalSelect({
   const handleClose = () => setOpen(false);
   const [isImageSelected, setImageSelected] = React.useState(false);
   const [clickedIndex, setClickedIndex] = React.useState(-1);
+  if (!modelImages) {
+    return <div></div>;
+  }
   const selectImg = (index) => {
     console.log(index);
     setImageSelected(true);
     setClickedIndex(index);
   };
-  const url = "http://api.fittinghome.fr/user/create";
+  const url = "http://91.172.40.53:8080/user/create";
 
   function getAllModels() {
     fetch("http://91.172.40.53:8080/morphology/all", {
@@ -104,13 +108,15 @@ export default function ModalSelect({
   getAllModels();
   function handleClick() {
     console.log("credentials", credentials);
+    console.log("credentials", clickedIndex.filename);
+    localStorage.setItem("modelUser", JSON.stringify(clickedIndex));
 
-    fetch(url, {
+    fetch("http://91.172.40.53:8080/user/create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
       },
-      body: JSON.stringify(credentials.email, credentials.password),
+      body: JSON.stringify(credentials),
     })
       .then((response) => {
         if (response.ok) {
@@ -120,8 +126,8 @@ export default function ModalSelect({
         }
       })
       .then((data) => {
-        console.log("Success:", data);
         localStorage.setItem("user", JSON.stringify(data));
+        console.log("Success:", JSON.stringify(data));
         navigateRegister();
         // Add code here to store registration data in Local Storage
       })
@@ -172,15 +178,15 @@ export default function ModalSelect({
               </Typography>
 
               <ImageList cols={3} rowHeight={164}>
-                {itemData.map((item, index) => (
+                {modelImages.map((item, index) => (
                   <ImageListItem key={item.img}>
                     <img
-                      src={`${item.img}`}
-                      srcSet={`${item.img}`}
+                      src={`http://91.172.40.53:8080/image?id=${item.filename}`}
+                      srcSet={`http://91.172.40.53:8080/image?id=${item.filename}`}
                       crossOrigin="anonymous"
-                      alt={item.title}
+                      alt={item._id}
                       loading="lazy"
-                      onClick={() => selectImg(index)}
+                      onClick={() => selectImg(item)}
                       style={
                         index === clickedIndex
                           ? {

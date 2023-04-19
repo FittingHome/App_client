@@ -18,6 +18,8 @@ import ModalSelect from "../components/Modal";
 import ObjFile from "../components/ObjFile";
 import ViewportLogin from "../../threejs/ViewportLogin";
 import { height } from "@mui/system";
+import findClosestModel from "../components/ModelManager";
+import Viewport3D from "../../threejs/Viewport3D";
 
 const LoginButton = styled(Button)({
   backgroundColor: "#7C3E3D",
@@ -171,8 +173,12 @@ function AvatarCreation() {
   const credentials = JSON.parse(localStorage.getItem("credentials"));
   const [modelUser, setModelUser] = React.useState("");
   const [modelsData, setModelData] = React.useState([]);
-  const [modelImage, setModelImage] = React.useState([]);
+  const [modelImages, setModelImages] = React.useState([]);
   const [fbxData, setFbxData] = React.useState(null);
+
+  React.useEffect(() => {
+    setModelImages(findClosestModel(modelsData, age, size, weight));
+  }, [modelsData]);
 
   function createAccount() {
     fetch("http://91.172.40.53:8080/user/create", {
@@ -245,105 +251,54 @@ function AvatarCreation() {
       });
   }
 
-  // async function getImage() {
-  //   console.log("id == ", modelUser._id);
-  //   const res = await fetch(
-  //     "http://91.172.40.53:8080/image?id=cc3df74f-93f1-4bb0-9260-050acf35e665.png",
+  // async function fetchStream() {
+  //   const response = await fetch(
+  //     "http://91.172.40.53:8080/model?folder=bodies&filename=" +
+  //       modelUser.filename +
+  //       ".fbx",
   //     {
   //       method: "GET",
-  //       headers: {
-  //         "Content-Type": "application/json;charset=UTF-8",
-  //         // accept: "*/*",
-  //       },
   //     }
-  //   );
-  //   const imageBlob = await res.blob();
-  //   const imageObjectURL = URL.createObjectURL(imageBlob);
-  //   setModelImage(imageObjectURL);
-  //   console.log(imageObjectURL);
+  //   )
+  //     .then((response) => {
+  //       const reader = response.body.getReader();
+  //       return new ReadableStream({
+  //         start(controller) {
+  //           return pump();
+  //           function pump() {
+  //             return reader.read().then(({ done, value }) => {
+  //               console.log(value);
+  //               if (done) {
+  //                 controller.close();
+  //                 return;
+  //               }
+  //               // Enqueue the next data chunk into our target stream
+  //               controller.enqueue(value);
+  //               return pump();
+  //             });
+  //           }
+  //         },
+  //       });
+  //     })
+  //     // Create a new response out of the stream
+  //     .then((stream) => {
+  //       console.log("stream", stream);
+  //       return new Response(stream);
+  //     })
+  //     // Create an object URL for the response
+  //     .then((response) => response.blob())
+  //     .then((blob) => {
+  //       console.log("blob", blob);
+  //       console.log("url blob", URL.createObjectURL(blob));
+  //       setUrl(URL.createObjectURL(blob));
+  //     })
+  //     .catch((err) => console.error(err));
   // }
-
-  async function fetchStream() {
-    // const id = modelUser._id;
-    // console.log(id);
-    // console.log("filename ==", modelUser.filename);
-    // fetch(
-    //   "http://91.172.40.53:8080/model?folder=bodies&filename=" +
-    //     modelUser.filename +
-    //     ".fbx"
-    // )
-    //   .then((res) => {
-    //     console.log(res);
-    //     res.arrayBuffer();
-    //   })
-    //   .then((buffer) => {
-    //     console.log(buffer);
-    //     setFbxData(buffer);
-    //   })
-    //   .catch(console.log);
-    // console.log(fbxData);
-
-    const response = await fetch(
-      "http://91.172.40.53:8080/model?folder=bodies&filename=" +
-        modelUser.filename +
-        ".fbx",
-      {
-        method: "GET",
-      }
-    )
-      .then((response) => {
-        const reader = response.body.getReader();
-        return new ReadableStream({
-          start(controller) {
-            return pump();
-            function pump() {
-              return reader.read().then(({ done, value }) => {
-                console.log(value);
-                if (done) {
-                  controller.close();
-                  return;
-                }
-                // Enqueue the next data chunk into our target stream
-                controller.enqueue(value);
-                return pump();
-              });
-            }
-          },
-        });
-      })
-      // Create a new response out of the stream
-      .then((stream) => {
-        console.log("stream", stream);
-        return new Response(stream);
-      })
-      // Create an object URL for the response
-      .then((response) => response.blob())
-      .then((blob) => {
-        console.log("blob", blob);
-        console.log("url blob", URL.createObjectURL(blob));
-        setUrl(URL.createObjectURL(blob));
-      })
-      .catch((err) => console.error(err));
-
-    // const reader = response.body.getReader();
-    // const chunks = [];
-
-    // while (true) {
-    //   const { done, value } = await reader.read();
-    //   if (done) {
-    //     break;
-    //   }
-
-    //   chunks.push(value);
-    // }
-
-    // const blob = new Blob(chunks, { type: "application/octet-stream" });
-    // setUrl(URL.createObjectURL(blob));
-  }
 
   function fetchModel() {
     getAllModels();
     console.log("all models", modelsData);
+
     const model = findModel();
     setModelUser(model);
     console.log("the model :", model);
@@ -503,6 +458,7 @@ function AvatarCreation() {
                 <ModalSelect
                   credentials={credentials}
                   handlePrev={handlePrev}
+                  modelImages={modelImages}
                   navigateRegister={navigateRegister}
                 ></ModalSelect>
               </Box>
@@ -517,8 +473,7 @@ function AvatarCreation() {
                 },
               }}
             >
-              {url && <ViewportLogin url={url} />}
-              {/* <ViewportLogin buffer={url} /> */}
+              {url && <Viewport3D />}
             </Grid>
           </Grid>
         </Container>

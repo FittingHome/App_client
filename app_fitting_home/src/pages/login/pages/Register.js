@@ -14,6 +14,7 @@ import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import AlertWrong from "../../../component/alert/AlertWrong";
 import AlertRight from "../../../component/alert/AlertRight";
+import MuiPhoneNumber from "material-ui-phone-number";
 
 const LoginButton = styled(Button)({
   backgroundColor: "#7C3E3D",
@@ -81,9 +82,14 @@ const EmailField = ({ email, setEmail }) => {
 function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [phone, setPhone] = useState("");
   const [isEmpty, setIsEmpty] = useState(false);
   const [openWrong, setOpenWrong] = useState(false);
   const [openRight, setOpenRight] = useState(false);
+
+  const changePhone = (value) => {
+    setPhone(value);
+  };
 
   const url = "http://api.fittinghome.fr/user/create";
 
@@ -102,7 +108,7 @@ function Register() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    var credentials = { email: email, password: password };
+    var credentials = { email: email, password: password, phoneNumber: phone };
     localStorage.setItem("credentials", JSON.stringify(credentials));
     navigateRegister();
   };
@@ -168,6 +174,12 @@ function Register() {
                     id="password"
                     autoComplete="new-password"
                     onChange={(e) => setPassword(e.target.value)}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <MuiPhoneNumber
+                    defaultCountry={"fr"}
+                    onChange={changePhone}
                   />
                 </Grid>
               </Grid>
