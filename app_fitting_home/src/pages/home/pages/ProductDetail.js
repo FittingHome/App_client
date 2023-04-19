@@ -10,7 +10,7 @@ function ProductDetail() {
             <div className="container py-5">
                 <div className="row py-4">
                     <div className="col-md-6">
-                        <Viewport3D />
+                        <Viewport3D modelId={"blender_emma.fbx"}/>
                     </div>
                     <div className="col-md-6">
                         <Product/>

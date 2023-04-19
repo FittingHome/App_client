@@ -24,7 +24,7 @@ function FittingRoom() {
                 <div className="row">
                     { modal === true ? <FittingCart hide={() => setModal(false)}/> : '' }
                     <div className="col-12">
-                        <Viewport3D />
+                        <Viewport3D modelId={"blender_emma.fbx"}/>
                         <div className="row text-center">
                             <div className="">
                                 <button className="btn btn-outline-dark me-3 mb-3" onClick={() => setModal(true)}>Mes vêtements</button>

@@ -3,9 +3,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 
-const Viewport3D = () => {
-  const modelId = "blender_emma.fbx";
-
+const Viewport3D = (props) => {
   useEffect(() => {
     let scene,
       camera,
@@ -86,7 +84,7 @@ const Viewport3D = () => {
     };
 
     init();
-    renderModel(modelId);
+    renderModel(props.modelId);
     animate();
   }, []);
 
