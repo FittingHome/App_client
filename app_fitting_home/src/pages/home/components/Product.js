@@ -15,6 +15,8 @@ const Product = () => {
     const [open, setOpen] = useState(false);
     const [color, setColor] = useState();
     const [size, setSize] = useState();
+    const [sizes, setSizes] = useState([]);
+    const [colors, setColors] = useState([]);
 
     const dispatch = useDispatch();
     const addProduct = (product) => {
@@ -30,10 +32,19 @@ const Product = () => {
             setLoading(false);
         };
         getProduct();
-
-        console.log(size);
-        console.log(color);
+        
     }, [id, size, color]);
+
+    const setDetails = () => {
+        product?.garments?.forEach((garment) => {
+            if (!colors.includes(garment.color)) {
+                colors.push(garment.color);
+            }
+            if (!sizes.includes(garment.size)) {
+                sizes.push(garment.size);
+            }
+        });
+    };
 
     const Loading = () => {
         return (
@@ -55,13 +66,14 @@ const Product = () => {
     };
 
     const ShowProduct = () => {
+        setDetails();
         return (
             <div>
                 <h4 className="text-uppercase text-black-50">{product.type}</h4>
                 <h1 className="display-5">{product.name}</h1>
                 <h3 className="display-6 fw-bold my-4">{product.price} €</h3>
                 <div className="buttons d-flex my-4">
-                    {["S", "M", "L", "XL"].map((s) => {
+                    {sizes.map((s) => {
                         const isActive = (s === size ? "active" : "");
                         return (
                             <button id={s} key={s} className={"btn btn-outline-dark me-2 " + isActive} onClick={(e) => setSize(e.target.id)}>{s}</button>
@@ -69,7 +81,7 @@ const Product = () => {
                     })}
                 </div>
                 <div className="buttons d-flex colors my-4">
-                    {["red", "blue", "green", "black"].map((c) => {
+                    {colors.map((c) => {
                         const isActive = c === color ? "active" : "";
                         return (
                             <button id={c} key={c} className={"color btn me-2 " + isActive} style={{ background: c }} onClick={(e) => setColor(e.target.id)}></button>

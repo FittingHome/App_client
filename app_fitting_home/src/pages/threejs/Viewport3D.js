@@ -4,7 +4,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 
 const Viewport3D = () => {
-  const modelId = "chair.fbx";
+  const modelId = "blender_emma.fbx";
 
   useEffect(() => {
     let scene,
@@ -21,7 +21,7 @@ const Viewport3D = () => {
         0.1,
         30000
       );
-      camera.position.z = 85;
+      camera.position.z = 70;
       camera.position.x = 0;
       camera.position.y = 0;
 
@@ -51,31 +51,10 @@ const Viewport3D = () => {
 
       const loader = new FBXLoader();
       const object = loader.parse(buffer, '');
-      object.position.y = -11;
-      
+      object.scale.set(8, 8, 8);
+      object.position.y = -8;
+
       scene.add(object);
-      // const mtlLoader = new MTLLoader();
-
-      // mtlLoader.load(`${url}.mtl`, (materials) => {
-      //   materials.preload();
-      //   const objLoader = new OBJLoader();
-
-      //   objLoader.setMaterials(materials);
-      //   objLoader.load(
-      //     `${url}.obj`,
-      //     (object) => {
-      //       object.scale.set(0.011, 0.011, 0.011);
-      //       object.position.y = -11;
-      //       scene.add(object);
-      //     },
-      //     (xhr) => {
-      //       console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-      //     },
-      //     (error) => {
-      //       console.log(error);
-      //     }
-      //   );
-      // });
     };
 
     const resizeRendererToDisplaySize = (renderer) => {
