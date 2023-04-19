@@ -14,7 +14,7 @@ import ImageListItem from "@mui/material/ImageListItem";
 
 const itemData = [
   {
-    img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
+    img: "http://91.172.40.53:8080/image?id=cc3df74f-93f1-4bb0-9260-050acf35e665",
     title: "Breakfast",
   },
   {
@@ -32,34 +32,6 @@ const itemData = [
   {
     img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
     title: "Hats",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62",
-    title: "Honey",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1516802273409-68526ee1bdd6",
-    title: "Basketball",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1518756131217-31eb79b20e8f",
-    title: "Fern",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1597645587822-e99fa5d45d25",
-    title: "Mushrooms",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1567306301408-9b74779a11af",
-    title: "Tomato basil",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1471357674240-e1a485acb3e1",
-    title: "Sea star",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1589118949245-7d38baf380d6",
-    title: "Bike",
   },
 ];
 
@@ -115,6 +87,21 @@ export default function ModalSelect({
   };
   const url = "http://api.fittinghome.fr/user/create";
 
+  function getAllModels() {
+    fetch("http://91.172.40.53:8080/morphology/all", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => console.log(result))
+      .catch((error) => {
+        console.error("Error:", error);
+        console.log("can't connect to api");
+      });
+  }
+  getAllModels();
   function handleClick() {
     console.log("credentials", credentials);
 
@@ -173,10 +160,6 @@ export default function ModalSelect({
           open={open}
           onClose={handleClose}
           closeAfterTransition
-          BackdropComponent={Backdrop}
-          BackdropProps={{
-            timeout: 500,
-          }}
         >
           <Fade in={open}>
             <Box sx={style}>
@@ -192,15 +175,20 @@ export default function ModalSelect({
                 {itemData.map((item, index) => (
                   <ImageListItem key={item.img}>
                     <img
-                      src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-                      srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                      src={`${item.img}`}
+                      srcSet={`${item.img}`}
+                      crossOrigin="anonymous"
                       alt={item.title}
                       loading="lazy"
                       onClick={() => selectImg(index)}
                       style={
                         index === clickedIndex
-                          ? { border: "4px solid blue", cursor: "pointer" }
-                          : { border: "none", cursor: "pointer" }
+                          ? {
+                              width: 100,
+                              border: "4px solid blue",
+                              cursor: "pointer",
+                            }
+                          : { width: 100, border: "none", cursor: "pointer" }
                       }
                     />
                   </ImageListItem>
@@ -219,14 +207,6 @@ export default function ModalSelect({
                   Continuer
                 </LoginButton>
               )}
-              {/* <LoginButton
-                type="submit"
-                variant="contained"
-                onClick={navigateRegister}
-              >
-                Continuer
-              </LoginButton> */}
-              {}
             </Box>
           </Fade>
         </Modal>

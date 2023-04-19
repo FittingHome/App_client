@@ -105,32 +105,6 @@ function Register() {
     var credentials = { email: email, password: password };
     localStorage.setItem("credentials", JSON.stringify(credentials));
     navigateRegister();
-    // fetch(url, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json;charset=UTF-8",
-    //   },
-    //   body: JSON.stringify(email, password),
-    // })
-    //   .then((response) => {
-    //     if (response.ok) {
-    //       window.location.href = "/home";
-    //     } else {
-    //       setOpenWrong(true);
-    //       throw new Error("login failed");
-    //     }
-    //   })
-    //   .then((data) => {
-    //     console.log("Success:", data);
-    //     localStorage.setItem("user", JSON.stringify(data));
-    //     navigateRegister();
-    //     // Add code here to store registration data in Local Storage
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error:", error);
-    //     console.log("can't connect");
-    //     setOpenWrong(true);
-    //   });
   };
   return (
     <>
@@ -204,7 +178,7 @@ function Register() {
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
                 >
-                  Connexion
+                  S'inscrire
                 </LoginButton>
               ) : (
                 <LoginButton

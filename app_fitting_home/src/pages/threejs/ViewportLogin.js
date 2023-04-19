@@ -6,59 +6,98 @@ import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import "../../style/form.css";
 import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 
-const theme = createTheme({});
-
-const CanvasModel = styled("canvas")({
-  height: 600,
-  width: 600,
-});
-
 const ViewportLogin = ({ url }) => {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-  const [model, setModel] = useState(null);
-  const containerRef = useRef(null);
-  const canvasRef = useRef();
-  console.log("url", url);
+  const modelId = url;
+  console.log(modelId);
 
   useEffect(() => {
-    async function loadFbxModel() {
-      const loader = new FBXLoader();
-      loader.load(url, (fbx) => {
-        const scene = new THREE.Scene();
-        scene.add(fbx);
+    let scene,
+      camera,
+      renderer,
+      mixer,
+      clock = new THREE.Clock();
 
-        const camera = new THREE.PerspectiveCamera(
-          75,
-          window.innerWidth / window.innerHeight,
-          0.1,
-          1000
-        );
-        camera.position.z = 5;
+    const init = () => {
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(
+        15,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        30000
+      );
+      camera.position.z = 85;
+      camera.position.x = 0;
+      camera.position.y = 0;
 
-        const renderer = new THREE.WebGLRenderer({
-          canvas: canvasRef.current,
-        });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-
-        const animate = function () {
-          requestAnimationFrame(animate);
-
-          fbx.rotation.x += 0.01;
-          fbx.rotation.y += 0.01;
-
-          renderer.render(scene, camera);
-        };
-
-        animate();
+      const canvas = document.querySelector("#c");
+      renderer = new THREE.WebGLRenderer({
+        canvas,
+        antialias: true,
       });
-    }
+      renderer.setClearColor(0xffffff);
 
-    loadFbxModel();
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+      ambientLight.castShadow = true;
+      scene.add(ambientLight);
+
+      const spotLight = new THREE.SpotLight(0xffffff, 1);
+      spotLight.castShadow = true;
+      spotLight.position.set(0, 64, 32);
+      scene.add(spotLight);
+
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.update();
+    };
+
+    const renderModel = async (id) => {
+      const response = await fetch(
+        `http://91.172.40.53:8080/model?folder=bodies&filename=${id}`
+      );
+      const buffer = await response.arrayBuffer();
+
+      const loader = new FBXLoader();
+      const object = loader.parse(buffer, "");
+      object.position.y = -11;
+
+      scene.add(object);
+    };
+
+    const resizeRendererToDisplaySize = (renderer) => {
+      const canvas = renderer.domElement;
+      let width = window.innerWidth;
+      let height = window.innerHeight;
+      let canvasPixelWidth = canvas.width / window.devicePixelRatio;
+      let canvasPixelHeight = canvas.height / window.devicePixelRatio;
+
+      const needResize =
+        canvasPixelWidth !== width || canvasPixelHeight !== height;
+      if (needResize) {
+        renderer.setSize(width, height, false);
+      }
+      return needResize;
+    };
+
+    const animate = () => {
+      if (mixer) {
+        mixer.update(clock.getDelta());
+      }
+      if (resizeRendererToDisplaySize(renderer)) {
+        const canvas = renderer.domElement;
+        camera.aspect = canvas.clientWidth / canvas.clientHeight;
+        camera.updateProjectionMatrix();
+      }
+      renderer.render(scene, camera);
+      window.requestAnimationFrame(animate);
+    };
+
+    init();
+    renderModel(modelId);
+    animate();
   }, []);
+
   return (
-    <div>
-      <div ref={canvasRef} />
+    <div className="container my-5">
+      <canvas className="col-12" id="c" style={{ maxHeight: "450px" }}></canvas>
     </div>
   );
 };

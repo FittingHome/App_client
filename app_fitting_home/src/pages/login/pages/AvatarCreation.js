@@ -167,7 +167,7 @@ function AvatarCreation() {
   const [weight, setWeight] = React.useState("");
   const [buttonPrev, setButtonPrev] = React.useState(false);
   const [handlePrev, setHandlePrev] = React.useState(false);
-  const [url, setUrl] = React.useState("/FinalBaseMesh");
+  const [url, setUrl] = React.useState(null);
   const credentials = JSON.parse(localStorage.getItem("credentials"));
   const [modelUser, setModelUser] = React.useState("");
   const [modelsData, setModelData] = React.useState([]);
@@ -245,18 +245,22 @@ function AvatarCreation() {
       });
   }
 
-  // function getImage() {
+  // async function getImage() {
   //   console.log("id == ", modelUser._id);
-  //   fetch("http://91.172.40.53:8080/bodyimage?id=" + modelUser._id, {
-  //     method: "GET",
-  //     headers: {
-  //       "Content-Type": "application/json;charset=UTF-8",
-  //       // accept: "*/*",
-  //     },
-  //   })
-  //     .then((res) => res.json())
-  //     .then((result) => setModelImage(result))
-  //     .catch(console.log);
+  //   const res = await fetch(
+  //     "http://91.172.40.53:8080/image?id=cc3df74f-93f1-4bb0-9260-050acf35e665.png",
+  //     {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json;charset=UTF-8",
+  //         // accept: "*/*",
+  //       },
+  //     }
+  //   );
+  //   const imageBlob = await res.blob();
+  //   const imageObjectURL = URL.createObjectURL(imageBlob);
+  //   setModelImage(imageObjectURL);
+  //   console.log(imageObjectURL);
   // }
 
   async function fetchStream() {
@@ -285,33 +289,56 @@ function AvatarCreation() {
         ".fbx",
       {
         method: "GET",
-        headers: {
-          "Content-Type": "application/octet-stream",
-        },
       }
     )
-      .then((res) => {
-        console.log("res", res);
+      .then((response) => {
+        const reader = response.body.getReader();
+        return new ReadableStream({
+          start(controller) {
+            return pump();
+            function pump() {
+              return reader.read().then(({ done, value }) => {
+                console.log(value);
+                if (done) {
+                  controller.close();
+                  return;
+                }
+                // Enqueue the next data chunk into our target stream
+                controller.enqueue(value);
+                return pump();
+              });
+            }
+          },
+        });
       })
-      .then((buffer) => {
-        console.log("buffer", buffer);
+      // Create a new response out of the stream
+      .then((stream) => {
+        console.log("stream", stream);
+        return new Response(stream);
       })
-      .catch(console.log);
+      // Create an object URL for the response
+      .then((response) => response.blob())
+      .then((blob) => {
+        console.log("blob", blob);
+        console.log("url blob", URL.createObjectURL(blob));
+        setUrl(URL.createObjectURL(blob));
+      })
+      .catch((err) => console.error(err));
 
-    const reader = response.body.getReader();
-    const chunks = [];
+    // const reader = response.body.getReader();
+    // const chunks = [];
 
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) {
-        break;
-      }
+    // while (true) {
+    //   const { done, value } = await reader.read();
+    //   if (done) {
+    //     break;
+    //   }
 
-      chunks.push(value);
-    }
+    //   chunks.push(value);
+    // }
 
-    const blob = new Blob(chunks, { type: "application/octet-stream" });
-    setUrl(URL.createObjectURL(blob));
+    // const blob = new Blob(chunks, { type: "application/octet-stream" });
+    // setUrl(URL.createObjectURL(blob));
   }
 
   function fetchModel() {
@@ -324,17 +351,17 @@ function AvatarCreation() {
     // createAccount();
   }
   const onClickPrev = () => {
+    // getImage();
     fetchModel();
     setHandlePrev(true);
-    const changeAvatar = () => {
-      /////set url with params
-      const pathUrl = modelUser.filename;
-      console.log("data saved", weight, size, age, sexe);
-      // getImage();
-      fetchStream();
-      setUrl(pathUrl);
-    };
-    changeAvatar();
+    setUrl("chair.fbx");
+    // const changeAvatar = () => {
+    //   /////set url with params
+    //   console.log("data saved", weight, size, age, sexe);
+    //   // getImage();
+    //   fetchStream();
+    // };
+    // changeAvatar();
   };
 
   React.useEffect(() => {
@@ -367,6 +394,7 @@ function AvatarCreation() {
       <ThemeProvider theme={theme}>
         <Container component="main">
           <CssBaseline />
+
           <div>
             {fbxData ? (
               <div>
@@ -489,7 +517,8 @@ function AvatarCreation() {
                 },
               }}
             >
-              {/* {url && <ViewportLogin buffer={url} />} */}
+              {url && <ViewportLogin url={url} />}
+              {/* <ViewportLogin buffer={url} /> */}
             </Grid>
           </Grid>
         </Container>
