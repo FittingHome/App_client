@@ -3,8 +3,11 @@ import { Box, color } from "@mui/system";
 import Button from "@mui/material/Button";
 import { useEffect, useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import getToken from "../../../utils/getToken";
 
-function CardManager({ isCard, setIsCard }) {
+function CardManager({ isCard, setIsCard, setWallet }) {
   const [cardName, setCardName] = useState("");
   const [cardNumber, setCardNumber] = useState("");
   const [cardDateYear, setCardDateYear] = useState("");
@@ -34,14 +37,22 @@ function CardManager({ isCard, setIsCard }) {
     };
     setCardAdresse(adresse);
   }, [street, city, state, zipCode, country]);
-  //////biiling adresse (street/city/zip/country) / nom / numero / date d'expiration mm / aa  / cvv /
   const url = "http://91.172.40.53:8080/user/wallet";
   const token = JSON.parse(localStorage.getItem("token"));
 
   const setCard = () => {
+    console.log({
+      billingAddress: cardAdresse,
+      cardholderName: cardName,
+      cardNumber: cardNumber,
+      expirationYear: cardDateYear,
+      expirationMonth: cardDateMonth,
+      cvv: cvv,
+    });
     fetch(url, {
       method: "POST",
       headers: {
+        "Content-Type": "application/json;charset=UTF-8",
         Authorization: "Bearer " + token,
       },
       body: JSON.stringify({
@@ -57,6 +68,8 @@ function CardManager({ isCard, setIsCard }) {
         if (response.ok) {
           console.log("card added");
           setIsCard(true);
+          setWallet(response);
+          localStorage.setItem("wallet", JSON.stringify(response));
           return response.json();
         } else {
           throw new Error("card failed");
@@ -153,7 +166,7 @@ function CardManager({ isCard, setIsCard }) {
               type="number"
               id="cvv"
               autoComplete="new-password"
-              onChange={(e) => setCardAdresse(e.target.value)}
+              onChange={(e) => setCvv(e.target.value)}
               fullWidth
             ></TextField>
           </Grid>
@@ -166,7 +179,6 @@ function CardManager({ isCard, setIsCard }) {
             <TextField
               name="Street"
               label="12 rue de gaulle"
-              type="number"
               id="Street"
               autoComplete="new-street"
               onChange={(e) => setStreet(e.target.value)}
@@ -248,14 +260,34 @@ function CardManager({ isCard, setIsCard }) {
 function HandleCard() {
   const [isCardForm, setIsCardForm] = useState(false);
   const [displayForm, setDisplayForm] = useState(false);
+  const [wallet, setWallet] = useState(null);
   const [isCard, setIsCard] = useState(false);
   const setClick = () => {
     setDisplayForm(true);
     setIsCardForm(true);
   };
+  console.log("token ", getToken());
+  const token = getToken();
+
+  const getWallet = () => {
+    fetch("http://91.172.40.53:8080/user/wallet", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+        Authorization: "Bearer " + token,
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => setWallet(result[0]))
+      .catch((error) => {
+        console.error("Error:", error);
+        console.log("can't connect to api");
+      });
+  };
+  console.log("wallet", wallet);
   return (
     <div>
-      {!isCard ? (
+      {!isCard && !wallet && !JSON.parse(localStorage.getItem("wallet")) ? (
         <div>
           {!isCardForm ? (
             <Button
@@ -276,14 +308,80 @@ function HandleCard() {
           )}
           <div>
             {displayForm ? (
-              <CardManager isCard={isCard} setIsCard={setIsCard}></CardManager>
+              <CardManager
+                isCard={isCard}
+                setIsCard={setIsCard}
+                setWallet={setWallet}
+              ></CardManager>
             ) : (
               <div></div>
             )}
           </div>
         </div>
       ) : (
-        <div>Vous avez une carte Enregistrer</div>
+        <Box
+          sx={{
+            bgcolor: "background.paper",
+            padding: 5,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          {" "}
+          <Typography
+            sx={{
+              fontSize: 22,
+            }}
+          >
+            Votre carte
+          </Typography>
+          <div>
+            {!wallet ? (
+              <Button onClick={getWallet}>Voir carte</Button>
+            ) : (
+              <Card sx={{ minWidth: 275, margin: 10 }}>
+                <CardContent>
+                  <Typography variant="h5" component="div">
+                    {" "}
+                    {wallet.cardholderName}
+                  </Typography>
+                  <Typography
+                    sx={{ fontSize: 14 }}
+                    color="text.secondary"
+                    gutterBottom
+                  >
+                    **** **** **** *{wallet.cardNumber.slice(-3)}
+                  </Typography>
+                  <Typography
+                    sx={{ fontSize: 14 }}
+                    color="text.secondary"
+                    gutterBottom
+                  >
+                    {wallet.expirationMonth} / {wallet.expirationYear}
+                  </Typography>
+                  <Typography variant="body2">
+                    Ajouté le {wallet.createdAt.substring(0, 10)}
+                    <br />
+                  </Typography>
+                </CardContent>
+                <Button
+                  style={{
+                    backgroundColor: "white",
+                    color: "red",
+                    borderColor: "red",
+                  }}
+                  fullWidth
+                  variant="outlined"
+                >
+                  <Typography sx={{ fontSize: 14 }} component="div">
+                    Supprimer la carte
+                  </Typography>
+                </Button>
+              </Card>
+            )}
+          </div>
+        </Box>
       )}
     </div>
   );

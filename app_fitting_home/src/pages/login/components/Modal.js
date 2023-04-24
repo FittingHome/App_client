@@ -12,29 +12,6 @@ import { useNavigate } from "react-router-dom";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 
-const itemData = [
-  {
-    img: "http://91.172.40.53:8080/image?id=cc3df74f-93f1-4bb0-9260-050acf35e665",
-    title: "Breakfast",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
-    title: "Burger",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
-    title: "Camera",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
-    title: "Coffee",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
-    title: "Hats",
-  },
-];
-
 const style = {
   position: "absolute",
   top: "50%",
@@ -108,7 +85,7 @@ export default function ModalSelect({
   getAllModels();
   function handleClick() {
     console.log("credentials", credentials);
-    console.log("credentials", clickedIndex.filename);
+    console.log("model filename", clickedIndex.filename);
     localStorage.setItem("modelUser", JSON.stringify(clickedIndex));
 
     fetch("http://91.172.40.53:8080/user/create", {
@@ -129,7 +106,6 @@ export default function ModalSelect({
         localStorage.setItem("user", JSON.stringify(data));
         console.log("Success:", JSON.stringify(data));
         navigateRegister();
-        // Add code here to store registration data in Local Storage
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -174,10 +150,10 @@ export default function ModalSelect({
                 variant="h6"
                 component="h2"
               >
-                Séléctionner votre model :
+                Séléctionner le model qui vous correspond le plus:
               </Typography>
 
-              <ImageList cols={3} rowHeight={164}>
+              <ImageList cols={3} rowHeight={164} marginTop={10}>
                 {modelImages.map((item, index) => (
                   <ImageListItem key={item.img}>
                     <img

@@ -212,7 +212,6 @@ function AvatarCreation() {
   }
 
   function checkGoodParams(model) {
-    console.log("model stat", model);
     if (age <= model.age + 5 && age >= model.age - 5) {
       if (size <= model.height + 10 && size >= model.height - 10) {
         if (weight <= model.weight + 10 && weight >= model.weight - 10)
@@ -301,15 +300,16 @@ function AvatarCreation() {
 
     const model = findModel();
     setModelUser(model);
-    console.log("the model :", model);
 
     // createAccount();
   }
+
   const onClickPrev = () => {
     // getImage();
     fetchModel();
     setHandlePrev(true);
-    setUrl("chair.fbx");
+    console.log("the model :", modelUser.filename);
+    setUrl(modelUser.filename);
     // const changeAvatar = () => {
     //   /////set url with params
     //   console.log("data saved", weight, size, age, sexe);
@@ -349,18 +349,6 @@ function AvatarCreation() {
       <ThemeProvider theme={theme}>
         <Container component="main">
           <CssBaseline />
-
-          <div>
-            {fbxData ? (
-              <div>
-                <p>FBX file retrieved successfully!</p>
-                <p>FBX file size: {fbxData.byteLength} bytes</p>
-              </div>
-            ) : (
-              <p>Loading FBX file...</p>
-            )}
-          </div>
-
           <Grid
             container
             justifyContent="center"
@@ -392,12 +380,21 @@ function AvatarCreation() {
               <Typography component="h1" variant="subtitle">
                 FittingHome, le mannequin c'est vous !
               </Typography>
+
               <Box
                 component="form"
                 noValidate
                 onSubmit={handleSubmit}
                 sx={{ mt: 3 }}
               >
+                <Typography
+                  sx={{ fontSize: 12 }}
+                  color="text.secondary"
+                  gutterBottom
+                  align="center"
+                >
+                  <p>(Le chargement du model prendra quelques secondes.)</p>
+                </Typography>
                 <Grid
                   container
                   spacing={2}
@@ -473,7 +470,18 @@ function AvatarCreation() {
                 },
               }}
             >
-              {url && <Viewport3D />}
+              {url ? (
+                <Viewport3D url={url} />
+              ) : (
+                <Typography
+                  sx={{ fontSize: 12 }}
+                  color="text.secondary"
+                  gutterBottom
+                  align="center"
+                >
+                  <p>Votre model s'affichera ici.</p>
+                </Typography>
+              )}
             </Grid>
           </Grid>
         </Container>

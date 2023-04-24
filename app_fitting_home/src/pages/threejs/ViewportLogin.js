@@ -7,7 +7,7 @@ import "../../style/form.css";
 import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 
 const ViewportLogin = ({ url }) => {
-  const modelId = url;
+  const modelId = "79bc5983-b16c-4427-8bfe-e109fae8794e";
   console.log(modelId);
 
   useEffect(() => {
@@ -51,7 +51,7 @@ const ViewportLogin = ({ url }) => {
 
     const renderModel = async (id) => {
       const response = await fetch(
-        `http://91.172.40.53:8080/model?folder=bodies&filename=${id}`
+        `http://91.172.40.53:8080/model?folder=bodies&filename=blender_emma.fbx`
       );
       const buffer = await response.arrayBuffer();
 

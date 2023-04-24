@@ -3,7 +3,10 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 
-const Viewport3D = (props) => {
+const Viewport3D = ({ url }) => {
+  const modelId = url + ".fbx";
+  console.log(modelId);
+
   useEffect(() => {
     let scene,
       camera,
@@ -16,7 +19,7 @@ const Viewport3D = (props) => {
       camera = new THREE.PerspectiveCamera(
         15,
         window.innerWidth / window.innerHeight,
-        0.1,
+        0.01,
         30000
       );
       camera.position.z = 70;
@@ -44,11 +47,13 @@ const Viewport3D = (props) => {
     };
 
     const renderModel = async (id) => {
-      const response = await fetch(`http://91.172.40.53:8080/model?folder=bodies&filename=${id}`);
+      const response = await fetch(
+        `http://91.172.40.53:8080/model?folder=bodies&filename=${id}`
+      );
       const buffer = await response.arrayBuffer();
 
       const loader = new FBXLoader();
-      const object = loader.parse(buffer, '');
+      const object = loader.parse(buffer, "");
       object.scale.set(8, 8, 8);
       object.position.y = -8;
 
@@ -84,9 +89,9 @@ const Viewport3D = (props) => {
     };
 
     init();
-    renderModel(props.modelId);
+    renderModel(modelId);
     animate();
-  }, []);
+  }, [url]);
 
   return (
     <div className="container my-5">
