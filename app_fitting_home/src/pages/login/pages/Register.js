@@ -91,8 +91,6 @@ function Register() {
     setPhone(value);
   };
 
-  const url = "http://api.fittinghome.fr/user/create";
-
   const navigate = useNavigate();
   const navigateRegister = () => {
     navigate("/avatar");

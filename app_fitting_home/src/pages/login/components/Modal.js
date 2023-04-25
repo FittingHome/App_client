@@ -93,7 +93,12 @@ export default function ModalSelect({
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
       },
-      body: JSON.stringify(credentials),
+      body: JSON.stringify({
+        email: credentials.email,
+        password: credentials.password,
+        bodyId: clickedIndex._id,
+        phoneNumber: credentials.phoneNumber,
+      }),
     })
       .then((response) => {
         if (response.ok) {
@@ -103,9 +108,10 @@ export default function ModalSelect({
         }
       })
       .then((data) => {
+        console.log(data);
         localStorage.setItem("user", JSON.stringify(data));
         console.log("Success:", JSON.stringify(data));
-        navigateRegister();
+        // navigateRegister();
       })
       .catch((error) => {
         console.error("Error:", error);

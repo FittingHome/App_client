@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
 
 const Viewport3D = ({ url }) => {
   const modelId = url + ".fbx";
@@ -19,12 +21,13 @@ const Viewport3D = ({ url }) => {
       camera = new THREE.PerspectiveCamera(
         15,
         window.innerWidth / window.innerHeight,
-        0.01,
+        0.1,
         30000
       );
-      camera.position.z = 70;
-      camera.position.x = 0;
-      camera.position.y = 0;
+      camera.position.z = 20000;
+      // camera.position.x = 500;
+      // camera.position.y = -100;
+      // camera.lookAt(0, 0, 0);
 
       const canvas = document.querySelector("#c");
       renderer = new THREE.WebGLRenderer({
@@ -39,7 +42,7 @@ const Viewport3D = ({ url }) => {
 
       const spotLight = new THREE.SpotLight(0xffffff, 1);
       spotLight.castShadow = true;
-      spotLight.position.set(0, 64, 32);
+      spotLight.position.set(1000000, 64, 32);
       scene.add(spotLight);
 
       const controls = new OrbitControls(camera, renderer.domElement);
@@ -94,9 +97,35 @@ const Viewport3D = ({ url }) => {
   }, [url]);
 
   return (
-    <div className="container my-5">
-      <canvas className="col-12" id="c" style={{ maxHeight: "450px" }}></canvas>
-    </div>
+    <Grid
+      item
+      xs={6}
+      sx={{
+        minWidth: 200,
+        "@media (max-width:600px)": {
+          visibility: "hidden",
+        },
+      }}
+    >
+      {url ? (
+        <div className="container my-5">
+          <canvas
+            className="col-12"
+            id="c"
+            style={{ maxHeight: "600px" }}
+          ></canvas>
+        </div>
+      ) : (
+        <Typography
+          sx={{ fontSize: 12 }}
+          color="text.secondary"
+          gutterBottom
+          align="center"
+        >
+          <p>Votre model s'affichera ici.</p>
+        </Typography>
+      )}
+    </Grid>
   );
 };
 

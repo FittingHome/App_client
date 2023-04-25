@@ -3,8 +3,8 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
@@ -180,37 +180,6 @@ function AvatarCreation() {
     setModelImages(findClosestModel(modelsData, age, size, weight));
   }, [modelsData]);
 
-  function createAccount() {
-    fetch("http://91.172.40.53:8080/user/create", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json;charset=UTF-8",
-      },
-      body: JSON.stringify({
-        email: credentials.email,
-        password: credentials.password,
-        bodyId: modelUser._id,
-      }),
-    })
-      .then((response) => {
-        if (response.ok) {
-          window.location.href = "/fitting-room";
-        } else {
-          throw new Error("Register failed");
-        }
-      })
-      .then((data) => {
-        console.log("Success:", data);
-        localStorage.setItem("user", JSON.stringify(data));
-        navigateRegister();
-        // Add code here to store registration data in Local Storage
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        console.log("can't connect to api");
-      });
-  }
-
   function checkGoodParams(model) {
     if (age <= model.age + 5 && age >= model.age - 5) {
       if (size <= model.height + 10 && size >= model.height - 10) {
@@ -250,56 +219,13 @@ function AvatarCreation() {
       });
   }
 
-  // async function fetchStream() {
-  //   const response = await fetch(
-  //     "http://91.172.40.53:8080/model?folder=bodies&filename=" +
-  //       modelUser.filename +
-  //       ".fbx",
-  //     {
-  //       method: "GET",
-  //     }
-  //   )
-  //     .then((response) => {
-  //       const reader = response.body.getReader();
-  //       return new ReadableStream({
-  //         start(controller) {
-  //           return pump();
-  //           function pump() {
-  //             return reader.read().then(({ done, value }) => {
-  //               console.log(value);
-  //               if (done) {
-  //                 controller.close();
-  //                 return;
-  //               }
-  //               // Enqueue the next data chunk into our target stream
-  //               controller.enqueue(value);
-  //               return pump();
-  //             });
-  //           }
-  //         },
-  //       });
-  //     })
-  //     // Create a new response out of the stream
-  //     .then((stream) => {
-  //       console.log("stream", stream);
-  //       return new Response(stream);
-  //     })
-  //     // Create an object URL for the response
-  //     .then((response) => response.blob())
-  //     .then((blob) => {
-  //       console.log("blob", blob);
-  //       console.log("url blob", URL.createObjectURL(blob));
-  //       setUrl(URL.createObjectURL(blob));
-  //     })
-  //     .catch((err) => console.error(err));
-  // }
-
   function fetchModel() {
     getAllModels();
     console.log("all models", modelsData);
 
     const model = findModel();
     setModelUser(model);
+    setUrl(model.filename);
 
     // createAccount();
   }
@@ -309,7 +235,6 @@ function AvatarCreation() {
     fetchModel();
     setHandlePrev(true);
     console.log("the model :", modelUser.filename);
-    setUrl(modelUser.filename);
     // const changeAvatar = () => {
     //   /////set url with params
     //   console.log("data saved", weight, size, age, sexe);
@@ -460,19 +385,19 @@ function AvatarCreation() {
                 ></ModalSelect>
               </Box>
             </Grid>
-            <Grid
-              item
-              xs={6}
-              sx={{
-                minWidth: 200,
-                "@media (max-width:600px)": {
-                  visibility: "hidden",
-                },
-              }}
-            >
-              {url ? (
-                <Viewport3D url={url} />
-              ) : (
+            {url ? (
+              <Viewport3D url={url} />
+            ) : (
+              <Grid
+                item
+                xs={4}
+                sx={{
+                  minWidth: 100,
+                  "@media (max-width:600px)": {
+                    visibility: "hidden",
+                  },
+                }}
+              >
                 <Typography
                   sx={{ fontSize: 12 }}
                   color="text.secondary"
@@ -481,8 +406,8 @@ function AvatarCreation() {
                 >
                   <p>Votre model s'affichera ici.</p>
                 </Typography>
-              )}
-            </Grid>
+              </Grid>
+            )}
           </Grid>
         </Container>
       </ThemeProvider>

@@ -17,6 +17,7 @@ const Navigation = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
     localStorage.removeItem("credentials");
+    localStorage.removeItem("wallet");
 
     console.log(JSON.parse(localStorage.getItem("user")));
     navigateRegister();
@@ -75,7 +76,7 @@ const Navigation = () => {
                 className="btn btn-outline-dark"
                 onClick={disconnect}
               >
-                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                <i className="fa fa-sign-out" aria-hidden="true"></i>
               </Button>
             </div>
           </Navbar.Collapse>
