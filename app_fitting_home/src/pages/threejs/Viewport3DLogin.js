@@ -2,8 +2,10 @@ import { useEffect } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
 
-const ViewportLogin = ({ url }) => {
+const Viewport3DLogin = ({ url }) => {
   const modelId = url + ".fbx";
   console.log(modelId);
 
@@ -23,8 +25,8 @@ const ViewportLogin = ({ url }) => {
         30000
       );
       camera.position.z = 20000;
-      // camera.position.x = 500;
-      // camera.position.y = -100;
+      camera.position.x = 1500;
+      camera.position.y = -1000;
       // camera.lookAt(0, 0, 0);
 
       const canvas = document.querySelector("#c");
@@ -95,10 +97,36 @@ const ViewportLogin = ({ url }) => {
   }, [url]);
 
   return (
-    <div className="container my-5">
-      <canvas className="col-12" id="c" style={{ maxHeight: "600px" }}></canvas>
-    </div>
+    <Grid
+      item
+      xs={6}
+      sx={{
+        minWidth: 200,
+        "@media (max-width:600px)": {
+          visibility: "hidden",
+        },
+      }}
+    >
+      {url ? (
+        <div className="container my-5">
+          <canvas
+            className="col-12"
+            id="c"
+            style={{ maxHeight: "600px" }}
+          ></canvas>
+        </div>
+      ) : (
+        <Typography
+          sx={{ fontSize: 12 }}
+          color="text.secondary"
+          gutterBottom
+          align="center"
+        >
+          <p>Votre model s'affichera ici.</p>
+        </Typography>
+      )}
+    </Grid>
   );
 };
 
-export default ViewportLogin;
+export default Viewport3DLogin;

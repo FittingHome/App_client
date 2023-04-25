@@ -286,8 +286,12 @@ function HandleCard() {
     setIsCardForm(true);
   };
   const token = getToken();
-  console.log("local wallet", JSON.parse(localStorage.getItem("wallet")));
-  const local_wallet = JSON.parse(localStorage.getItem("wallet"));
+  const local_wallet = [];
+  // if (JSON.parse(localStorage.getItem("wallet"))) {
+  //   local_wallet = JSON.parse(localStorage.getItem("wallet"));
+  // } else {
+  //   local_wallet = [];
+  // }
   const getWallet = () => {
     fetch("http://91.172.40.53:8080/user/wallet", {
       method: "GET",
@@ -301,7 +305,14 @@ function HandleCard() {
       })
       .then((result) => {
         console.log("result1", result);
-        setWallet(result[0]);
+        if (result.length === 0) {
+          console.log("no love hey");
+          setWallet(null);
+          localStorage.removeItem("wallet");
+        } else {
+          setWallet(result[0]);
+          localStorage.setItem("wallet", JSON.stringify(result[0]));
+        }
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -335,7 +346,7 @@ function HandleCard() {
         <i className="fa fa-refresh"></i>
       </Button>
       <div>
-        {!wallet && !local_wallet ? (
+        {!wallet ? (
           <div>
             {!isCardForm ? (
               <Button

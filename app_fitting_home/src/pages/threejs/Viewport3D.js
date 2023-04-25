@@ -2,8 +2,6 @@ import { useEffect } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
 
 const Viewport3D = ({ url }) => {
   const modelId = url + ".fbx";
@@ -97,35 +95,9 @@ const Viewport3D = ({ url }) => {
   }, [url]);
 
   return (
-    <Grid
-      item
-      xs={6}
-      sx={{
-        minWidth: 200,
-        "@media (max-width:600px)": {
-          visibility: "hidden",
-        },
-      }}
-    >
-      {url ? (
-        <div className="container my-5">
-          <canvas
-            className="col-12"
-            id="c"
-            style={{ maxHeight: "600px" }}
-          ></canvas>
-        </div>
-      ) : (
-        <Typography
-          sx={{ fontSize: 12 }}
-          color="text.secondary"
-          gutterBottom
-          align="center"
-        >
-          <p>Votre model s'affichera ici.</p>
-        </Typography>
-      )}
-    </Grid>
+    <div className="container my-5">
+      <canvas className="col-12" id="c" style={{ maxHeight: "600px" }}></canvas>
+    </div>
   );
 };
 

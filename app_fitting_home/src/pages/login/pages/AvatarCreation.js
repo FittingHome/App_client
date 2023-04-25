@@ -16,10 +16,9 @@ import Select from "@mui/material/Select";
 import "../../../style/App.css";
 import ModalSelect from "../components/Modal";
 import ObjFile from "../components/ObjFile";
-import ViewportLogin from "../../threejs/ViewportLogin";
 import { height } from "@mui/system";
 import findClosestModel from "../components/ModelManager";
-import Viewport3D from "../../threejs/Viewport3D";
+import Viewport3DLogin from "../../threejs/Viewport3DLogin";
 
 const LoginButton = styled(Button)({
   backgroundColor: "#7C3E3D",
@@ -80,7 +79,7 @@ function WeightField(props) {
 
   const handleWeightChange = (event) => {
     const value = parseInt(event.target.value);
-    if (value >= 10 && value <= 90) {
+    if (value >= 10 && value <= 140) {
       props.setWeight(value);
     } else if (event.target.value === "") {
       props.setWeight("");
@@ -89,7 +88,7 @@ function WeightField(props) {
 
   return (
     <LogTextField
-      inputProps={{ min: 40, max: 120 }}
+      inputProps={{ min: 40, max: 140 }}
       type="number"
       fullWidth
       name="weight"
@@ -181,9 +180,9 @@ function AvatarCreation() {
   }, [modelsData]);
 
   function checkGoodParams(model) {
-    if (age <= model.age + 5 && age >= model.age - 5) {
-      if (size <= model.height + 10 && size >= model.height - 10) {
-        if (weight <= model.weight + 10 && weight >= model.weight - 10)
+    if (age <= model.age + 3 && age >= model.age - 3) {
+      if (size <= model.height + 5 && size >= model.height - 5) {
+        if (weight <= model.weight + 5 && weight >= model.weight - 5)
           return true;
         else return false;
       } else return false;
@@ -266,7 +265,7 @@ function AvatarCreation() {
 
   const navigate = useNavigate();
   const navigateRegister = () => {
-    navigate("/fitting-room");
+    navigate("/login");
   };
 
   return (
@@ -386,7 +385,7 @@ function AvatarCreation() {
               </Box>
             </Grid>
             {url ? (
-              <Viewport3D url={url} />
+              <Viewport3DLogin url={url} />
             ) : (
               <Grid
                 item
