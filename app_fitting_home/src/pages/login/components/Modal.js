@@ -15,13 +15,13 @@ import { Height } from "@mui/icons-material";
 
 const style = {
   position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 600,
+  left: "30%",
+  top: "10%",
+  overflow: "scroll",
+  height: "80%",
+  display: "block",
   bgcolor: "background.paper",
   border: "2px solid #000",
-  maxHeight: "90%",
   boxShadow: 24,
   p: 4,
 };
@@ -160,20 +160,9 @@ export default function ModalSelect({
                 Séléctionner le model qui vous correspond le plus:
               </Typography>
               <Box>
-                <ImageList
-                  sx={{ maxHeight: "80%" }}
-                  cols={3}
-                  rowHeight={50}
-                  marginTop={10}
-                  position="flex"
-                >
+                <ImageList sx={{ maxHeight: "80%" }} cols={3}>
                   {modelImages.map((item, index) => (
-                    <ImageListItem
-                      key={item.img}
-                      style={{
-                        margin: "2px",
-                      }}
-                    >
+                    <ImageListItem key={item.img}>
                       <img
                         src={`http://91.172.40.53:8080/image?id=${item.filename}`}
                         srcSet={`http://91.172.40.53:8080/image?id=${item.filename}`}
@@ -184,14 +173,18 @@ export default function ModalSelect({
                         style={
                           index === clickedIndex
                             ? {
-                                width: 100,
+                                width: 120,
+                                margin: 10,
+
                                 border: "4px solid blue",
                                 cursor: "pointer",
                               }
                             : {
-                                width: 80,
-                                height: 120,
-                                border: "none",
+                                width: 120,
+                                height: 100,
+                                margin: 10,
+
+                                // border: "none",
                                 cursor: "pointer",
                               }
                         }

@@ -19,14 +19,14 @@ const Viewport3DLogin = ({ url }) => {
     const init = () => {
       scene = new THREE.Scene();
       camera = new THREE.PerspectiveCamera(
-        15,
+        70,
         window.innerWidth / window.innerHeight,
-        0.1,
-        30000
+        2,
+        300
       );
-      camera.position.z = 20000;
-      camera.position.x = 1500;
-      camera.position.y = -1000;
+      camera.position.set(1, 1, 4);
+      scene.scale.set(0.02, 0.02, 0.02);
+
       // camera.lookAt(0, 0, 0);
 
       const canvas = document.querySelector("#c");
@@ -57,8 +57,7 @@ const Viewport3DLogin = ({ url }) => {
 
       const loader = new FBXLoader();
       const object = loader.parse(buffer, "");
-      object.scale.set(8, 8, 8);
-      object.position.y = -8;
+      object.position.y = -70;
 
       scene.add(object);
     };
@@ -112,7 +111,7 @@ const Viewport3DLogin = ({ url }) => {
           <canvas
             className="col-12"
             id="c"
-            style={{ maxHeight: "600px" }}
+            style={{ maxHeight: "600px", height: "500px" }}
           ></canvas>
         </div>
       ) : (
