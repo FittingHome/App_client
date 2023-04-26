@@ -17,6 +17,7 @@ const Product = () => {
     const [size, setSize] = useState();
     const [sizes, setSizes] = useState([]);
     const [colors, setColors] = useState([]);
+    const [garmentFilename, setGarmentFilename] = useState();
 
     const dispatch = useDispatch();
     const addProduct = (product) => {
@@ -32,8 +33,9 @@ const Product = () => {
             setLoading(false);
         };
         getProduct();
+        findGarmentFilename();
         
-    }, [id, size, color]);
+    }, [id, size, color, garmentFilename]);
 
     const setDetails = () => {
         product?.garments?.forEach((garment) => {
@@ -42,6 +44,18 @@ const Product = () => {
             }
             if (!sizes.includes(garment.size)) {
                 sizes.push(garment.size);
+            }
+        });
+    };
+
+    const findGarmentFilename = () => {
+        var selectedColor = color ? color : colors[0];
+        var selectedSize = size ? size : sizes[0];
+
+        product?.garments?.forEach((garment) => {
+            if (garment.color === selectedColor && garment.size === selectedSize) {
+                setGarmentFilename(garment.filename);
+                console.log(garmentFilename);
             }
         });
     };

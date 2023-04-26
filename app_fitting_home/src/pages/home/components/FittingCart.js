@@ -8,16 +8,17 @@ import "../../../style/App.css";
 const FittingCart = (props) => {
     const [open, setOpen] = useState(false);
     const [garments, setGarments] = useState({
-        "top": { id: "", color: "", size: "" },
-        "down": { id: "", color: "", size: "" }
+        "top": { id: "", color: "", size: "", filename: "" },
+        "down": { id: "", color: "", size: "", filename: "" }
     });
+    const [garmentFilename, setGarmentFilename] = useState();
 
 const state = useSelector((state) => state.HandleCart)
 const dispatch = useDispatch()
 
 useEffect(() => {
     console.log(garments);
-}, [garments]);
+}, [garments, garmentFilename]);
 
 const modelStyle = {
     display: 'block',
@@ -40,25 +41,40 @@ const emptyCart = () => {
         </div>
     )
 }
+function getGarmentFilename(product, color, size) {
+    product.garments.forEach((garment) => {
+        var selectedColor = color === '' ? garment.color : color;
+        var selectedSize = size === '' ? garment.size : size;
+        if (garment.color === selectedColor && garment.size === selectedSize) {
+            setGarmentFilename(garment.filename);
+        }
+    });
+};
 
-const changeColor = (btn, type) => {
-    let index = type;
+const changeColor = (btn, product) => {
+    let index = product.type;
     let newGarment = garments[index];
 
     newGarment["color"] = btn.value;
     newGarment["size"] = newGarment["id"] === btn.id ? newGarment["size"] : "";
     newGarment["id"] = btn.id;
+    getGarmentFilename(product, newGarment['color'], newGarment['size']);
+    newGarment['filename'] = garmentFilename;
+    
     garments[index] = newGarment;
     setGarments({...garments});
 }
 
-function changeSize(btn, type) {
-    let index = type;
+function changeSize(btn, product) {
+    let index = product.type;
     let newGarment = garments[index];
     
     newGarment["color"] = newGarment["id"] === btn.id ? newGarment["color"] : "";
     newGarment["size"] = btn.value;
     newGarment["id"] = btn.id;
+    getGarmentFilename(product, newGarment['color'], newGarment['size']);
+    newGarment['filename'] = garmentFilename;
+
     garments[index] = newGarment;
     setGarments({...garments});
 }
@@ -67,24 +83,24 @@ const ShowProducts = (product) => {
     return (
         <>
             <div className="col-md-12 mb-3">
-                <div className="card h-100 text-center p-4" key={product.id}>
-                    <img src={product.image} className="card-img-top" alt={product.title} height="250px" />
+                <div className="card h-100 text-center p-4" key={product._id}>
+                    <img crossOrigin="anonymous" src={`http://91.172.40.53:8080/image?id=${product.imagePath.substring(0, 36)}`} className="card-img-top" alt={product.name} height="250px" />
                     <div className="card-body">
-                        <h5 className="card-title mb-0">{product.title.substring(0, 12)}...</h5>
+                        <h5 className="card-title mb-0">{product.description.substring(0, 12)}...</h5>
                         <p className="card-text lead fw-bold">{product.price} €</p>
                         <div className="buttons justify-content-center d-flex my-4">
                             {["S", "M", "L", "XL"].map((size) => {
-                                const isActive = (garments["top"]["id"] == product.id && garments["top"]["size"] == size) ? "active" : "";
+                                const isActive = (garments[product.type]["id"] === product._id && garments[product.type]["size"] === size) ? "active" : "";
                                 return (
-                                    <button id={product.id} key={size} className={"btn btn-outline-dark me-2 " + isActive} value={size} onClick={(e) => changeSize(e.target, "top")}>{size}</button>
+                                    <button id={product._id} key={size} className={"btn btn-outline-dark me-2 " + isActive} value={size} onClick={(e) => changeSize(e.target, product)}>{size}</button>
                                 );
                             })}
                         </div>
                         <div className="buttons justify-content-center d-flex colors my-4">
                             {["red", "blue", "green", "black"].map((color) => {
-                                const isActive = (garments["top"]["id"] == product.id && garments["top"]["color"] == color) ? "active" : "";
+                                const isActive = (garments[product.type]["id"] === product._id && garments[product.type]["color"] === color) ? "active" : "";
                                 return (
-                                    <button id={product.id} key={color} className={"color btn btn-outline-dark me-2 " + isActive} style={{ background: color }} value={color} onClick={(e) => changeColor(e.target, "top")}></button>
+                                    <button id={product._id} key={color} className={"color btn btn-outline-dark me-2 " + isActive} style={{ background: color }} value={color} onClick={(e) => changeColor(e.target, product)}></button>
                                 );
                             })}
                         </div>
