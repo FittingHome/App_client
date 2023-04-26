@@ -331,6 +331,7 @@ function HandleCard() {
       .then((response) => {
         if (response.ok) {
           console.log("delete");
+          setIsCard(null);
         } else {
           throw new Error("login failed");
         }
@@ -340,11 +341,13 @@ function HandleCard() {
       });
   };
 
+  getWallet();
+
   return (
     <div>
-      <Button onClick={getWallet}>
+      {/* <Button onClick={getWallet}>
         <i className="fa fa-refresh"></i>
-      </Button>
+      </Button> */}
       <div>
         {!wallet ? (
           <div>
