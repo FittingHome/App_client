@@ -79,7 +79,31 @@ function changeSize(btn, product) {
     setGarments({...garments});
 }
 
+const setDetailsColor = (product) => {
+    var colors = [];
+
+    product?.garments?.forEach((garment) => {
+        if (!colors.includes(garment.color)) {
+            colors.push(garment.color);
+        }
+    });
+    return colors;
+};
+
+const setDetailsSize = (product) => {
+    var sizes = [];
+
+    product?.garments?.forEach((garment) => {
+        if (!sizes.includes(garment.size)) {
+            sizes.push(garment.size);
+        }
+    });
+    return sizes;
+};
+
 const ShowProducts = (product) => {
+    const colors = setDetailsColor(product);
+    const sizes = setDetailsSize(product);
     return (
         <>
             <div className="col-md-12 mb-3">
@@ -89,7 +113,7 @@ const ShowProducts = (product) => {
                         <h5 className="card-title mb-0">{product.description.substring(0, 12)}...</h5>
                         <p className="card-text lead fw-bold">{product.price} €</p>
                         <div className="buttons justify-content-center d-flex my-4">
-                            {["S", "M", "L", "XL"].map((size) => {
+                            {sizes.map((size) => {
                                 const isActive = (garments[product.type]["id"] === product._id && garments[product.type]["size"] === size) ? "active" : "";
                                 return (
                                     <button id={product._id} key={size} className={"btn btn-outline-dark me-2 " + isActive} value={size} onClick={(e) => changeSize(e.target, product)}>{size}</button>
@@ -97,7 +121,7 @@ const ShowProducts = (product) => {
                             })}
                         </div>
                         <div className="buttons justify-content-center d-flex colors my-4">
-                            {["red", "blue", "green", "black"].map((color) => {
+                            {colors.map((color) => {
                                 const isActive = (garments[product.type]["id"] === product._id && garments[product.type]["color"] === color) ? "active" : "";
                                 return (
                                     <button id={product._id} key={color} className={"color btn btn-outline-dark me-2 " + isActive} style={{ background: color }} value={color} onClick={(e) => changeColor(e.target, product)}></button>
