@@ -3,7 +3,10 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 
-const Viewport3D = (props) => {
+const Viewport3D = ({ url }) => {
+  const modelId = url + ".fbx";
+  console.log(modelId);
+
   useEffect(() => {
     let scene,
       camera,
@@ -19,9 +22,10 @@ const Viewport3D = (props) => {
         0.1,
         30000
       );
-      camera.position.z = 70;
-      camera.position.x = 0;
-      camera.position.y = 0;
+      camera.position.z = 20000;
+      // camera.position.x = 500;
+      // camera.position.y = -100;
+      // camera.lookAt(0, 0, 0);
 
       const canvas = document.querySelector("#c");
       renderer = new THREE.WebGLRenderer({
@@ -36,7 +40,7 @@ const Viewport3D = (props) => {
 
       const spotLight = new THREE.SpotLight(0xffffff, 1);
       spotLight.castShadow = true;
-      spotLight.position.set(0, 64, 32);
+      spotLight.position.set(1000000, 64, 32);
       scene.add(spotLight);
 
       const controls = new OrbitControls(camera, renderer.domElement);
@@ -44,11 +48,13 @@ const Viewport3D = (props) => {
     };
 
     const renderModel = async (id) => {
-      const response = await fetch(`http://91.172.40.53:8080/model?folder=bodies&filename=${id}`);
+      const response = await fetch(
+        `http://91.172.40.53:8080/model?folder=bodies&filename=${id}`
+      );
       const buffer = await response.arrayBuffer();
 
       const loader = new FBXLoader();
-      const object = loader.parse(buffer, '');
+      const object = loader.parse(buffer, "");
       object.scale.set(8, 8, 8);
       object.position.y = -8;
 
@@ -84,13 +90,13 @@ const Viewport3D = (props) => {
     };
 
     init();
-    renderModel(props.modelId);
+    renderModel(modelId);
     animate();
-  }, []);
+  }, [url]);
 
   return (
     <div className="container my-5">
-      <canvas className="col-12" id="c" style={{ maxHeight: "450px" }}></canvas>
+      <canvas className="col-12" id="c" style={{ maxHeight: "600px" }}></canvas>
     </div>
   );
 };

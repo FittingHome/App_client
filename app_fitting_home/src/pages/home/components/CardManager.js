@@ -3,8 +3,12 @@ import { Box, color } from "@mui/system";
 import Button from "@mui/material/Button";
 import { useEffect, useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import getToken from "../../../utils/getToken";
+import { Wallet } from "@mui/icons-material";
 
-function CardManager({ isCard, setIsCard }) {
+function CardManager({ isCard, setIsCard, setWallet }) {
   const [cardName, setCardName] = useState("");
   const [cardNumber, setCardNumber] = useState("");
   const [cardDateYear, setCardDateYear] = useState("");
@@ -34,14 +38,23 @@ function CardManager({ isCard, setIsCard }) {
     };
     setCardAdresse(adresse);
   }, [street, city, state, zipCode, country]);
-  //////biiling adresse (street/city/zip/country) / nom / numero / date d'expiration mm / aa  / cvv /
   const url = "http://91.172.40.53:8080/user/wallet";
   const token = JSON.parse(localStorage.getItem("token"));
 
   const setCard = () => {
+    console.log("create card !!!!");
+    console.log({
+      billingAddress: cardAdresse,
+      cardholderName: cardName,
+      cardNumber: cardNumber,
+      expirationYear: cardDateYear,
+      expirationMonth: cardDateMonth,
+      cvv: cvv,
+    });
     fetch(url, {
       method: "POST",
       headers: {
+        "Content-Type": "application/json;charset=UTF-8",
         Authorization: "Bearer " + token,
       },
       body: JSON.stringify({
@@ -55,15 +68,34 @@ function CardManager({ isCard, setIsCard }) {
     })
       .then((response) => {
         if (response.ok) {
-          console.log("card added");
+          console.log("card added : ", response);
           setIsCard(true);
+          setWallet({
+            billingAddress: cardAdresse,
+            cardholderName: cardName,
+            cardNumber: cardNumber,
+            expirationYear: cardDateYear,
+            expirationMonth: cardDateMonth,
+            cvv: cvv,
+          });
+          localStorage.setItem(
+            "wallet",
+            JSON.stringify({
+              billingAddress: cardAdresse,
+              cardholderName: cardName,
+              cardNumber: cardNumber,
+              expirationYear: cardDateYear,
+              expirationMonth: cardDateMonth,
+              cvv: cvv,
+            })
+          );
           return response.json();
         } else {
           throw new Error("card failed");
         }
       })
       .then((data) => {
-        localStorage.setItem("user", JSON.stringify(data));
+        console.log("data1", data);
       })
       .catch((error) => {
         console.error("Error", error);
@@ -153,7 +185,7 @@ function CardManager({ isCard, setIsCard }) {
               type="number"
               id="cvv"
               autoComplete="new-password"
-              onChange={(e) => setCardAdresse(e.target.value)}
+              onChange={(e) => setCvv(e.target.value)}
               fullWidth
             ></TextField>
           </Grid>
@@ -166,7 +198,6 @@ function CardManager({ isCard, setIsCard }) {
             <TextField
               name="Street"
               label="12 rue de gaulle"
-              type="number"
               id="Street"
               autoComplete="new-street"
               onChange={(e) => setStreet(e.target.value)}
@@ -248,43 +279,167 @@ function CardManager({ isCard, setIsCard }) {
 function HandleCard() {
   const [isCardForm, setIsCardForm] = useState(false);
   const [displayForm, setDisplayForm] = useState(false);
+  const [wallet, setWallet] = useState(null);
   const [isCard, setIsCard] = useState(false);
   const setClick = () => {
     setDisplayForm(true);
     setIsCardForm(true);
   };
+  const token = getToken();
+  const local_wallet = [];
+  // if (JSON.parse(localStorage.getItem("wallet"))) {
+  //   local_wallet = JSON.parse(localStorage.getItem("wallet"));
+  // } else {
+  //   local_wallet = [];
+  // }
+  const getWallet = () => {
+    fetch("http://91.172.40.53:8080/user/wallet", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+        Authorization: "Bearer " + token,
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((result) => {
+        console.log("result1", result);
+        if (result.length === 0) {
+          console.log("no love hey");
+          setWallet(null);
+          localStorage.removeItem("wallet");
+        } else {
+          setWallet(result[0]);
+          localStorage.setItem("wallet", JSON.stringify(result[0]));
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        console.log("can't connect to api");
+      });
+  };
+
+  const deleteWallet = () => {
+    fetch("http://91.172.40.53:8080/user/wallet", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+        Authorization: "Bearer " + token,
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          console.log("delete");
+        } else {
+          throw new Error("login failed");
+        }
+      })
+      .catch((error) => {
+        console.error("Error", error);
+      });
+  };
+
   return (
     <div>
-      {!isCard ? (
-        <div>
-          {!isCardForm ? (
-            <Button
-              style={{
-                color: "orange",
-                marginLeft: 100,
-                margingRight: 100,
-                marginBottom: 10,
-                borderColor: "orange",
-              }}
-              variant="outlined"
-              onClick={setClick}
-            >
-              + Ajouter une carte
-            </Button>
-          ) : (
-            <div></div>
-          )}
+      <Button onClick={getWallet}>
+        <i className="fa fa-refresh"></i>
+      </Button>
+      <div>
+        {!wallet ? (
           <div>
-            {displayForm ? (
-              <CardManager isCard={isCard} setIsCard={setIsCard}></CardManager>
+            {!isCardForm ? (
+              <Button
+                style={{
+                  color: "orange",
+                  marginLeft: 100,
+                  margingRight: 100,
+                  marginBottom: 10,
+                  borderColor: "orange",
+                }}
+                variant="outlined"
+                onClick={setClick}
+              >
+                + Ajouter une carte
+              </Button>
             ) : (
               <div></div>
             )}
+            <div>
+              {displayForm ? (
+                <CardManager
+                  isCard={isCard}
+                  setIsCard={setIsCard}
+                  setWallet={setWallet}
+                ></CardManager>
+              ) : (
+                <div></div>
+              )}
+            </div>
           </div>
-        </div>
-      ) : (
-        <div>Vous avez une carte Enregistrer</div>
-      )}
+        ) : (
+          <Box
+            sx={{
+              bgcolor: "background.paper",
+              padding: 5,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            {" "}
+            <Typography
+              sx={{
+                fontSize: 22,
+              }}
+            >
+              Votre carte
+            </Typography>
+            <div>
+              {!wallet ? (
+                <Button onClick={getWallet}>Voir carte</Button>
+              ) : (
+                <Card sx={{ minWidth: 275, margin: 10 }}>
+                  <CardContent>
+                    <Typography variant="h5" component="div">
+                      {" "}
+                      {wallet.cardholderName}
+                    </Typography>
+                    <Typography
+                      sx={{ fontSize: 14 }}
+                      color="text.secondary"
+                      gutterBottom
+                    >
+                      **** **** **** *{wallet.cardNumber.slice(-3)}
+                    </Typography>
+                    <Typography
+                      sx={{ fontSize: 14 }}
+                      color="text.secondary"
+                      gutterBottom
+                    >
+                      {wallet.expirationMonth} / {wallet.expirationYear}
+                    </Typography>
+                  </CardContent>
+                  <Button
+                    style={{
+                      backgroundColor: "white",
+                      color: "red",
+                      borderColor: "red",
+                    }}
+                    fullWidth
+                    variant="outlined"
+                    onClick={deleteWallet}
+                  >
+                    <Typography sx={{ fontSize: 14 }} component="div">
+                      Supprimer la carte
+                    </Typography>
+                  </Button>
+                </Card>
+              )}
+            </div>
+          </Box>
+        )}
+      </div>
     </div>
   );
 }

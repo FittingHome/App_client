@@ -9,6 +9,7 @@ import ModalEdit from "../components/ConfirmEdit";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import CardManager from "../components/CardManager.js";
 import MuiPhoneNumber from "material-ui-phone-number";
+import getToken from "../../../utils/getToken";
 
 const EmailField = ({ email, setEmail }) => {
   const [emailError, setEmailError] = useState(false);
@@ -26,7 +27,6 @@ const EmailField = ({ email, setEmail }) => {
     <TextField
       id="email"
       fullWidth
-      label={userData.email}
       name="email"
       autoComplete="email"
       value={email}
@@ -64,6 +64,9 @@ function Account() {
   const navigateHome = () => {
     navigate("/");
   };
+  if (!getToken) {
+    navigate("/login");
+  }
 
   function handleOnChange(value) {
     setPhone(value);
@@ -150,11 +153,11 @@ function Account() {
                 <br />
                 <TextField
                   name="Nom"
-                  label="John"
                   type="name"
                   id="name"
                   autoComplete="new-name"
                   onChange={(e) => setName(e.target.value)}
+                  value="John"
                   fullWidth
                 ></TextField>{" "}
               </Grid>
@@ -163,9 +166,9 @@ function Account() {
                 <br />
                 <TextField
                   name="last name"
-                  label="Parker"
                   type="lastname"
                   id="lastname"
+                  value="Doe"
                   autoComplete="new-lastname"
                   onChange={(e) => setLastName(e.target.value)}
                   fullWidth
@@ -194,6 +197,7 @@ function Account() {
                 <MuiPhoneNumber
                   defaultCountry={"fr"}
                   onChange={handleOnChange}
+                  value={userData.phoneNumber}
                 />
                 ,
               </Grid>

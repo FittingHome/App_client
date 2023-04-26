@@ -1,13 +1,17 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { NavLink } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const CheckoutDetail = () => {
     const state = useSelector((state) => state.HandleCart)
 
-    var total = 0;
+    console.log(state);
+
+    let total = 0;
+    let ids = [];
     const productList = (product) => {
         total = total + product.price;
+        ids.push(...product.garments.map((x) => x._id));
         return (
             <li className="list-group-item d-flex justify-content-between lh-sm">
                 <div>
@@ -17,6 +21,15 @@ const CheckoutDetail = () => {
             </li>
         );
     }
+
+    const navigate = useNavigate();
+    const navigatePayment = () => {
+      localStorage.setItem("payment", JSON.stringify({
+        price: total,
+        ids,
+      }));
+      navigate("/payment");
+    };
 
     return (
         <>
@@ -103,7 +116,7 @@ const CheckoutDetail = () => {
 
                             <hr className="my-4" />
 
-                            <NavLink to={"/payment"} className="btn btn-dark ms-2 px-3 py-2">Procéder au paiement</NavLink>
+                            <div onClick={navigatePayment} className="btn btn-dark ms-2 px-3 py-2">Procéder au paiement</div>
                         </form>
                     </div>
                 </div>
