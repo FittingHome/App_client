@@ -3,12 +3,8 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 
-const Viewport3D = ({ url }) => {
-  const modelId = url + ".fbx";
-  console.log("model", modelId);
-
-  useEffect(() => {
-    let scene,
+const launchThreeJs = (modelFilename) => {
+  let scene,
       camera,
       renderer,
       mixer,
@@ -16,14 +12,15 @@ const Viewport3D = ({ url }) => {
 
     const init = () => {
       scene = new THREE.Scene();
+      // scene.scale.set(0.02, 0.02, 0.02);
+
       camera = new THREE.PerspectiveCamera(
         70,
         window.innerWidth / window.innerHeight,
-        2,
-        300
+        0.1,
+        1000
       );
-      camera.position.set(1, 1, 4);
-      scene.scale.set(0.02, 0.02, 0.02);
+      camera.position.set(1, 2, 3);
       // camera.position.x = 500;
       // camera.position.y = -100;
       // camera.lookAt(0, 0, 0);
@@ -35,7 +32,7 @@ const Viewport3D = ({ url }) => {
       });
       renderer.setClearColor(0xffffff);
 
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
       ambientLight.castShadow = true;
       scene.add(ambientLight);
 
@@ -43,6 +40,9 @@ const Viewport3D = ({ url }) => {
       spotLight.castShadow = true;
       spotLight.position.set(1000000, 64, 32);
       scene.add(spotLight);
+
+      // scene.add(new THREE.AxesHelper(3))
+      scene.add(new THREE.GridHelper(200, 50))
 
       const controls = new OrbitControls(camera, renderer.domElement);
       controls.update();
@@ -56,7 +56,8 @@ const Viewport3D = ({ url }) => {
       console.log("buffer: ", response);
       const loader = new FBXLoader();
       const object = loader.parse(buffer, "");
-      object.position.y = -70;
+      console.log({object})
+      object.scale.set(0.1, 0.1, 0.1)
 
       scene.add(object);
     };
@@ -90,8 +91,15 @@ const Viewport3D = ({ url }) => {
     };
 
     init();
-    renderModel(modelId);
+    renderModel(modelFilename);
     animate();
+}
+
+const Viewport3D = ({ url }) => {
+  useEffect(() => {
+    if (!url) return
+
+    launchThreeJs(url + ".fbx")
   }, [url]);
 
   return (

@@ -12,15 +12,18 @@ function FittingRoom() {
   const [filename, setFilename] = useState("");
 
   useEffect(() => {
-    const filename = localStorage.getItem("modelFilename");
-    console.log("fitting room", filename);
+    console.log("Fitting Room useEffect")
+    console.log({localStorage})
+    const modelFilename = localStorage.getItem("modelFilename");
+    console.log({modelFilename});
     const simulateFilename = localStorage.getItem("simulateFilename");
-    console.log("simualte filename ", simulateFilename);
+    console.log({simulateFilename});
     if (!simulateFilename) {
-      setFilename(filename);
+      setFilename(modelFilename);
     } else {
       setFilename(simulateFilename);
     }
+    // return () => console.log("Cleanup FittingRoom...");
   }, []);
 
   return (

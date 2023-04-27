@@ -18,7 +18,7 @@ const Product = () => {
   const [size, setSize] = useState();
   const [sizes, setSizes] = useState([]);
   const [colors, setColors] = useState([]);
-  const [garmentFilename, setGarmentFilename] = useState();
+  const [garmentId, setGarmentId] = useState();
   const [filename, setFilename] = useState("");
   const [simulateFilename, setSimulateFilename] = useState();
 
@@ -27,6 +27,14 @@ const Product = () => {
     dispatch(addCart(product));
     setOpen(true);
   };
+
+  useEffect(() => {
+    
+    return () => {
+      if (!product) return
+      console.log({product})
+    }
+  }, [product])
 
   useEffect(() => {
     const getProduct = async () => {
@@ -41,43 +49,32 @@ const Product = () => {
   }, [id]);
 
   useEffect(() => {
-    const findGarmentFilename = () => {
+    const findGarmentId = () => {
       var selectedColor = color ? color : colors[0];
       var selectedSize = size ? size : sizes[0];
 
       product?.garments?.forEach((garment) => {
         if (garment.color === selectedColor && garment.size === selectedSize) {
-          setGarmentFilename(garment._id);
+          setGarmentId(garment._id);
         }
       });
     };
     if (!product) {
       return;
     }
-    findGarmentFilename();
+    findGarmentId();
   }, [color, colors, id, product, size, sizes]);
 
   useEffect(() => {
-    // const findGarmentFilename = () => {
-    //   var selectedColor = color ? color : colors[0];
-    //   var selectedSize = size ? size : sizes[0];
-
-    //   product?.garments?.forEach((garment) => {
-    //     if (garment.color === selectedColor && garment.size === selectedSize) {
-    //       setGarmentFilename(garment._id);
-    //     }
-    //   });
-    // };
-
     const getFilename = async () => {
       const modelId = localStorage.getItem("modelId");
-      console.log("modelID", modelId);
+      console.log({modelId});
       const payload = JSON.stringify({
         bodyId: modelId,
-        garmentsIds: [garmentFilename],
+        garmentsIds: [garmentId],
       });
 
-      console.log("garmentFilename", garmentFilename);
+      console.log({garmentId});
 
       console.log("all data to post: ", payload);
       const response = await fetch("http://91.172.40.53:8080/simulate", {
@@ -88,21 +85,14 @@ const Product = () => {
         body: payload,
       });
       const data = await response.json();
-      console.log("data: ", data.filename);
+      // console.log("data: ", data.filename);
+      console.log({data});
       setSimulateFilename(data.filename);
       localStorage.setItem("simulateFilename", data.filename);
     };
-    // findGarmentFilename();
-    if (garmentFilename) getFilename();
 
-    // const modelFilename = localStorage.getItem("modelFilename");
-    // const simulateFilename = localStorage.getItem("simulateFilename");
-    // if (!simulateFilename) {
-    //   setFilename(modelFilename);
-    // } else {
-    //   setFilename(simulateFilename);
-    // }
-  }, [garmentFilename]);
+    if (garmentId) getFilename();
+  }, [garmentId]);
 
   useEffect(() => {
     const modelFilename = localStorage.getItem("modelFilename");
