@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import { Height } from "@mui/icons-material";
+import { ImageListItemBar } from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -52,6 +53,7 @@ export default function ModalSelect({
   modelImages,
   navigateRegister,
 }) {
+  console.log(modelImages, "lol");
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -162,34 +164,37 @@ export default function ModalSelect({
               <Box>
                 <ImageList sx={{ maxHeight: "80%" }} cols={3}>
                   {modelImages.map((item, index) => (
-                    <ImageListItem key={item.img}>
-                      <img
-                        src={`http://91.172.40.53:8080/image?id=${item.filename}`}
-                        srcSet={`http://91.172.40.53:8080/image?id=${item.filename}`}
-                        crossOrigin="anonymous"
-                        alt={item._id}
-                        loading="lazy"
-                        onClick={() => selectImg(item)}
-                        style={
-                          index === clickedIndex
-                            ? {
-                                width: 120,
-                                margin: 10,
+                    <div>
+                      <ImageListItem key={item.img}>
+                        <img
+                          src={`http://91.172.40.53:8080/image?id=${item.filename}`}
+                          srcSet={`http://91.172.40.53:8080/image?id=${item.filename}`}
+                          crossOrigin="anonymous"
+                          alt={item._id}
+                          loading="lazy"
+                          onClick={() => selectImg(item)}
+                          style={
+                            index === clickedIndex
+                              ? {
+                                  width: 150,
+                                  margin: 10,
 
-                                border: "4px solid blue",
-                                cursor: "pointer",
-                              }
-                            : {
-                                width: 120,
-                                height: 100,
-                                margin: 10,
+                                  border: "4px solid blue",
+                                  cursor: "pointer",
+                                }
+                              : {
+                                  width: 150,
+                                  height: 150,
+                                  margin: 10,
 
-                                // border: "none",
-                                cursor: "pointer",
-                              }
-                        }
-                      />
-                    </ImageListItem>
+                                  // border: "none",
+                                  cursor: "pointer",
+                                }
+                          }
+                        />
+                        <ImageListItemBar title={item.name} />
+                      </ImageListItem>
+                    </div>
                   ))}
                 </ImageList>
               </Box>
