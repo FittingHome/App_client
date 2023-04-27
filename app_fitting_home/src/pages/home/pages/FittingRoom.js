@@ -12,15 +12,13 @@ function FittingRoom() {
   const [filename, setFilename] = useState('');
 
   useEffect(() => {
-    const getFilename = async () => {
-      const user = localStorage.getItem("user");
-      const body = JSON.parse(user).body;
-      const response = await fetch(`http://91.172.40.53:8080/body?id=${body}`);
-      const data = await response.json();
-
-      setFilename(data.filename);
-    };
-    getFilename();
+      const filename = localStorage.getItem("modelFilename");
+      const simulateFilename = localStorage.getItem("simulateFilename");
+      if (!simulateFilename) {
+        setFilename(filename);
+      } else {
+        setFilename(simulateFilename);
+      }
   }, [filename]);
 
 
@@ -51,7 +49,7 @@ function FittingRoom() {
                   className="btn btn-outline-dark mb-3"
                   onClick={() => {
                     setOpen(true);
-                    window.app.showModel("chair.fbx");
+                    window.app.showModel(filename + ".fbx");
                   }}
                 >
                   AR

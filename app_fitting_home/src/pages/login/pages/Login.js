@@ -140,6 +140,16 @@ function Login() {
     navigate("/register");
   };
 
+  const getFilename = async () => {
+    const user = localStorage.getItem("user");
+    const body = JSON.parse(user).body;
+    const response = await fetch(`http://91.172.40.53:8080/body?id=${body}`);
+    const data = await response.json();
+
+    localStorage.setItem("modelFilename", data.filename);
+    localStorage.setItem("modelId", data._id);
+  }
+
   const navigateHome = () => {
     navigate("/fitting-room");
   };
@@ -179,7 +189,7 @@ function Login() {
       .then((data) => {
         localStorage.setItem("user", JSON.stringify(data));
         localStorage.setItem("token", JSON.stringify(data.token));
-
+        getFilename();
         console.log(JSON.stringify(data));
         navigateHome();
       })

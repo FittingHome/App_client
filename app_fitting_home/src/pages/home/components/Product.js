@@ -7,6 +7,7 @@ import { useParams } from "react-router";
 import { NavLink } from "react-router-dom";
 import AlertRight from "../../../component/alert/AlertRight";
 import { Typography } from "@mui/material";
+import Viewport3D from "../../threejs/Viewport3D";
 
 const Product = () => {
     const { id } = useParams();
@@ -18,6 +19,8 @@ const Product = () => {
     const [sizes, setSizes] = useState([]);
     const [colors, setColors] = useState([]);
     const [garmentFilename, setGarmentFilename] = useState();
+    const [filename, setFilename] = useState('');
+
 
     const dispatch = useDispatch();
     const addProduct = (product) => {
@@ -26,16 +29,50 @@ const Product = () => {
     }
 
     useEffect(() => {
+        const findGarmentFilename = () => {
+            var selectedColor = color ? color : colors[0];
+            var selectedSize = size ? size : sizes[0];
+    
+            product?.garments?.forEach((garment) => {
+                if (garment.color === selectedColor && garment.size === selectedSize) {
+                    setGarmentFilename(garment._id);
+                }
+            });
+        };
         const getProduct = async () => {
             setLoading(true);
             const response = await fetch(`http://91.172.40.53:8080/garmentCollection?id=${id}`);
             setProduct(await response.json());
             setLoading(false);
         };
+        const getFilename = async () => {
+            const modelId = localStorage.getItem("modelId");
+            const garmentId = garmentFilename;
+            const garmentsIds = [garmentId];
+            console.log('garmentsIds: ', JSON.stringify({ bodyId: modelId, garmentsIds: garmentsIds }));
+            const response = await fetch('http://91.172.40.53:8080/simulate', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json;charset=UTF-8",
+                },
+                body: JSON.stringify({ bodyId: modelId, garmentsIds: garmentsIds }),
+            });
+            const data = await response.json();
+            console.log('data: ', data.filename);
+            localStorage.setItem("simulateFilename", data.filename);
+        };
         getProduct();
         findGarmentFilename();
+        getFilename();
         
-    }, [id, size, color, garmentFilename]);
+        const modelFilename = localStorage.getItem("modelFilename");
+        const simulateFilename = localStorage.getItem("simulateFilename");
+        if (!simulateFilename) {
+            setFilename(modelFilename);
+        } else {
+            setFilename(simulateFilename);
+      }
+    }, [id, size, color, garmentFilename, filename]);
 
     const setDetails = () => {
         product?.garments?.forEach((garment) => {
@@ -48,17 +85,7 @@ const Product = () => {
         });
     };
 
-    const findGarmentFilename = () => {
-        var selectedColor = color ? color : colors[0];
-        var selectedSize = size ? size : sizes[0];
-
-        product?.garments?.forEach((garment) => {
-            if (garment.color === selectedColor && garment.size === selectedSize) {
-                setGarmentFilename(garment.filename);
-                console.log(garmentFilename);
-            }
-        });
-    };
+    
 
     const Loading = () => {
         return (
@@ -116,9 +143,15 @@ const Product = () => {
     };
 
     return (
-        <div>
-            {loading ? <Loading /> : <ShowProduct />}
+        <div className="row py-4">
+            <div className="col-md-6">
+                <Viewport3D url={filename} />
+            </div>
+            <div className="col-md-6">
+                {loading ? <Loading /> : <ShowProduct />}
+            </div>
         </div>
+        
     );
 }
 

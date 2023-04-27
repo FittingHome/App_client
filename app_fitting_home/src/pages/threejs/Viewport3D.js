@@ -17,12 +17,13 @@ const Viewport3D = ({ url }) => {
     const init = () => {
       scene = new THREE.Scene();
       camera = new THREE.PerspectiveCamera(
-        15,
+        70,
         window.innerWidth / window.innerHeight,
-        0.1,
-        30000
+        2,
+        300
       );
-      camera.position.z = 20000;
+      camera.position.set(1, 1, 4);
+      scene.scale.set(0.02, 0.02, 0.02);
       // camera.position.x = 500;
       // camera.position.y = -100;
       // camera.lookAt(0, 0, 0);
@@ -52,11 +53,10 @@ const Viewport3D = ({ url }) => {
         `http://91.172.40.53:8080/model?folder=bodies&filename=${id}`
       );
       const buffer = await response.arrayBuffer();
-
+      console.log('buffer: ', response);
       const loader = new FBXLoader();
       const object = loader.parse(buffer, "");
-      object.scale.set(8, 8, 8);
-      object.position.y = -8;
+      object.position.y = -70;
 
       scene.add(object);
     };
@@ -96,7 +96,7 @@ const Viewport3D = ({ url }) => {
 
   return (
     <div className="container my-5">
-      <canvas className="col-12" id="c" style={{ maxHeight: "600px" }}></canvas>
+      <canvas className="col-12" id="c" style={{ maxHeight: "600px", height: "450px" }}></canvas>
     </div>
   );
 };
