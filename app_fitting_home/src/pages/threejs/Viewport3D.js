@@ -12,18 +12,17 @@ const launchThreeJs = (modelFilename) => {
 
     const init = () => {
       scene = new THREE.Scene();
-      // scene.scale.set(0.02, 0.02, 0.02);
+      // scene.scale.set(0.2, 0.2, 0.2);
 
       camera = new THREE.PerspectiveCamera(
         70,
         window.innerWidth / window.innerHeight,
         0.1,
-        1000
+        3000
       );
-      camera.position.set(1, 2, 3);
-      // camera.position.x = 500;
-      // camera.position.y = -100;
-      // camera.lookAt(0, 0, 0);
+      camera.position.z = 300;
+      camera.position.x = 0;
+      camera.position.y = 200;
 
       const canvas = document.querySelector("#c");
       renderer = new THREE.WebGLRenderer({

@@ -99,7 +99,7 @@ class App{
         var object = loader.parse(buffer, '');
         self.scene.add( object );
         self.model = object;
-        self.model.scale.set(0.05, 0.05, 0.05);
+        self.model.scale.set(0.001, 0.001, 0.001);
         self.model.visible = false;
         self.loadingBar.visible = false;
         self.renderer.setAnimationLoop( self.render.bind(self) );
