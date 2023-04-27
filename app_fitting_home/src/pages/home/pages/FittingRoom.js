@@ -9,18 +9,19 @@ import { Typography } from "@mui/material";
 function FittingRoom() {
   const [modal, setModal] = useState(false);
   const [open, setOpen] = useState(false);
-  const [filename, setFilename] = useState('');
+  const [filename, setFilename] = useState("");
 
   useEffect(() => {
-      const filename = localStorage.getItem("modelFilename");
-      const simulateFilename = localStorage.getItem("simulateFilename");
-      if (!simulateFilename) {
-        setFilename(filename);
-      } else {
-        setFilename(simulateFilename);
-      }
-  }, [filename]);
-
+    const filename = localStorage.getItem("modelFilename");
+    console.log("fitting room", filename);
+    const simulateFilename = localStorage.getItem("simulateFilename");
+    console.log("simualte filename ", simulateFilename);
+    if (!simulateFilename) {
+      setFilename(filename);
+    } else {
+      setFilename(simulateFilename);
+    }
+  }, []);
 
   return (
     <div>

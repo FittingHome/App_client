@@ -5,7 +5,7 @@ import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 
 const Viewport3D = ({ url }) => {
   const modelId = url + ".fbx";
-  console.log(modelId);
+  console.log("model", modelId);
 
   useEffect(() => {
     let scene,
@@ -53,7 +53,7 @@ const Viewport3D = ({ url }) => {
         `http://91.172.40.53:8080/model?folder=bodies&filename=${id}`
       );
       const buffer = await response.arrayBuffer();
-      console.log('buffer: ', response);
+      console.log("buffer: ", response);
       const loader = new FBXLoader();
       const object = loader.parse(buffer, "");
       object.position.y = -70;
@@ -96,7 +96,11 @@ const Viewport3D = ({ url }) => {
 
   return (
     <div className="container my-5">
-      <canvas className="col-12" id="c" style={{ maxHeight: "600px", height: "450px" }}></canvas>
+      <canvas
+        className="col-12"
+        id="c"
+        style={{ maxHeight: "600px", height: "450px" }}
+      ></canvas>
     </div>
   );
 };

@@ -18,6 +18,8 @@ const Navigation = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("credentials");
     localStorage.removeItem("wallet");
+    localStorage.removeItem("modelFilename");
+    localStorage.removeItem("simulateFilename");
 
     console.log(JSON.parse(localStorage.getItem("user")));
     navigateRegister();
